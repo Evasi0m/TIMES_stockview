@@ -303,6 +303,81 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
     </div>
 </div>
 
+<div id="settingsOverlay" class="genie-backdrop hidden" style="z-index:9500;position:fixed" onclick="closeSettingsModal()">
+    <div id="settingsCard" class="genie-card" onclick="event.stopPropagation()" style="width:100%;max-width:320px;background:var(--dropdown-bg);backdrop-filter:blur(60px) saturate(200%);-webkit-backdrop-filter:blur(60px) saturate(200%);border:.5px solid var(--border-glass-strong);border-radius:22px;padding:20px;box-shadow:0 16px 48px rgba(0,0,0,.4);position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,255,0.05) 0%,transparent 100%);pointer-events:none"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;position:relative;z-index:1">
+            <div>
+                <div style="font-size:15px;font-weight:700;letter-spacing:-.3px">ตั้งค่า</div>
+                <div style="font-size:11px;color:var(--text-secondary);margin-top:2px">จัดการธีมและโครงสร้างราคา</div>
+            </div>
+            <button onclick="closeSettingsModal()" style="background:none;border:none;color:var(--text-tertiary);font-size:18px;cursor:pointer;padding:4px;line-height:1">×</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;position:relative;z-index:1">
+            <button onclick="toggleSettingsTheme()" class="glass-btn" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px">
+                <span style="display:flex;align-items:center;gap:10px">
+                    <span id="settingsThemeIcon" style="width:30px;height:30px;border-radius:12px;background:var(--bg-glass-input);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-moon" style="font-size:14px"></i></span>
+                    <span style="text-align:left">
+                        <span style="display:block;font-size:13px;font-weight:600;color:var(--text-primary)">Dark / Light Mode</span>
+                        <span id="settingsThemeMeta" style="display:block;font-size:10px;color:var(--text-secondary);margin-top:2px">สลับธีมของทั้งแอป</span>
+                    </span>
+                </span>
+                <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-tertiary)"></i>
+            </button>
+            <button onclick="openPricingModalFromSettings()" class="glass-btn" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px;position:relative">
+                <span style="display:flex;align-items:center;gap:10px">
+                    <span style="width:30px;height:30px;border-radius:12px;background:rgba(251,191,36,.12);display:flex;align-items:center;justify-content:center;color:#fbbf24"><i class="fa-solid fa-percent" style="font-size:13px"></i></span>
+                    <span style="text-align:left">
+                        <span style="display:block;font-size:13px;font-weight:600;color:var(--text-primary)">โครงสร้างราคา</span>
+                        <span id="settingsPricingMeta" style="display:block;font-size:10px;color:var(--text-secondary);margin-top:2px">ส่วนลด 58% / หน้าร้าน 25% / ออนไลน์ 35%</span>
+                    </span>
+                </span>
+                <span id="settingsPricingDot" class="hidden" style="position:absolute;top:10px;right:34px;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent-glow)"></span>
+                <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-tertiary)"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="pricingOverlay" class="genie-backdrop hidden" style="z-index:9600;position:fixed" onclick="closePricingModal()">
+    <div id="pricingCard" class="genie-card" onclick="event.stopPropagation()" style="width:100%;max-width:360px;background:var(--dropdown-bg);backdrop-filter:blur(60px) saturate(200%);-webkit-backdrop-filter:blur(60px) saturate(200%);border:.5px solid var(--border-glass-strong);border-radius:22px;padding:24px;box-shadow:0 16px 48px rgba(0,0,0,.4);position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,255,0.05) 0%,transparent 100%);pointer-events:none"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;position:relative;z-index:1">
+            <div style="font-size:15px;font-weight:700">โครงสร้างราคา</div>
+            <button onclick="closePricingModal()" style="background:none;border:none;color:var(--text-tertiary);font-size:18px;cursor:pointer;padding:4px">×</button>
+        </div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-bottom:16px;line-height:1.5;position:relative;z-index:1">กำหนดส่วนลดต้นทุน และ % กำไรสำหรับหน้าร้านกับช่องทางออนไลน์</div>
+        <div style="display:flex;flex-direction:column;gap:14px;position:relative;z-index:1">
+            <div>
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:12px">🏷️</span><span style="font-size:10px;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.5px">ส่วนลดจากราคาขาย</span></div>
+                <div style="position:relative">
+                    <input id="pricingDiscInput" type="number" min="0" max="99" class="lg-input" style="width:100%;padding:10px 36px 10px 14px;font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;text-align:center" />
+                    <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:700;color:var(--text-tertiary)">%</span>
+                </div>
+            </div>
+            <div style="height:.5px;background:var(--border-glass)"></div>
+            <div>
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:12px">🏪</span><span style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.5px">กำไรหน้าร้าน / เพจ</span></div>
+                <div style="position:relative">
+                    <input id="pricingShopInput" type="number" min="0" max="999" class="lg-input" style="width:100%;padding:10px 36px 10px 14px;font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;text-align:center;border-color:rgba(52,211,153,.2)" />
+                    <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:700;color:var(--accent)">%</span>
+                </div>
+            </div>
+            <div>
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:12px">🛒</span><span style="font-size:10px;font-weight:700;color:var(--accent2);letter-spacing:.5px">กำไร TikTok / Shopee</span></div>
+                <div style="position:relative">
+                    <input id="pricingOnlineInput" type="number" min="0" max="999" class="lg-input" style="width:100%;padding:10px 36px 10px 14px;font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;text-align:center;border-color:rgba(129,140,248,.2)" />
+                    <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:700;color:var(--accent2)">%</span>
+                </div>
+            </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:18px;position:relative;z-index:1">
+            <button onclick="resetGlobalPricingSettings()" style="flex:1;padding:11px 0;border-radius:14px;border:.5px solid var(--border-glass);background:var(--bg-glass);backdrop-filter:blur(20px);color:var(--text-secondary);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer">รีเซ็ต</button>
+            <button onclick="saveGlobalPricingSettings()" style="flex:1;padding:11px 0;border-radius:14px;border:none;background:var(--accent);color:#fff;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px var(--accent-glow)">ตกลง</button>
+        </div>
+    </div>
+</div>
+
 <div id="stockPage" class="page"><div id="root" style="height:100%;display:flex;flex-direction:column"></div></div>
 
 <div id="salesPage" class="page hidden">
@@ -332,8 +407,8 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
                     </div>
                 </div>
                 <div style="display:flex;gap:6px">
-                    <button onclick="toggleGlobalTheme()" class="glass-btn" id="salesThemeBtn" style="width:40px;height:40px"><i class="fa-solid fa-moon" style="font-size:15px"></i></button>
-                    <button onclick="salesFetch()" class="glass-btn" style="width:40px;height:40px"><i class="fa-solid fa-arrows-rotate" style="font-size:14px"></i></button>
+                    <button onclick="openSettingsModal()" class="glass-btn" id="salesSettingsBtn" type="button" aria-label="เปิดการตั้งค่า" style="width:40px;height:40px;position:relative"><i class="fa-solid fa-sliders" aria-hidden="true" style="font-size:14px"></i><span id="salesSettingsDot" class="hidden" style="position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent-glow)"></span></button>
+                    <button onclick="salesFetch()" class="glass-btn" type="button" aria-label="รีเฟรชข้อมูลยอดขาย" style="width:40px;height:40px"><i class="fa-solid fa-arrows-rotate" aria-hidden="true" style="font-size:14px"></i></button>
                 </div>
             </div>
         </div>
@@ -344,6 +419,15 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
         </div>
     </header>
     <main class="scroll-area" style="flex:1;padding:12px 12px 100px">
+        <div style="padding:0 0 10px">
+            <div id="salesSyncChip" class="lg hidden" style="display:none;align-items:center;justify-content:space-between;gap:10px;padding:8px 12px;border-radius:14px">
+                <div style="display:flex;align-items:center;gap:8px;min-width:0">
+                    <span id="salesSyncDot" class="dot-glow" style="width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;--glow-c:var(--accent-glow)"></span>
+                    <span id="salesSyncText" style="font-size:11px;font-weight:600;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">ข้อมูลยอดขายพร้อมใช้งาน</span>
+                </div>
+                <span id="salesSyncTime" class="mono" style="font-size:10px;color:var(--text-tertiary);flex-shrink:0">--</span>
+            </div>
+        </div>
         <div id="dailyContent" style="display:flex;flex-direction:column;gap:12px">
             <div class="lg shine" style="padding:14px">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
@@ -433,21 +517,58 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
 </div>
 
 <nav id="bottomNav">
-    <div class="nav-pill"><button class="nav-btn active" id="navStock" onclick="navGoStock()"><i class="fa-solid fa-boxes-stacked nav-icon"></i><span>สต็อก</span></button><button class="nav-btn" id="navSales" onclick="goPage('sales')" disabled><div class="badge badge-loading" id="salesBadge"></div><i class="fa-solid fa-chart-line nav-icon"></i><span>ยอดขาย</span></button></div>
+<div class="nav-pill"><button class="nav-btn active" id="navStock" onclick="navGoStock()"><i class="fa-solid fa-boxes-stacked nav-icon"></i><span>สต็อก</span></button><button class="nav-btn" id="navSales" onclick="goPage('sales')"><div class="badge badge-loading" id="salesBadge"></div><i class="fa-solid fa-chart-line nav-icon"></i><span>ยอดขาย</span></button></div>
 </nav>
 
 <script type="text/babel">
-const{useState,useEffect,useMemo,useCallback}=React;
+const{useState,useEffect,useMemo,useCallback,useRef}=React;
 const PROXY="https://api.allorigins.win/raw?url=";
 const STOCK_API="https://script.google.com/macros/s/AKfycbzxsklaFUDaK3GGG_x_Vn2y3qzf0b9-14J2PRuFXgzIoD8KqN4lnjtlbA2FSULDgclzYg/exec";
 const LOGO="https://timesstock.infinityfree.me/logo_web512V2.png";
 const fmtM=v=>{const n=Number(v);return isNaN(n)?'0.00':n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})};
 const fmt24=d=>{if(!d||d==='-')return'-';const x=d instanceof Date?d:new Date(d);if(!isNaN(x))return`${String(x.getDate()).padStart(2,'0')}/${String(x.getMonth()+1).padStart(2,'0')}/${x.getFullYear()} ${String(x.getHours()).padStart(2,'0')}:${String(x.getMinutes()).padStart(2,'0')}`;return d.replace(/(\d{1,2}):(\d{2}):?(\d{2})?\s*(AM|PM)/i,(m,h,mi,s,ap)=>{let hr=parseInt(h);if(ap.toUpperCase()==='PM'&&hr!==12)hr+=12;if(ap.toUpperCase()==='AM'&&hr===12)hr=0;return String(hr).padStart(2,'0')+':'+mi})};
 const pDate=s=>{if(!s||s==='-')return 0;const d=new Date(s);return isNaN(d)?0:d.getTime()};
+const pad2=v=>String(v).padStart(2,'0');
+const formatLocalDateKey=d=>`${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
+const formatLocalMonthKey=d=>`${d.getFullYear()}-${pad2(d.getMonth()+1)}`;
+const formatDayMonth=d=>`${pad2(d.getDate())}/${pad2(d.getMonth()+1)}`;
+const STOCK_CACHE_KEY='ts_stock_cache_v1';
+const STOCK_COMPARE_STATE_KEY='ts_stock_compare_state_v1';
+const SALES_CACHE_KEY='ts_sales_cache_v1';
+const readCache=key=>{try{const raw=localStorage.getItem(key);return raw?JSON.parse(raw):null}catch(e){return null}};
+const writeCache=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value))}catch(e){}};
+const sameJson=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+const normalizeStockRows=data=>data.map((r,i)=>({id:r['P_SystemID']||`ID-${i}`,name:r['P_Name']||'Unknown',cost:r['P_EstimateCost']||0,price:r['P_RetailPrice1_1']||0,in:r['P_ReceiveOrder_In']||0,out:r['P_SaleOrder_Out']||0,createTime:r['P_CreateTime']||'-',updateTime:r['P_UpdateTime']||'-'})).filter(x=>x.name!=='Unknown');
+const getPricingSettings=()=>({discPct:Number(localStorage.getItem('ts_disc')??58),shopMkup:Number(localStorage.getItem('ts_mk_shop')??25),onlineMkup:Number(localStorage.getItem('ts_mk_online')??35)});
+const pricingIsCustom=({discPct,shopMkup,onlineMkup})=>discPct!==58||shopMkup!==25||onlineMkup!==35;
+const STOCK_COMPARE_DB='ts_stock_compare_db_v1';
+const STOCK_COMPARE_STORE='kv';
+const defaultStockCompareState=()=>({seq:0,previous:null,current:null});
+const stockCompareNumber=value=>Number((Number(value)||0).toFixed(4));
+const stockCompareText=value=>{const n=stockCompareNumber(value);return Number.isInteger(n)?n.toLocaleString('th-TH'):n.toLocaleString('th-TH',{minimumFractionDigits:0,maximumFractionDigits:2})};
+const stockCompareId=seq=>String(Math.max(1,seq||1)).padStart(2,'0');
+const normalizeStockCompareName=name=>String(name||'').trim()||'ไม่ระบุสินค้า';
+const getStockItemBalance=item=>stockCompareNumber((parseFloat(item?.in)||0)-(parseFloat(item?.out)||0));
+const openStockCompareDb=()=>{if(!('indexedDB' in window))return Promise.reject(new Error('IndexedDB unavailable'));return new Promise((resolve,reject)=>{const req=indexedDB.open(STOCK_COMPARE_DB,1);req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains(STOCK_COMPARE_STORE))db.createObjectStore(STOCK_COMPARE_STORE)};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error||new Error('เปิด IndexedDB ไม่สำเร็จ'))})};
+const readStockComparePersisted=()=>openStockCompareDb().then(db=>new Promise((resolve,reject)=>{const tx=db.transaction(STOCK_COMPARE_STORE,'readonly');const store=tx.objectStore(STOCK_COMPARE_STORE);const req=store.get(STOCK_COMPARE_STATE_KEY);req.onsuccess=()=>resolve(req.result||null);req.onerror=()=>reject(req.error||new Error('อ่าน stock compare cache ไม่สำเร็จ'));tx.onabort=()=>reject(tx.error||new Error('อ่าน stock compare cache ไม่สำเร็จ'))}));
+const writeStockComparePersisted=state=>openStockCompareDb().then(db=>new Promise((resolve,reject)=>{const tx=db.transaction(STOCK_COMPARE_STORE,'readwrite');const store=tx.objectStore(STOCK_COMPARE_STORE);const req=store.put(state,STOCK_COMPARE_STATE_KEY);req.onsuccess=()=>resolve(state);req.onerror=()=>reject(req.error||new Error('บันทึก stock compare cache ไม่สำเร็จ'));tx.onabort=()=>reject(tx.error||new Error('บันทึก stock compare cache ไม่สำเร็จ'))}));
+const buildStockCompareSnapshot=(items,updatedAt)=>{if(!Array.isArray(items)||!items.length)return null;const lineTotals={};items.forEach(item=>{const productName=normalizeStockCompareName(item.name);const lineKey=[item.id||'',productName].join('||');lineTotals[lineKey]={productName,quantity:getStockItemBalance(item)}});const signature=JSON.stringify(Object.keys(lineTotals).sort().map(key=>[key,lineTotals[key].quantity]));return{updatedAt:updatedAt||null,lineTotals,totalRows:items.length,signature}};
+const syncStockCompareState=(state,items,updatedAt)=>{const snapshot=buildStockCompareSnapshot(items,updatedAt);if(!snapshot)return state&&typeof state==='object'?state:defaultStockCompareState();const base=state&&typeof state==='object'?state:defaultStockCompareState();if(!base.current)return{seq:1,previous:null,current:{id:stockCompareId(1),...snapshot,cachedAt:new Date().toISOString()}};if(base.current.signature===snapshot.signature){if(updatedAt&&base.current.updatedAt!==updatedAt)return{...base,current:{...base.current,updatedAt}};return base}return{...base,current:{...base.current,...snapshot,updatedAt:updatedAt||base.current.updatedAt}}};
+const commitStockCompareState=(state,items,updatedAt)=>{const snapshot=buildStockCompareSnapshot(items,updatedAt);if(!snapshot)return state&&typeof state==='object'?state:defaultStockCompareState();const base=state&&typeof state==='object'?state:defaultStockCompareState();if(!base.current)return{seq:1,previous:null,current:{id:stockCompareId(1),...snapshot,cachedAt:new Date().toISOString()}};if(base.current.signature===snapshot.signature){if(updatedAt&&base.current.updatedAt!==updatedAt)return{...base,current:{...base.current,updatedAt}};return base}const nextSeq=(base.seq||0)+1;return{seq:nextSeq,previous:{...base.current},current:{id:stockCompareId(nextSeq),...snapshot,cachedAt:new Date().toISOString()}}};
+const getStockCompareDiff=state=>{if(!state?.previous||!state?.current)return{count:0,items:[],plusTotal:0,minusTotal:0};const previous=state.previous.lineTotals||{},current=state.current.lineTotals||{};const keys=new Set([...Object.keys(previous),...Object.keys(current)]);const byProduct=new Map();keys.forEach(key=>{const prevQty=stockCompareNumber(previous[key]?.quantity||0),currQty=stockCompareNumber(current[key]?.quantity||0);if(prevQty===currQty)return;const productName=current[key]?.productName||previous[key]?.productName||'ไม่ระบุสินค้า';if(!byProduct.has(productName))byProduct.set(productName,{productName,plus:0,minus:0});const row=byProduct.get(productName);if(currQty>prevQty)row.plus=stockCompareNumber(row.plus+(currQty-prevQty));else row.minus=stockCompareNumber(row.minus+(prevQty-currQty))});const items=Array.from(byProduct.values()).sort((a,b)=>{const aMag=Math.max(a.plus,a.minus),bMag=Math.max(b.plus,b.minus);return bMag-aMag||a.productName.localeCompare(b.productName,'th')});return{count:items.length,items,plusTotal:items.reduce((sum,item)=>stockCompareNumber(sum+item.plus),0),minusTotal:items.reduce((sum,item)=>stockCompareNumber(sum+item.minus),0)}};
 
 window.toggleGlobalTheme=()=>{const c=document.documentElement.getAttribute('data-theme');const n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('ts_dark',JSON.stringify(n==='dark'))};
-window.__updateSalesThemeBtn=isDk=>{const b=document.getElementById('salesThemeBtn');if(b)b.innerHTML=isDk?'<i class="fa-solid fa-moon" style="font-size:15px"></i>':'<i class="fa-solid fa-sun" style="font-size:15px"></i>'};
-window.showNotif=(msg,type='success')=>{const a=document.getElementById('notifArea');const w=document.createElement('div');w.className='notif-wrap';const n=document.createElement('div');n.className='notif';const clr=type==='success'?'var(--accent)':type==='error'?'var(--danger)':'#fbbf24';n.innerHTML=`<div class="notif-dot" style="background:${clr};box-shadow:0 0 8px ${clr}"></div><div class="notif-text">${msg}</div>`;w.appendChild(n);a.appendChild(w);setTimeout(()=>{n.classList.add('exit');setTimeout(()=>w.remove(),300)},3000)};
+window.__updateSalesThemeBtn=isDk=>{const icon=document.getElementById('settingsThemeIcon');const meta=document.getElementById('settingsThemeMeta');if(icon)icon.innerHTML=isDk?'<i class="fa-solid fa-moon" style="font-size:14px"></i>':'<i class="fa-solid fa-sun" style="font-size:14px"></i>';if(meta)meta.textContent=isDk?'ตอนนี้เป็น Dark Mode':'ตอนนี้เป็น Light Mode'};
+window.__updateSettingsPricing=()=>{const s=getPricingSettings();const meta=document.getElementById('settingsPricingMeta');const dot=document.getElementById('settingsPricingDot');const salesDot=document.getElementById('salesSettingsDot');if(meta)meta.textContent=`ส่วนลด ${s.discPct}% / หน้าร้าน ${s.shopMkup}% / ออนไลน์ ${s.onlineMkup}%`;[dot,salesDot].forEach(el=>{if(!el)return;el.classList.toggle('hidden',!pricingIsCustom(s))})};
+window.openSettingsModal=()=>{const ov=document.getElementById('settingsOverlay'),card=document.getElementById('settingsCard');window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(document.documentElement.getAttribute('data-theme')==='dark');window.__updateSettingsPricing&&window.__updateSettingsPricing();ov.classList.remove('hidden','exiting');card.classList.remove('exiting');void ov.offsetWidth;ov.classList.add('entering');card.classList.add('entering')};
+window.closeSettingsModal=()=>{const ov=document.getElementById('settingsOverlay'),card=document.getElementById('settingsCard');ov.classList.remove('entering');card.classList.remove('entering');ov.classList.add('exiting');card.classList.add('exiting');setTimeout(()=>{ov.classList.add('hidden');ov.classList.remove('exiting');card.classList.remove('exiting')},220)};
+window.toggleSettingsTheme=()=>{window.toggleGlobalTheme();window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(document.documentElement.getAttribute('data-theme')==='dark')};
+window.openPricingModalFromSettings=()=>{closeSettingsModal();openPricingModal()};
+window.openPricingModal=()=>{const s=getPricingSettings();document.getElementById('pricingDiscInput').value=String(s.discPct);document.getElementById('pricingShopInput').value=String(s.shopMkup);document.getElementById('pricingOnlineInput').value=String(s.onlineMkup);const ov=document.getElementById('pricingOverlay'),card=document.getElementById('pricingCard');ov.classList.remove('hidden','exiting');card.classList.remove('exiting');void ov.offsetWidth;ov.classList.add('entering');card.classList.add('entering')};
+window.closePricingModal=()=>{const ov=document.getElementById('pricingOverlay'),card=document.getElementById('pricingCard');ov.classList.remove('entering');card.classList.remove('entering');ov.classList.add('exiting');card.classList.add('exiting');setTimeout(()=>{ov.classList.add('hidden');ov.classList.remove('exiting');card.classList.remove('exiting')},220)};
+window.saveGlobalPricingSettings=()=>{const vd=parseFloat(document.getElementById('pricingDiscInput').value),vs=parseFloat(document.getElementById('pricingShopInput').value),vo=parseFloat(document.getElementById('pricingOnlineInput').value);if(isNaN(vd)||vd<0||vd>99){window.showNotif('ส่วนลด: ใส่ 0-99','error');return}if(isNaN(vs)||vs<0||vs>999){window.showNotif('หน้าร้าน: ใส่ 0-999','error');return}if(isNaN(vo)||vo<0||vo>999){window.showNotif('TikTok/Shopee: ใส่ 0-999','error');return}localStorage.setItem('ts_disc',String(vd));localStorage.setItem('ts_mk_shop',String(vs));localStorage.setItem('ts_mk_online',String(vo));window.dispatchEvent(new CustomEvent('ts:pricing-updated',{detail:{discPct:vd,shopMkup:vs,onlineMkup:vo}}));window.__updateSettingsPricing&&window.__updateSettingsPricing();closePricingModal();window.showNotif('บันทึกโครงสร้างราคาแล้ว')};
+window.resetGlobalPricingSettings=()=>{document.getElementById('pricingDiscInput').value='58';document.getElementById('pricingShopInput').value='25';document.getElementById('pricingOnlineInput').value='35';localStorage.setItem('ts_disc','58');localStorage.setItem('ts_mk_shop','25');localStorage.setItem('ts_mk_online','35');window.dispatchEvent(new CustomEvent('ts:pricing-updated',{detail:{discPct:58,shopMkup:25,onlineMkup:35}}));window.__updateSettingsPricing&&window.__updateSettingsPricing();closePricingModal();window.showNotif('รีเซ็ตค่าทั้งหมด')};
+window.showNotif=(msg,type='success')=>{const a=document.getElementById('notifArea');const w=document.createElement('div');w.className='notif-wrap';const n=document.createElement('div');n.className='notif';const clr=type==='success'?'var(--accent)':type==='error'?'var(--danger)':'#fbbf24';const dot=document.createElement('div');dot.className='notif-dot';dot.style.background=clr;dot.style.boxShadow=`0 0 8px ${clr}`;const text=document.createElement('div');text.className='notif-text';text.textContent=String(msg??'');n.appendChild(dot);n.appendChild(text);w.appendChild(n);a.appendChild(w);setTimeout(()=>{n.classList.add('exit');setTimeout(()=>w.remove(),300)},3000)};
 
 /* PriceRow — expandable pricing with calculation breakdown */
 const PriceRow=({icon,label,result,color,price,base,markup,pid,ch,disc,factor})=>{
@@ -501,6 +622,13 @@ const App=()=>{
     const[sort,setSort]=useState('stockMax');
     const[dark,setDark]=useState(()=>{const s=localStorage.getItem('ts_dark');return s!==null?JSON.parse(s):true});
     const[copyMode,setCopyMode]=useState(false);
+    const[stockSync,setStockSync]=useState({mode:'network',cachedAt:null,refreshing:false});
+    const[stockCompareState,setStockCompareState]=useState(()=>defaultStockCompareState());
+    const[stockCompareModal,setStockCompareModal]=useState('hidden');
+    const stockCompareStateRef=useRef(defaultStockCompareState());
+    const stockCompareTriggerRef=useRef(null);
+    const stockCompareCloseRef=useRef(null);
+    const stockCompareCloseTimerRef=useRef(null);
     /* Cost & markup settings */
     const[discPct,setDiscPct]=useState(()=>{const s=localStorage.getItem('ts_disc');return s!==null?Number(s):58});
     const[shopMkup,setShopMkup]=useState(()=>{const s=localStorage.getItem('ts_mk_shop');return s!==null?Number(s):25});
@@ -523,23 +651,72 @@ const App=()=>{
     };
     const resetAll=()=>{setDiscInput('58');setShopInput('25');setOnlineInput('35');setDiscPct(58);setShopMkup(25);setOnlineMkup(35);localStorage.setItem('ts_disc','58');localStorage.setItem('ts_mk_shop','25');localStorage.setItem('ts_mk_online','35');closeCostPanel();window.showNotif('รีเซ็ตค่าทั้งหมด')};
     const blurFallback=(val,fallback,setter)=>()=>{if(val.trim()===''||isNaN(parseFloat(val)))setter(String(fallback))};
+    const stockCompareDiff=getStockCompareDiff(stockCompareState);
+    const stockCompareHasCurrent=!!stockCompareState.current;
+    const persistStockCompareState=async nextState=>{const finalState=nextState&&typeof nextState==='object'?nextState:defaultStockCompareState();stockCompareStateRef.current=finalState;setStockCompareState(finalState);try{await writeStockComparePersisted(finalState)}catch(e){writeCache(STOCK_COMPARE_STATE_KEY,finalState)}return finalState};
+    const loadStockCompareState=async()=>{let nextState=defaultStockCompareState();try{const persisted=await readStockComparePersisted();if(persisted&&typeof persisted==='object')nextState=persisted;else{const fallback=readCache(STOCK_COMPARE_STATE_KEY);if(fallback&&typeof fallback==='object')nextState=fallback}}catch(e){const fallback=readCache(STOCK_COMPARE_STATE_KEY);if(fallback&&typeof fallback==='object')nextState=fallback}stockCompareStateRef.current=nextState;setStockCompareState(nextState);return nextState};
+    const syncStockCompareFromCache=async(cachedItems,cachedAt)=>persistStockCompareState(syncStockCompareState(stockCompareStateRef.current,cachedItems,cachedAt));
+    const commitStockCompareSnapshot=async(nextItems,nextUpdatedAt)=>persistStockCompareState(commitStockCompareState(stockCompareStateRef.current,nextItems,nextUpdatedAt));
+    const openStockCompareModal=()=>{
+        if(!stockCompareStateRef.current.current)return;
+        if(stockCompareCloseTimerRef.current){clearTimeout(stockCompareCloseTimerRef.current);stockCompareCloseTimerRef.current=null}
+        stockCompareTriggerRef.current=document.activeElement;
+        setStockCompareModal('entering');
+    };
+    const closeStockCompareModal=()=>{
+        if(stockCompareCloseTimerRef.current){clearTimeout(stockCompareCloseTimerRef.current);stockCompareCloseTimerRef.current=null}
+        setStockCompareModal(state=>state==='hidden'?'hidden':'exiting');
+        stockCompareCloseTimerRef.current=setTimeout(()=>{
+            setStockCompareModal('hidden');
+            stockCompareCloseTimerRef.current=null;
+            if(stockCompareTriggerRef.current&&typeof stockCompareTriggerRef.current.focus==='function')stockCompareTriggerRef.current.focus();
+        },260);
+    };
 
     useEffect(()=>{document.documentElement.setAttribute('data-theme',dark?'dark':'light');localStorage.setItem('ts_dark',JSON.stringify(dark));window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(dark)},[dark]);
     useEffect(()=>{const obs=new MutationObserver(()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';setDark(d);window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(d)});obs.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});return()=>obs.disconnect()},[]);
-    useEffect(()=>{fetchData();window.__salesFetch&&window.__salesFetch()},[]);
+    useEffect(()=>{const syncPricing=e=>{const detail=e.detail||{};if(typeof detail.discPct==='number')setDiscPct(detail.discPct);if(typeof detail.shopMkup==='number')setShopMkup(detail.shopMkup);if(typeof detail.onlineMkup==='number')setOnlineMkup(detail.onlineMkup);window.__updateSettingsPricing&&window.__updateSettingsPricing()};window.addEventListener('ts:pricing-updated',syncPricing);window.__updateSettingsPricing&&window.__updateSettingsPricing();return()=>window.removeEventListener('ts:pricing-updated',syncPricing)},[]);
+    useEffect(()=>{let cancelled=false;(async()=>{await loadStockCompareState();if(cancelled)return;const cached=readCache(STOCK_CACHE_KEY);if(cached?.items?.length){setItems(cached.items);setUpdated(cached.updatedAt?new Date(cached.updatedAt):null);setLoading(false);setStockSync({mode:'cached',cachedAt:cached.updatedAt||cached.cachedAt||null,refreshing:true});await syncStockCompareFromCache(cached.items,cached.updatedAt||cached.cachedAt||null);if(cancelled)return}refreshStock(Boolean(cached?.items?.length));window.__salesFetch&&window.__salesFetch()})().catch(()=>{const cached=readCache(STOCK_CACHE_KEY);if(cached?.items?.length){setItems(cached.items);setUpdated(cached.updatedAt?new Date(cached.updatedAt):null);setLoading(false);setStockSync({mode:'cached',cachedAt:cached.updatedAt||cached.cachedAt||null,refreshing:true})}refreshStock(Boolean(cached?.items?.length));window.__salesFetch&&window.__salesFetch()});return()=>{cancelled=true}},[]);
+    useEffect(()=>{if(stockCompareModal==='hidden')return;const tid=setTimeout(()=>{if(stockCompareCloseRef.current)stockCompareCloseRef.current.focus()},20);return()=>clearTimeout(tid)},[stockCompareModal]);
+    useEffect(()=>{if(stockCompareModal==='hidden')return;const onKey=e=>{if(e.key==='Escape')closeStockCompareModal()};document.addEventListener('keydown',onKey);return()=>document.removeEventListener('keydown',onKey)},[stockCompareModal]);
+    useEffect(()=>()=>{if(stockCompareCloseTimerRef.current)clearTimeout(stockCompareCloseTimerRef.current)},[]);
+    useEffect(()=>{window.__stockCompareApi={commit:commitStockCompareSnapshot,sync:syncStockCompareFromCache,getState:()=>stockCompareStateRef.current,open:openStockCompareModal,close:closeStockCompareModal};return()=>{delete window.__stockCompareApi}});
 
-    const fetchData=async()=>{
-        setLoading(true);setErr(null);const ac=new AbortController();const tid=setTimeout(()=>ac.abort(),12000);
+    const fetchData=async(hasCachedData=items.length>0)=>{
+        setLoading(true);setErr(null);const ac=new AbortController();const tid=setTimeout(()=>ac.abort(),12000);if(hasCachedData)setStockSync(s=>({...s,refreshing:true}));
         try{let res;try{res=await fetch(STOCK_API,{signal:ac.signal})}catch(e){res=await fetch(PROXY+encodeURIComponent(STOCK_API))}
         clearTimeout(tid);if(!res.ok)throw new Error("ดึงข้อมูลไม่สำเร็จ");const txt=await res.text();let csv=txt;
         try{const j=JSON.parse(txt);if(j.status==='success'){csv=j.csvData;if(j.lastUpdated)setUpdated(new Date(j.lastUpdated))}}catch(e){}
         Papa.parse(csv,{header:true,skipEmptyLines:true,complete:r=>{if(r.data.length>0){parseCSV(r.data);window.showNotif(`โหลดสำเร็จ ${r.data.length} รายการ`)}else setErr("ไม่มีข้อมูล");setLoading(false)},error:()=>{setErr("โครงสร้างข้อมูลผิดพลาด");setLoading(false)}});
         }catch(e){setErr(e.name==='AbortError'?"การเชื่อมต่อล่าช้า":e.message);setLoading(false);window.showNotif(e.message,'error')}
     };
-    const parseCSV=data=>{setItems(data.map((r,i)=>({id:r['P_SystemID']||`ID-${i}`,name:r['P_Name']||'Unknown',cost:r['P_EstimateCost']||0,price:r['P_RetailPrice1_1']||0,in:r['P_ReceiveOrder_In']||0,out:r['P_SaleOrder_Out']||0,createTime:r['P_CreateTime']||'-',updateTime:r['P_UpdateTime']||'-'})).filter(x=>x.name!=='Unknown'))};
+    const parseCSV=data=>{const nextItems=normalizeStockRows(data);setItems(nextItems);void commitStockCompareSnapshot(nextItems,updated instanceof Date?updated.toISOString():new Date().toISOString())};
+    const refreshStock=async(hasCachedData=items.length>0)=>{
+        setLoading(true);setErr(null);if(hasCachedData)setStockSync(s=>({...s,refreshing:true}));
+        const ac=new AbortController();const tid=setTimeout(()=>ac.abort(),12000);
+        try{
+            let res;
+            try{res=await fetch(STOCK_API,{signal:ac.signal})}catch(e){res=await fetch(PROXY+encodeURIComponent(STOCK_API))}
+            clearTimeout(tid);
+            if(!res.ok)throw new Error("โหลดข้อมูลไม่สำเร็จ");
+            const txt=await res.text();
+            let csv=txt;
+            let nextUpdatedAt=new Date().toISOString();
+            try{const j=JSON.parse(txt);if(j.status==='success'){csv=j.csvData;if(j.lastUpdated){const dt=new Date(j.lastUpdated);setUpdated(dt);nextUpdatedAt=dt.toISOString()}}}catch(e){}
+            Papa.parse(csv,{header:true,skipEmptyLines:true,complete:r=>{if(r.data.length>0){const nextItems=normalizeStockRows(r.data);const previous=readCache(STOCK_CACHE_KEY)?.items||[];setItems(nextItems);writeCache(STOCK_CACHE_KEY,{items:nextItems,updatedAt:nextUpdatedAt,cachedAt:new Date().toISOString()});void commitStockCompareSnapshot(nextItems,nextUpdatedAt);setStockSync({mode:'live',cachedAt:nextUpdatedAt,refreshing:false});if(hasCachedData){if(!sameJson(previous,nextItems))window.showNotif('มีข้อมูลสต็อกใหม่แล้ว')}else window.showNotif(`โหลดสำเร็จ ${r.data.length} รายการ`)}else{setErr("ไม่มีข้อมูล");setStockSync(s=>({...s,refreshing:false}))}setLoading(false)},error:()=>{setErr("โครงสร้างข้อมูลผิดพลาด");setLoading(false);setStockSync(s=>({...s,refreshing:false}))}});
+        }catch(e){
+            const msg=e.name==='AbortError'?'การเชื่อมต่อช้าเกินไป':e.message;
+            setErr(msg);setLoading(false);setStockSync(s=>({...s,refreshing:false}));
+            if(!hasCachedData)window.showNotif(msg,'error');
+        }finally{clearTimeout(tid)}
+    };
     const stock=p=>(parseInt(p.in)||0)-(parseInt(p.out)||0);
     const filtered=useMemo(()=>{let s=items.filter(p=>String(p.name).toLowerCase().includes(q.toLowerCase()));s.sort((a,b)=>{if(sort==='stockMax')return stock(b)-stock(a);if(sort==='updated')return pDate(b.updateTime)-pDate(a.updateTime);return pDate(b.createTime)-pDate(a.createTime)});return s.slice(0,100)},[q,items,sort]);
     const nextSort=()=>setSort(s=>s==='stockMax'?'updated':s==='updated'?'created':'stockMax');
+    const stockCompareButtonTitle=!stockCompareHasCurrent?'รอข้อมูลสต็อกชุดแรกก่อน':!stockCompareState.previous?'มีแคชชุดเดียว โหลดข้อมูลใหม่เพื่อเริ่มเปรียบเทียบ':stockCompareDiff.count===0?`Cache ${stockCompareState.previous.id} และ ${stockCompareState.current.id} ไม่มีความต่าง`:`มี ${stockCompareDiff.count} รายการเปลี่ยนแปลงระหว่าง Cache ${stockCompareState.previous.id} และ ${stockCompareState.current.id}`;
+    const stockCompareMeta=!stockCompareState.current?'ยังไม่พบข้อมูลแคชสต็อก':!stockCompareState.previous?`มีเพียง Cache ${stockCompareState.current.id}`:`Cache ${stockCompareState.previous.id} -> Cache ${stockCompareState.current.id}`;
+    const stockCompareSummary=!stockCompareState.current?'รอข้อมูลสต็อกชุดแรกก่อน':!stockCompareState.previous?'ยังมีแคชชุดเดียว':stockCompareDiff.count>0?`มี ${stockCompareDiff.count.toLocaleString('th-TH')} รายการเปลี่ยนแปลง`:'ไม่มีรายการเปลี่ยนแปลง';
+    const stockCompareWindow=!stockCompareState.current?'เมื่อมีแคชชุดล่าสุดแล้ว ระบบจะเริ่มเตรียมฐานสำหรับเปรียบเทียบอัตโนมัติ':!stockCompareState.previous?`Cache ${stockCompareState.current.id} • ${fmt24(stockCompareState.current.updatedAt)}`:`${fmt24(stockCompareState.previous.updatedAt)} -> ${fmt24(stockCompareState.current.updatedAt)}${stockCompareDiff.count>0?` • เพิ่ม ${stockCompareText(stockCompareDiff.plusTotal)} / ลด ${stockCompareText(stockCompareDiff.minusTotal)}`:''}`;
 
     return(
         <div style={{height:'100%',display:'flex',flexDirection:'column',color:'var(--text-primary)',position:'relative',overflow:'hidden'}}>
@@ -584,6 +761,37 @@ const App=()=>{
                     </div>
                 </div>
             </div>)}
+            {stockCompareModal!=='hidden'&&(<div id="stockCompareOverlay" className={`genie-backdrop ${stockCompareModal}`} onClick={closeStockCompareModal}>
+                <div id="stockCompareCard" className={`genie-card ${stockCompareModal}`} role="dialog" aria-modal="true" aria-labelledby="stockCompareTitle" onClick={e=>e.stopPropagation()} style={{width:'100%',maxWidth:380,background:'var(--dropdown-bg)',backdropFilter:'blur(60px) saturate(200%)',WebkitBackdropFilter:'blur(60px) saturate(200%)',border:'.5px solid var(--border-glass-strong)',borderRadius:22,padding:20,boxShadow:'0 16px 48px rgba(0,0,0,.4)',position:'relative',overflow:'hidden'}}>
+                    <div style={{position:'absolute',top:0,left:0,right:0,height:'45%',background:'linear-gradient(180deg,rgba(255,255,255,0.05) 0%,transparent 100%)',pointerEvents:'none'}}></div>
+                    <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:14,position:'relative',zIndex:1}}>
+                        <div>
+                            <div id="stockCompareTitle" style={{fontSize:15,fontWeight:700,letterSpacing:'-.3px'}}>เปรียบเทียบแคชสต็อก</div>
+                            <div id="stockCompareMeta" style={{fontSize:11,color:'var(--text-secondary)',marginTop:2}}>{stockCompareMeta}</div>
+                        </div>
+                        <button ref={stockCompareCloseRef} type="button" aria-label="ปิดหน้าต่างเปรียบเทียบแคชสต็อก" onClick={closeStockCompareModal} style={{background:'none',border:'none',color:'var(--text-tertiary)',fontSize:18,cursor:'pointer',padding:4,lineHeight:1}}>×</button>
+                    </div>
+                    <div className="lg" style={{padding:'12px 14px',borderRadius:16,marginBottom:12,position:'relative',zIndex:1}}>
+                        <div id="stockCompareSummary" style={{fontSize:13,fontWeight:700,color:'var(--text-primary)'}}>{stockCompareSummary}</div>
+                        <div id="stockCompareWindow" className="mono" style={{fontSize:10,color:'var(--text-tertiary)',marginTop:4}}>{stockCompareWindow}</div>
+                    </div>
+                    <div id="stockCompareList" style={{display:'flex',flexDirection:'column',gap:8,maxHeight:'min(52dvh,420px)',overflowY:'auto',paddingRight:2,position:'relative',zIndex:1}}>
+                        {!stockCompareState.current&&<div className="lg" style={{padding:16,borderRadius:16,fontSize:12,color:'var(--text-secondary)',lineHeight:1.6}}>เปิดหน้า stock ให้โหลดข้อมูลสำเร็จก่อน จากนั้นการรีเฟรชครั้งถัดไปจะเริ่มเทียบความเปลี่ยนแปลงให้ทันที</div>}
+                        {stockCompareState.current&&!stockCompareState.previous&&<div className="lg" style={{padding:16,borderRadius:16,fontSize:12,color:'var(--text-secondary)',lineHeight:1.6}}>เมื่อข้อมูลสต็อกรอบถัดไปมาและไม่เหมือนเดิม ระบบจะเก็บ Cache ใหม่แล้วเริ่มสรุปรายการที่เปลี่ยนให้โดยอัตโนมัติ</div>}
+                        {stockCompareState.previous&&stockCompareDiff.count===0&&<div className="lg" style={{padding:16,borderRadius:16,fontSize:12,color:'var(--text-secondary)',lineHeight:1.6}}>ข้อมูลระหว่างสองแคชล่าสุดยังเหมือนกันทั้งหมด ระบบจึงยังไม่พบสินค้าที่ต้องรายงาน</div>}
+                        {stockCompareState.previous&&stockCompareDiff.items.map(item=><div key={item.productName} className="lg" style={{padding:'12px 14px',borderRadius:16,display:'flex',alignItems:'flex-start',justifyContent:'space-between',gap:10}}>
+                            <div style={{flex:1,minWidth:0}}>
+                                <div style={{fontSize:12,fontWeight:600,color:'var(--text-primary)',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{item.productName}</div>
+                                <div style={{fontSize:10,color:'var(--text-secondary)',marginTop:4}}>{item.plus>0&&item.minus>0?'มีทั้งจำนวนเพิ่มและลดระหว่างสองแคช':item.plus>0?'พบจำนวนคงเหลือเพิ่มขึ้นจากแคชก่อนหน้า':'พบจำนวนคงเหลือลดลงจากแคชก่อนหน้า'}</div>
+                            </div>
+                            <div style={{display:'flex',alignItems:'center',gap:6,flexShrink:0,flexWrap:'wrap',justifyContent:'flex-end'}}>
+                                {item.plus>0&&<span className="mono" style={{display:'inline-flex',alignItems:'center',justifyContent:'center',padding:'6px 8px',borderRadius:999,background:'rgba(34,197,94,.14)',border:'.5px solid rgba(34,197,94,.24)',color:'#22c55e',fontSize:10,fontWeight:700}}>{`+${stockCompareText(item.plus)}`}</span>}
+                                {item.minus>0&&<span className="mono" style={{display:'inline-flex',alignItems:'center',justifyContent:'center',padding:'6px 8px',borderRadius:999,background:'rgba(248,113,113,.14)',border:'.5px solid rgba(248,113,113,.24)',color:'var(--danger)',fontSize:10,fontWeight:700}}>{`-${stockCompareText(item.minus)}`}</span>}
+                            </div>
+                        </div>)}
+                    </div>
+                </div>
+            </div>)}
             <header className="hdr" style={{paddingTop:'max(12px, var(--safe-top))',zIndex:41}}>
                 <div style={{padding:'0 16px'}}>
                     <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',height:48}}>
@@ -594,10 +802,13 @@ const App=()=>{
                         </div>
                         <div style={{display:'flex',gap:6}}>
                             <button onClick={()=>setCopyMode(!copyMode)} className="glass-btn" style={{width:40,height:40,position:'relative',borderColor:copyMode?'rgba(99,102,241,.5)':'var(--border-glass)',boxShadow:copyMode?'0 0 12px rgba(99,102,241,.4), inset 0 0 8px rgba(99,102,241,.15)':'none'}}><i className="fa-solid fa-copy" style={{fontSize:14,color:copyMode?'#818cf8':'var(--text-secondary)'}}></i></button>
-                            <button onClick={()=>setDark(!dark)} className="glass-btn" style={{width:40,height:40}}><i className={dark?'fa-solid fa-moon':'fa-solid fa-sun'} style={{fontSize:15}}></i></button>
-                            <button onClick={openCostPanel} className="glass-btn" style={{width:40,height:40,position:'relative'}}><i className="fa-solid fa-percent" style={{fontSize:13}}></i>{(discPct!==58||shopMkup!==25||onlineMkup!==35)&&<div style={{position:'absolute',top:4,right:4,width:6,height:6,borderRadius:'50%',background:'var(--accent)',boxShadow:'0 0 6px var(--accent-glow)'}}></div>}</button>
+                            <button id="stockCompareBtn" ref={stockCompareTriggerRef} onClick={openStockCompareModal} className="glass-btn" type="button" aria-label="เปรียบเทียบความเปลี่ยนแปลงของข้อมูลสต็อก" title={stockCompareButtonTitle} disabled={!stockCompareHasCurrent} style={{width:40,height:40,position:'relative',opacity:stockCompareHasCurrent?1:.6,cursor:stockCompareHasCurrent?'pointer':'default'}}>
+                                <i className="fa-solid fa-arrow-right-arrow-left" style={{fontSize:13}}></i>
+                                {stockCompareDiff.count>0&&<span id="stockCompareCount" className="mono" style={{position:'absolute',top:3,right:3,minWidth:16,height:16,padding:'0 4px',borderRadius:999,background:'rgba(34,197,94,.16)',border:'.5px solid rgba(34,197,94,.24)',color:'#22c55e',fontSize:9,fontWeight:700,display:'flex',alignItems:'center',justifyContent:'center'}}>{stockCompareDiff.count>99?'99+':stockCompareDiff.count}</span>}
+                            </button>
+                            <button onClick={()=>window.openSettingsModal&&window.openSettingsModal()} className="glass-btn" style={{width:40,height:40,position:'relative'}}><i className="fa-solid fa-sliders" style={{fontSize:14}}></i>{(discPct!==58||shopMkup!==25||onlineMkup!==35)&&<div style={{position:'absolute',top:4,right:4,width:6,height:6,borderRadius:'50%',background:'var(--accent)',boxShadow:'0 0 6px var(--accent-glow)'}}></div>}</button>
                             <button onClick={nextSort} className="glass-btn" style={{width:40,height:40}}><i className="fa-solid fa-arrow-down-wide-short" style={{fontSize:14}}></i></button>
-                            <button onClick={fetchData} className="glass-btn" style={{width:40,height:40}}><i className={`fa-solid fa-arrows-rotate ${loading?'fa-spin':''}`} style={{fontSize:14}}></i></button>
+                            <button onClick={()=>refreshStock(items.length>0)} className="glass-btn" style={{width:40,height:40}}><i className={`fa-solid fa-arrows-rotate ${loading?'fa-spin':''}`} style={{fontSize:14}}></i></button>
                         </div>
                     </div>
                     <div style={{position:'relative',margin:'8px 0 10px'}}>
@@ -607,8 +818,17 @@ const App=()=>{
                     <div className="info-bar"><span>{items.length} รายการ</span><span>เรียง: {sort==='stockMax'?'สต็อก (มาก→น้อย)':sort==='updated'?'แก้ไขล่าสุด':'สร้างล่าสุด'}</span></div>
                 </div>
             </header>
+            <div style={{padding:'8px 16px 8px'}}>
+                <div className="lg" style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:10,padding:'8px 12px',borderRadius:14}}>
+                    <div style={{display:'flex',alignItems:'center',gap:8,minWidth:0}}>
+                        <span className="dot-glow" style={{width:7,height:7,borderRadius:'50%',background:stockSync.refreshing?'#fbbf24':stockSync.mode==='cached'?'#818cf8':'var(--accent)',display:'inline-block','--glow-c':stockSync.refreshing?'rgba(251,191,36,.45)':stockSync.mode==='cached'?'rgba(129,140,248,.35)':'var(--accent-glow)'}}></span>
+                        <span style={{fontSize:11,fontWeight:600,color:'var(--text-secondary)',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{stockSync.refreshing?'กำลังตรวจข้อมูลใหม่เบื้องหลัง':stockSync.mode==='cached'?'กำลังแสดงข้อมูลที่บันทึกไว้ล่าสุด':'ข้อมูลสดพร้อมใช้งาน'}</span>
+                    </div>
+                    <span className="mono" style={{fontSize:10,color:'var(--text-tertiary)',flexShrink:0}}>{stockSync.cachedAt?fmt24(stockSync.cachedAt):'--'}</span>
+                </div>
+            </div>
             <div className="scroll-area" style={{flex:1,padding:'8px 10px 100px',position:'relative',zIndex:1}}>
-                {err?(<div style={{padding:24,textAlign:'center',color:'var(--danger)',background:'var(--danger-soft)',backdropFilter:'blur(30px)',borderRadius:20,margin:8,border:'.5px solid rgba(248,113,113,.12)'}}>{err}<br/><button onClick={fetchData} style={{marginTop:10,padding:'8px 20px',borderRadius:14,border:'.5px solid var(--border-glass)',background:'var(--bg-glass)',backdropFilter:'blur(20px)',color:'var(--accent)',fontFamily:'inherit',fontSize:12,fontWeight:600,cursor:'pointer'}}>ลองใหม่</button></div>):(
+                {err?(<div style={{padding:24,textAlign:'center',color:'var(--danger)',background:'var(--danger-soft)',backdropFilter:'blur(30px)',borderRadius:20,margin:8,border:'.5px solid rgba(248,113,113,.12)'}}>{err}<br/><button onClick={()=>refreshStock(items.length>0)} style={{marginTop:10,padding:'8px 20px',borderRadius:14,border:'.5px solid var(--border-glass)',background:'var(--bg-glass)',backdropFilter:'blur(20px)',color:'var(--accent)',fontFamily:'inherit',fontSize:12,fontWeight:600,cursor:'pointer'}}>ลองใหม่</button></div>):(
                     <div style={{display:'flex',flexDirection:'column',gap:6}}>
                         {filtered.map((p,i)=>{const s=stock(p);const isExp=expanded===p.id;const clr=s>0?'var(--accent)':'var(--danger)';
                             return(<div key={p.id} onClick={(e)=>{if(copyMode){e.stopPropagation();navigator.clipboard.writeText(p.name).then(()=>window.showNotif(`คัดลอก "${p.name}"`)).catch(()=>window.showNotif('คัดลอกไม่สำเร็จ','error'));return}setExpanded(isExp?null:p.id)}} style={{animationDelay:`${i*0.025}s`}} className={`stock-card anim-item ${isExp?'expanded':''}`}>
@@ -658,14 +878,25 @@ let calDate=new Date(),calSel={start:null,end:null},calStep=0,salesReady=false;
 let ddYearVal='',ddMonthVal='';
 let pddYearVal='',pddMonthVal='';
 let sPlatCmpList=[],sPlatCmpMode=null;
-window.__salesFetch=salesFetch;
+let salesFetchStarted=false;
+window.__salesFetch=null;
+const salesPad2=typeof pad2==='function'?pad2:v=>String(v).padStart(2,'0');
+const salesFormatLocalDateKey=typeof formatLocalDateKey==='function'?formatLocalDateKey:d=>`${d.getFullYear()}-${salesPad2(d.getMonth()+1)}-${salesPad2(d.getDate())}`;
+const salesFormatLocalMonthKey=typeof formatLocalMonthKey==='function'?formatLocalMonthKey:d=>`${d.getFullYear()}-${salesPad2(d.getMonth()+1)}`;
+const salesCacheKey=typeof SALES_CACHE_KEY!=='undefined'?SALES_CACHE_KEY:'ts_sales_cache_v1';
+const salesReadCache=typeof readCache==='function'?readCache:key=>{try{const raw=localStorage.getItem(key);return raw?JSON.parse(raw):null}catch(e){return null}};
+const salesWriteCache=typeof writeCache==='function'?writeCache:(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value))}catch(e){}};
+const salesSameJson=typeof sameJson==='function'?sameJson:(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+const salesFmt24=typeof fmt24==='function'?fmt24:d=>{if(!d||d==='-')return'-';const x=d instanceof Date?d:new Date(d);if(!isNaN(x))return`${String(x.getDate()).padStart(2,'0')}/${String(x.getMonth()+1).padStart(2,'0')}/${x.getFullYear()} ${String(x.getHours()).padStart(2,'0')}:${String(x.getMinutes()).padStart(2,'0')}`;return String(d)};
+const getLatestSalesUpdatedAt=data=>{if(!Array.isArray(data)||!data.length)return null;const latest=data.reduce((a,b)=>(a.sortTime||0)>(b.sortTime||0)?a:b);return latest?.sortTime?new Date(latest.sortTime).toISOString():null};
+const getCachedSalesUpdatedAt=cached=>cached?.updatedAt||getLatestSalesUpdatedAt(cached?.sData)||cached?.cachedAt||null;
 
 const PLAT_MAP={T:{name:'TikTok',color:'var(--plat-tiktok)',svg:'<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1 0-5.78c.27 0 .54.04.8.1v-3.5a6.37 6.37 0 0 0-.8-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 10.86 4.34c1.15-1.2 1.78-2.8 1.78-4.47V8.75a8.26 8.26 0 0 0 4.21 1.2v-3.4a4.85 4.85 0 0 1-.41.14z"/></svg>'},M:{name:'หน้าร้าน',color:'var(--plat-shop)',svg:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7l1.5-4h17L22 7"/><path d="M2 7h20v3c0 1.1-.9 2-2 2h0c-1.1 0-2-.9-2-2 0 1.1-.9 2-2 2s-2-.9-2-2c0 1.1-.9 2-2 2s-2-.9-2-2c0 1.1-.9 2-2 2-1.1 0-2-.9-2-2 0 1.1-.9 2-2 2h0c-1.1 0-2-.9-2-2V7z"/><path d="M5 12v9h14v-9"/><path d="M9 21v-6h6v6"/></svg>'},S:{name:'Shopee',color:'#ee4d2d',svg:'<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2.5c-1.5 0-2.8 1.1-3 2.5H5.5L4 22h16L18.5 5h-3.5c-.2-1.4-1.5-2.5-3-2.5zm0 1.5c.8 0 1.5.6 1.5 1.3v.2h-3v-.2c0-.7.7-1.3 1.5-1.3zm-2.5 6a2.5 2.5 0 1 0 5 0h1.5a4 4 0 1 1-8 0h1.5z"/></svg>'},L:{name:'Lazada',color:'var(--plat-lazada)',svg:'<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M4.5 5.5L12 2l7.5 3.5L12 13 4.5 5.5z"/><path d="M4.5 5.5V16L12 22l7.5-6V5.5" opacity=".7"/></svg>'},F:{name:'Facebook',color:'#1877f2',svg:'<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>'}};
 const PLAT_KEYS=['T','M','S','L','F'];
 function platBadge(code){const p=PLAT_MAP[code];if(!p)return`<span style="font-size:10px;color:var(--text-tertiary)">-</span>`;return`<span style="display:inline-flex;align-items:center;gap:2px;color:${p.color}" title="${p.name}">${p.svg}</span>`}
 
 function navGoStock(){document.getElementById('stockPage').classList.remove('hidden');document.getElementById('salesPage').classList.add('hidden');document.getElementById('navStock').classList.add('active');document.getElementById('navSales').classList.remove('active')}
-function goPage(p){if(p==='sales'&&!salesReady)return;if(p==='sales'){openPin();return}document.getElementById('stockPage').classList.toggle('hidden',p!=='stock');document.getElementById('salesPage').classList.toggle('hidden',p!=='sales');document.getElementById('navStock').classList.toggle('active',p==='stock');document.getElementById('navSales').classList.toggle('active',p==='sales')}
+function goPage(p){if(p==='sales'){window.__salesFetch&&window.__salesFetch();openPin();return}document.getElementById('stockPage').classList.toggle('hidden',p!=='stock');document.getElementById('salesPage').classList.toggle('hidden',p!=='sales');document.getElementById('navStock').classList.toggle('active',p==='stock');document.getElementById('navSales').classList.toggle('active',p==='sales')}
 
 /* ═══ PIN LOGIC ═══ */
 const PIN_CORRECT='28933';
@@ -674,15 +905,41 @@ function openPin(){pinBuffer='';updPinDots();const ov=document.getElementById('p
 function closePin(){const ov=document.getElementById('pinOverlay');const card=document.getElementById('pinCard');ov.classList.remove('pin-entering');card.classList.remove('pin-entering');ov.classList.add('pin-exiting');card.classList.add('pin-exiting');setTimeout(()=>{ov.classList.add('hidden');ov.classList.remove('pin-exiting');card.classList.remove('pin-exiting')},220)}
 function pinCancel(){pinBuffer='';updPinDots();closePin()}
 function pinDel(){if(pinBuffer.length>0){pinBuffer=pinBuffer.slice(0,-1);updPinDots()}}
-function pinPress(d){if(pinBuffer.length>=5)return;pinBuffer+=d;updPinDots();if(pinBuffer.length===5){if(pinBuffer===PIN_CORRECT){closePin();document.getElementById('stockPage').classList.add('hidden');document.getElementById('salesPage').classList.remove('hidden');document.getElementById('navStock').classList.remove('active');document.getElementById('navSales').classList.add('active')}else{const dots=document.getElementById('pinDots');dots.classList.add('pin-shake');document.querySelectorAll('.pin-dot').forEach(d=>d.classList.add('error'));setTimeout(()=>{dots.classList.remove('pin-shake');document.querySelectorAll('.pin-dot').forEach(d=>d.classList.remove('error'));pinBuffer='';updPinDots()},600)}}}
+function pinPress(d){if(pinBuffer.length>=5)return;pinBuffer+=d;updPinDots();if(pinBuffer.length===5){if(pinBuffer===PIN_CORRECT){closePin();window.__salesFetch&&window.__salesFetch();document.getElementById('stockPage').classList.add('hidden');document.getElementById('salesPage').classList.remove('hidden');document.getElementById('navStock').classList.remove('active');document.getElementById('navSales').classList.add('active')}else{const dots=document.getElementById('pinDots');dots.classList.add('pin-shake');document.querySelectorAll('.pin-dot').forEach(d=>d.classList.add('error'));setTimeout(()=>{dots.classList.remove('pin-shake');document.querySelectorAll('.pin-dot').forEach(d=>d.classList.remove('error'));pinBuffer='';updPinDots()},600)}}}
 function updPinDots(){for(let i=0;i<5;i++){const d=document.getElementById('pd'+i);d.classList.toggle('filled',i<pinBuffer.length);d.classList.remove('error')}}
+function clearNode(el){while(el.firstChild)el.removeChild(el.firstChild)}
+function makeCell(text,style,cls){const td=document.createElement('td');if(cls)td.className=cls;if(style)td.style.cssText=style;td.textContent=text;return td}
+function makePlatformIcon(code){const p=PLAT_MAP[code];if(!p){const span=document.createElement('span');span.style.cssText='font-size:10px;color:var(--text-tertiary)';span.textContent='-';return span}const span=document.createElement('span');span.style.cssText=`display:inline-flex;align-items:center;gap:2px;color:${p.color}`;span.title=p.name;span.innerHTML=p.svg;return span}
+function setSalesSyncState(mode,cachedAt,refreshing){
+    const chip=document.getElementById('salesSyncChip'),dot=document.getElementById('salesSyncDot'),text=document.getElementById('salesSyncText'),time=document.getElementById('salesSyncTime');
+    if(!chip||!dot||!text||!time)return;
+    chip.classList.remove('hidden');
+    chip.style.display='flex';
+    let bg='var(--accent)',glow='var(--accent-glow)',label='ข้อมูลยอดขายพร้อมใช้งาน';
+    if(refreshing){bg='#fbbf24';glow='rgba(251,191,36,.45)';label='กำลังตรวจข้อมูลยอดขายใหม่เบื้องหลัง'}
+    else if(mode==='cached'){bg='#818cf8';glow='rgba(129,140,248,.35)';label='กำลังแสดงข้อมูลยอดขายล่าสุดจากเครื่อง'}
+    else if(mode==='error'){bg='var(--danger)';glow='rgba(248,113,113,.35)';label='รีเฟรชไม่สำเร็จ กำลังใช้ข้อมูลล่าสุด'}
+    dot.style.background=bg;
+    dot.style.setProperty('--glow-c',glow);
+    text.textContent=label;
+    time.textContent=cachedAt?salesFmt24(cachedAt):'--';
+}
 
-async function salesFetch(){
+async function legacySalesFetch_doNotUse(){
+    return salesFetch();
     const ov=document.getElementById('salesOverlay'),errDiv=document.getElementById('salesError');
     const badge=document.getElementById('salesBadge'),navBtn=document.getElementById('navSales');
-    ov.classList.remove('fade-out','hidden');errDiv.classList.add('hidden');badge.className='badge badge-loading';navBtn.disabled=true;
+    const hasCachedData=sData.length>0;
+    const previous=salesReadCache(salesCacheKey);
+    errDiv.classList.add('hidden');badge.className='badge badge-loading';
+    if(hasCachedData){
+        navBtn.disabled=false;salesReady=true;ov.classList.add('hidden');ov.classList.remove('fade-out');setSalesSyncState('cached',getCachedSalesUpdatedAt(previous)||new Date().toISOString(),true);
+    }else{
+        ov.classList.remove('fade-out','hidden');navBtn.disabled=true;
+    }
+    const ac=new AbortController();const tid=setTimeout(()=>ac.abort(),15000);
     try{
-        const[hR,dR]=await Promise.all([fetch(`${SALES_API}?type=header`),fetch(`${SALES_API}?type=detail`)]);
+        const[hR,dR]=await Promise.all([fetch(`${SALES_API}?type=header`,{signal:ac.signal}),fetch(`${SALES_API}?type=detail`,{signal:ac.signal})]);
         if(!hR.ok||!dR.ok)throw new Error("ไม่สามารถเชื่อมต่อได้");
         const hT=await hR.text(),dT=await dR.text();
         if(hT.trim().startsWith("<")||dT.trim().startsWith("<"))throw new Error("CSV ไม่ถูกต้อง");
@@ -691,11 +948,78 @@ async function salesFetch(){
         const now=new Date();
         document.getElementById('salesUpdateTime').textContent=`${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
         const lbl=document.getElementById('salesUpdateLabel');lbl.classList.remove('hidden');lbl.style.display='flex';
-        salesReady=true;badge.className='badge badge-ready';navBtn.disabled=false;
-        ov.classList.add('fade-out');setTimeout(()=>ov.classList.add('hidden'),500);
+        salesReady=true;badge.className='badge badge-ready';navBtn.disabled=false;setSalesSyncState('live',now.toISOString(),false);
+        if(!hasCachedData){ov.classList.add('fade-out');setTimeout(()=>ov.classList.add('hidden'),500);}
         window.showNotif('ซิงค์ยอดขายสำเร็จ');
-    }catch(e){console.error(e);document.getElementById('salesErrorMsg').textContent=e.message;errDiv.classList.remove('hidden');badge.className='badge badge-error';navBtn.disabled=true;salesReady=false;window.showNotif(e.message,'error')}
+    }catch(e){const msg=e.name==='AbortError'?'การเชื่อมต่อใช้เวลานานเกินไป':e.message;console.error(e);document.getElementById('salesErrorMsg').textContent=msg;errDiv.classList.remove('hidden');badge.className='badge badge-error';navBtn.disabled=true;salesReady=false;window.showNotif(msg,'error')}finally{clearTimeout(tid)}
 }
+
+salesFetch=async function(){
+    const ov=document.getElementById('salesOverlay'),errDiv=document.getElementById('salesError');
+    const badge=document.getElementById('salesBadge'),navBtn=document.getElementById('navSales');
+    const hasCachedData=sData.length>0;
+    const previous=salesReadCache(salesCacheKey);
+    errDiv.classList.add('hidden');
+    badge.className='badge badge-loading';
+    if(hasCachedData){
+        navBtn.disabled=false;
+        salesReady=true;
+        ov.classList.add('hidden');
+        ov.classList.remove('fade-out');
+        setSalesSyncState('cached',getCachedSalesUpdatedAt(previous)||new Date().toISOString(),true);
+    }else{
+        ov.classList.remove('fade-out','hidden');
+        navBtn.disabled=false;
+    }
+    const ac=new AbortController();
+    const tid=setTimeout(()=>ac.abort(),15000);
+    try{
+        const[hR,dR]=await Promise.all([fetch(`${SALES_API}?type=header`,{signal:ac.signal}),fetch(`${SALES_API}?type=detail`,{signal:ac.signal})]);
+        if(!hR.ok||!dR.ok)throw new Error("ไม่สามารถเชื่อมต่อได้");
+        const hT=await hR.text(),dT=await dR.text();
+        if(hT.trim().startsWith("<")||dT.trim().startsWith("<"))throw new Error("CSV ไม่ถูกต้อง");
+        if(hT.startsWith("Error")||dT.startsWith("Error"))throw new Error(hT);
+        processData(hT,dT);
+        const updatedAt=getLatestSalesUpdatedAt(sData)||new Date().toISOString();
+        document.getElementById('salesUpdateTime').textContent=salesFmt24(updatedAt);
+        const lbl=document.getElementById('salesUpdateLabel');
+        lbl.classList.remove('hidden');
+        lbl.style.display='flex';
+        salesReady=true;
+        badge.className='badge badge-ready';
+        navBtn.disabled=false;
+        setSalesSyncState('live',updatedAt,false);
+        if(!hasCachedData){
+            ov.classList.add('fade-out');
+            setTimeout(()=>ov.classList.add('hidden'),500);
+            window.showNotif('ซิงค์ยอดขายสำเร็จ');
+        }else{
+            const changed=!salesSameJson(previous?.sData||[],sData)||!salesSameJson(previous?.sBills||[],sBills);
+            if(changed)window.showNotif('มีข้อมูลยอดขายใหม่แล้ว');
+        }
+    }catch(e){
+        const msg=e.name==='AbortError'?'การเชื่อมต่อใช้เวลานานเกินไป':e.message;
+        console.error(e);
+        if(hasCachedData){
+            badge.className='badge badge-ready';
+            navBtn.disabled=false;
+            salesReady=true;
+            setSalesSyncState('error',getCachedSalesUpdatedAt(previous)||new Date().toISOString(),false);
+            window.showNotif('รีเฟรชยอดขายไม่สำเร็จ กำลังใช้ข้อมูลล่าสุด','warn');
+        }else{
+            document.getElementById('salesErrorMsg').textContent=msg;
+            errDiv.classList.remove('hidden');
+            badge.className='badge badge-error';
+            navBtn.disabled=false;
+            salesReady=false;
+            window.showNotif(msg,'error');
+        }
+    }finally{
+        clearTimeout(tid);
+    }
+}
+window.__salesFetch=()=>{if(salesFetchStarted)return;salesFetchStarted=true;Promise.resolve(salesFetch()).finally(()=>{salesFetchStarted=false})};
+document.getElementById('navSales').disabled=false;
 
 function processData(hCSV,dCSV){
     const parse=c=>Papa.parse(c,{header:false,skipEmptyLines:true}).data;
@@ -710,12 +1034,16 @@ function processData(hCSV,dCSV){
     if(di.link===-1)di.link=0;if(di.name===-1)di.name=1;if(di.vol===-1)di.vol=2;
     sData=[];
     d.slice(1).forEach(r=>{const mx=Math.max(di.link,di.name,di.vol);if(r.length<=mx)return;const lid=r[di.link]?.trim();if(!hMap.has(lid))return;const info=hMap.get(lid);
-    sData.push({id:lid,dateStr:info.date.toISOString().split('T')[0],monthStr:info.date.toISOString().slice(0,7),yearStr:info.date.getFullYear().toString(),timeStr:String(info.date.getHours()).padStart(2,'0')+':'+String(info.date.getMinutes()).padStart(2,'0'),fullDateTime:info.fullDate,productName:r[di.name],quantity:parseFloat((r[di.vol]||'0').replace(/,/g,''))||0,platform:info.platform})});
-    sBills=Array.from(hMap.entries()).map(([k,v])=>({id:k,dateStr:v.date.toISOString().split('T')[0],monthStr:v.date.toISOString().slice(0,7),yearStr:v.date.getFullYear().toString(),totalValue:v.totalValue,platform:v.platform}));
+    sData.push({id:lid,dateStr:salesFormatLocalDateKey(info.date),monthStr:salesFormatLocalMonthKey(info.date),yearStr:info.date.getFullYear().toString(),timeStr:`${salesPad2(info.date.getHours())}:${salesPad2(info.date.getMinutes())}`,fullDateTime:info.fullDate,sortTime:info.date.getTime(),productName:r[di.name],quantity:parseFloat((r[di.vol]||'0').replace(/,/g,''))||0,platform:info.platform})});
+    sBills=Array.from(hMap.entries()).map(([k,v])=>({id:k,dateStr:salesFormatLocalDateKey(v.date),monthStr:salesFormatLocalMonthKey(v.date),yearStr:v.date.getFullYear().toString(),sortTime:v.date.getTime(),totalValue:v.totalValue,platform:v.platform}));
     const yrs=Array.from(new Set(sData.map(d=>d.yearStr))).sort().reverse();
     buildYearMenu(yrs);buildMonthMenu();buildPlatMenus(yrs);
-    if(sData.length>0){const latest=sData.reduce((a,b)=>a.dateStr>b.dateStr?a:b);calSel.start=latest.dateStr;calSel.end=latest.dateStr;calDate=new Date(latest.dateStr);updDateDisp();renderDaily()}
+    const updatedAt=getLatestSalesUpdatedAt(sData);
+    if(sData.length>0){const latest=sData.reduce((a,b)=>a.sortTime>b.sortTime?a:b);calSel.start=latest.dateStr;calSel.end=latest.dateStr;calDate=new Date(latest.sortTime);updDateDisp();renderDaily()}
+    salesWriteCache(salesCacheKey,{sData,sBills,updatedAt,cachedAt:new Date().toISOString()});
 }
+function hydrateSalesCache(){const cached=salesReadCache(salesCacheKey);if(!cached?.sData?.length)return false;sData=cached.sData;sBills=cached.sBills||[];const yrs=Array.from(new Set(sData.map(d=>d.yearStr))).sort().reverse();buildYearMenu(yrs);buildMonthMenu();buildPlatMenus(yrs);const latest=sData.reduce((a,b)=>a.sortTime>b.sortTime?a:b);calSel.start=latest.dateStr;calSel.end=latest.dateStr;calDate=new Date(latest.sortTime);updDateDisp();renderDaily();const badge=document.getElementById('salesBadge'),navBtn=document.getElementById('navSales'),ov=document.getElementById('salesOverlay');const updatedAt=getCachedSalesUpdatedAt(cached);document.getElementById('salesUpdateTime').textContent=salesFmt24(updatedAt);const lbl=document.getElementById('salesUpdateLabel');lbl.classList.remove('hidden');lbl.style.display='flex';salesReady=true;badge.className='badge badge-ready';navBtn.disabled=false;ov.classList.add('hidden');ov.classList.remove('fade-out');setSalesSyncState('cached',updatedAt,false);return true}
+hydrateSalesCache();window.__salesFetch&&window.__salesFetch();
 
 function buildYearMenu(yrs){const m=document.getElementById('cmpYearMenu');m.innerHTML='';const a=document.createElement('button');a.className='cs-opt';a.textContent='ปี';a.type='button';a.dataset.val='';a.onclick=function(){selectDD('cmpYearSelect','','ปี')};m.appendChild(a);yrs.forEach(y=>{const b=document.createElement('button');b.className='cs-opt';b.textContent=y;b.type='button';b.dataset.val=y;b.onclick=function(){selectDD('cmpYearSelect',y,y)};m.appendChild(b)})}
 function buildMonthMenu(){const months=[{v:'',l:'ทั้งปี'},{v:'01',l:'ม.ค.'},{v:'02',l:'ก.พ.'},{v:'03',l:'มี.ค.'},{v:'04',l:'เม.ย.'},{v:'05',l:'พ.ค.'},{v:'06',l:'มิ.ย.'},{v:'07',l:'ก.ค.'},{v:'08',l:'ส.ค.'},{v:'09',l:'ก.ย.'},{v:'10',l:'ต.ค.'},{v:'11',l:'พ.ย.'},{v:'12',l:'ธ.ค.'}];const m=document.getElementById('cmpMonthMenu');m.innerHTML='';months.forEach(mn=>{const b=document.createElement('button');b.className='cs-opt';b.textContent=mn.l;b.type='button';b.dataset.val=mn.v;b.onclick=function(){selectDD('cmpMonthSelect',mn.v,mn.l)};m.appendChild(b)})}
@@ -725,10 +1053,11 @@ document.addEventListener('click',function(e){if(!e.target.closest('.cs')&&!e.ta
 
 function openCal(){document.getElementById('calOverlay').classList.add('open');renderCal()}
 function closeCal(){document.getElementById('calOverlay').classList.remove('open')}
-function calToday(){const t=new Date();calDate=new Date(t);const ds=t.toISOString().split('T')[0];calSel.start=ds;calSel.end=ds;calStep=2;updDateDisp();renderDaily();renderCal()}
+function calToday(){const t=new Date();calDate=new Date(t);const ds=salesFormatLocalDateKey(t);calSel.start=ds;calSel.end=ds;calStep=2;updDateDisp();renderDaily();renderCal()}
 function calMonth(d){calDate.setMonth(calDate.getMonth()+d);renderCal()}
-function renderCal(){const y=calDate.getFullYear(),m=calDate.getMonth();const mns=["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"];document.getElementById('calTitle').textContent=`${mns[m]} ${y}`;const fd=new Date(y,m,1).getDay(),dim=new Date(y,m+1,0).getDate(),todayStr=new Date().toISOString().split('T')[0],c=document.getElementById('calDays');c.innerHTML='';for(let i=0;i<fd;i++){const e=document.createElement('div');e.style.cssText='width:40px;height:40px';c.appendChild(e)}for(let dd=1;dd<=dim;dd++){const mm=String(m+1).padStart(2,'0'),dds=String(dd).padStart(2,'0'),ds=`${y}-${mm}-${dds}`;const b=document.createElement('button');b.textContent=dd;b.className='day-btn';b.type='button';if(ds===todayStr)b.classList.add('today');if(calSel.start===ds)b.classList.add('sel-start');if(calSel.end===ds&&calSel.start!==ds)b.classList.add('sel-end');if(calSel.start&&calSel.end&&ds>calSel.start&&ds<calSel.end)b.classList.add('in-range');b.addEventListener('click',function(ev){ev.stopPropagation();if(calStep===0||calStep===2){calSel.start=ds;calSel.end=null;calStep=1}else{if(ds<calSel.start){calSel.end=calSel.start;calSel.start=ds}else calSel.end=ds;calStep=2;updDateDisp();renderDaily()}renderCal()});c.appendChild(b)}}
+function renderCal(){const y=calDate.getFullYear(),m=calDate.getMonth();const mns=["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"];document.getElementById('calTitle').textContent=`${mns[m]} ${y}`;const fd=new Date(y,m,1).getDay(),dim=new Date(y,m+1,0).getDate(),todayStr=salesFormatLocalDateKey(new Date()),c=document.getElementById('calDays');c.innerHTML='';for(let i=0;i<fd;i++){const e=document.createElement('div');e.style.cssText='width:40px;height:40px';c.appendChild(e)}for(let dd=1;dd<=dim;dd++){const mm=salesPad2(m+1),dds=salesPad2(dd),ds=`${y}-${mm}-${dds}`;const b=document.createElement('button');b.textContent=dd;b.className='day-btn';b.type='button';if(ds===todayStr)b.classList.add('today');if(calSel.start===ds)b.classList.add('sel-start');if(calSel.end===ds&&calSel.start!==ds)b.classList.add('sel-end');if(calSel.start&&calSel.end&&ds>calSel.start&&ds<calSel.end)b.classList.add('in-range');b.addEventListener('click',function(ev){ev.stopPropagation();if(calStep===0||calStep===2){calSel.start=ds;calSel.end=null;calStep=1}else{if(ds<calSel.start){calSel.end=calSel.start;calSel.start=ds}else calSel.end=ds;calStep=2;updDateDisp();renderDaily()}renderCal()});c.appendChild(b)}}
 function updDateDisp(){if(!calSel.start)return;const f=s=>s.split('-').reverse().join('/');const r=(calSel.end&&calSel.start!==calSel.end)?`${f(calSel.start)} - ${f(calSel.end)}`:f(calSel.start);document.getElementById('dateText').textContent=r;document.getElementById('dateText').style.color='var(--text-primary)';document.getElementById('dateText').style.fontWeight='500';document.getElementById('dateLabel').textContent=r;document.getElementById('dateInputBtn').classList.remove('date-glow');document.getElementById('exportBtn').disabled=false}
+function renderPlatformDetailRows(inner,platBills,platItems,cl){const detailWrap=document.createElement('div');detailWrap.style.cssText='padding:0 14px 12px';const divider=document.createElement('div');divider.style.cssText='height:.5px;background:var(--border-glass);margin-bottom:8px';detailWrap.appendChild(divider);const billMap=new Map();platBills.forEach(b=>billMap.set(b.id,b));const grouped=new Map();platItems.forEach(it=>{if(!grouped.has(it.id))grouped.set(it.id,[]);grouped.get(it.id).push(it)});let rowIdx=0;grouped.forEach((gItems,billId)=>{const bill=billMap.get(billId);const billVal=bill?bill.totalValue:0;gItems.forEach(gi=>{const dateDisp=gi.dateStr.split('-').reverse().slice(0,2).join('/')+' '+gi.timeStr;const copyTxt=`สินค้า "${gi.productName}" รายได้ในราคา "${billVal.toLocaleString('th-TH',{minimumFractionDigits:2})}" เวลาขาย ${dateDisp}`;const row=document.createElement('div');row.style.cssText=`display:flex;align-items:center;gap:8px;padding:6px 0;${rowIdx>0?'border-top:.5px solid var(--border-glass)':''}`;const info=document.createElement('div');info.style.cssText='flex:1;min-width:0';const title=document.createElement('div');title.style.cssText='font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis';title.textContent=gi.productName;const meta=document.createElement('div');meta.style.cssText='display:flex;gap:8px;font-size:10px;color:var(--text-secondary);margin-top:2px';const dateSpan=document.createElement('span');dateSpan.className='mono';dateSpan.textContent=dateDisp;const billSpan=document.createElement('span');billSpan.className='mono';billSpan.style.cssText=`color:${cl};font-weight:600`;billSpan.textContent=`฿${billVal.toLocaleString('th-TH',{minimumFractionDigits:0})}`;meta.appendChild(dateSpan);meta.appendChild(billSpan);info.appendChild(title);info.appendChild(meta);const copyBtn=document.createElement('button');copyBtn.type='button';copyBtn.style.cssText='flex-shrink:0;width:28px;height:28px;border-radius:8px;border:.5px solid var(--border-glass);background:var(--bg-glass);color:var(--text-tertiary);cursor:pointer;display:flex;align-items:center;justify-content:center';const copyIcon=document.createElement('i');copyIcon.className='fa-regular fa-copy';copyIcon.style.fontSize='10px';copyBtn.appendChild(copyIcon);copyBtn.addEventListener('click',ev=>{ev.stopPropagation();navigator.clipboard.writeText(copyTxt).then(()=>window.showNotif('คัดลอกแล้ว')).catch(()=>window.showNotif('ไม่สำเร็จ','error'))});row.appendChild(info);row.appendChild(copyBtn);detailWrap.appendChild(row);rowIdx++})});inner.replaceChildren(detailWrap)}
 
 function renderDaily(){
     if(!calSel.start)return;const end=calSel.end||calSel.start;
@@ -753,7 +1082,7 @@ function renderDaily(){
     items.forEach(it=>{const k=it.platform||'-';if(!platStats[k])platStats[k]={rev:0,bills:0,qty:0};platStats[k].qty+=it.quantity});
     const platKeys=Object.keys(platStats).sort((a,b)=>platStats[b].rev-platStats[a].rev);
     if(platKeys.length>0&&!(platKeys.length===1&&platKeys[0]==='-')){
-        pb.classList.remove('hidden');pb.style.display='block';pc.innerHTML='';
+        pb.classList.remove('hidden');pb.style.display='block';clearNode(pc);
         platKeys.forEach(k=>{const st=platStats[k];const p=PLAT_MAP[k];const nm=p?p.name:(k==='-'?'ไม่ระบุ':k);const cl=p?p.color:'var(--text-tertiary)';const icon=p?p.svg:'<i class="fa-solid fa-question" style="font-size:12px"></i>';const pctRev=rev>0?((st.rev/rev)*100).toFixed(1):0;
         const platItems=items.filter(it=>it.platform===k);
         const platBills=bills.filter(b=>b.platform===k);
@@ -765,8 +1094,8 @@ function renderDaily(){
         /* Detail panel */
         const detail=document.createElement('div');detail.className='stock-detail';
         const inner=document.createElement('div');inner.className='stock-detail-inner';
-        let detailHTML='<div style="padding:0 14px 12px"><div style="height:.5px;background:var(--border-glass);margin-bottom:8px"></div>';
-        /* Build items grouped by bill */
+        /* legacy innerHTML path removed
+        Build items grouped by bill
         const billMap=new Map();
         platBills.forEach(b=>billMap.set(b.id,b));
         const grouped=new Map();
@@ -779,7 +1108,7 @@ function renderDaily(){
                 const copyTxt=`สินค้า "${gi.productName}" รายได้ในราคา "${billVal.toLocaleString('th-TH',{minimumFractionDigits:2})}" เวลาขาย ${dateDisp}`;
                 detailHTML+=`<div style="display:flex;align-items:center;gap:8px;padding:6px 0;${rowIdx>0?'border-top:.5px solid var(--border-glass)':''}">
                     <div style="flex:1;min-width:0">
-                        <div style="font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${gi.productName}</div>
+                        <div style="font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHtml(gi.productName)}</div>
                         <div style="display:flex;gap:8px;font-size:10px;color:var(--text-secondary);margin-top:2px">
                             <span class="mono">${dateDisp}</span>
                             <span class="mono" style="color:${cl};font-weight:600">฿${billVal.toLocaleString('th-TH',{minimumFractionDigits:0})}</span>
@@ -791,21 +1120,19 @@ function renderDaily(){
             });
         });
         detailHTML+='</div>';
-        inner.innerHTML=detailHTML;
+        */renderPlatformDetailRows(inner,platBills,platItems,cl);
         detail.appendChild(inner);wrap.appendChild(detail);
         hdr.addEventListener('click',()=>{const isOpen=detail.classList.contains('open');detail.classList.toggle('open');hdr.querySelector('.plat-chev').style.transform=isOpen?'':'rotate(180deg)'});
         pc.appendChild(wrap)});
     } else {pb.classList.add('hidden');pb.style.display='none'}
     /* Table */
-    const tb=document.getElementById('salesTBody');tb.innerHTML='';
-    if(!items.length){tb.innerHTML='<tr><td colspan="4" style="text-align:center;padding:32px 12px;color:var(--text-tertiary)">ไม่พบรายการ</td></tr>';return}
-    items.sort((a,b)=>b.fullDateTime.localeCompare(a.fullDateTime));
-    items.forEach((it,i)=>{const tr=document.createElement('tr');tr.className='anim-item';tr.style.animationDelay=`${Math.min(i*.02,.8)}s`;
-    tr.innerHTML=`<td class="mono" style="font-size:11px;color:var(--text-secondary);white-space:nowrap">${it.dateStr.split('-').reverse().slice(0,2).join('/')} ${it.timeStr}</td><td style="font-size:12px;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${it.productName}</td><td style="text-align:center">${platBadge(it.platform)}</td><td class="mono" style="text-align:right;font-weight:700;color:#22c55e">${it.quantity}</td>`;
-    tb.appendChild(tr)});
+    const tb=document.getElementById('salesTBody');clearNode(tb);
+    if(!items.length){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=4;td.style.cssText='text-align:center;padding:32px 12px;color:var(--text-tertiary)';td.textContent='ไม่พบรายการ';tr.appendChild(td);tb.appendChild(tr);return}
+    items.sort((a,b)=>(b.sortTime||0)-(a.sortTime||0));
+    items.forEach((it,i)=>{const tr=document.createElement('tr');tr.className='anim-item';tr.style.animationDelay=`${Math.min(i*.02,.8)}s`;tr.appendChild(makeCell(`${it.dateStr.split('-').reverse().slice(0,2).join('/')} ${it.timeStr}`,'font-size:11px;color:var(--text-secondary);white-space:nowrap','mono'));tr.appendChild(makeCell(it.productName,'font-size:12px;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'));const platTd=document.createElement('td');platTd.style.textAlign='center';platTd.appendChild(makePlatformIcon(it.platform));tr.appendChild(platTd);tr.appendChild(makeCell(String(it.quantity),'text-align:right;font-weight:700;color:#22c55e','mono'));tb.appendChild(tr)});
 }
 
-function exportExcel(){if(!calSel.start||!sData.length)return;const end=calSel.end||calSel.start;const items=sData.filter(d=>d.dateStr>=calSel.start&&d.dateStr<=end);const bills=sBills.filter(b=>b.dateStr>=calSel.start&&b.dateStr<=end);if(!items.length){window.showNotif('ไม่พบรายการ','error');return}const f=s=>s.split('-').reverse().join('/');const rl=(calSel.end&&calSel.start!==calSel.end)?`${f(calSel.start)}-${f(calSel.end)}`:f(calSel.start);const sd=[['รายงานยอดขาย'],['ช่วงวันที่',rl],['ยอดขายรวม (บาท)',bills.reduce((s,b)=>s+b.totalValue,0)],['จำนวนสินค้า (ชิ้น)',items.reduce((s,i)=>s+i.quantity,0)],['จำนวนบิล',bills.length],[],['วันที่','เวลา','SKU','สินค้า','แพลตฟอร์ม','จำนวน']];items.sort((a,b)=>b.fullDateTime.localeCompare(a.fullDateTime));items.forEach(it=>{const pn=PLAT_MAP[it.platform]?PLAT_MAP[it.platform].name:(it.platform||'-');sd.push([it.dateStr.split('-').reverse().join('/'),it.timeStr,it.id,it.productName,pn,it.quantity])});const wb=XLSX.utils.book_new();const ws=XLSX.utils.aoa_to_sheet(sd);ws['!cols']=[{wch:12},{wch:8},{wch:12},{wch:30},{wch:12},{wch:8}];XLSX.utils.book_append_sheet(wb,ws,'ยอดขาย');XLSX.writeFile(wb,`ยอดขาย_${calSel.start}_${end}.xlsx`);window.showNotif('บันทึกไฟล์ Excel สำเร็จ')}
+function exportExcel(){if(!calSel.start||!sData.length)return;const end=calSel.end||calSel.start;const items=sData.filter(d=>d.dateStr>=calSel.start&&d.dateStr<=end);const bills=sBills.filter(b=>b.dateStr>=calSel.start&&b.dateStr<=end);if(!items.length){window.showNotif('ไม่พบรายการ','error');return}const f=s=>s.split('-').reverse().join('/');const rl=(calSel.end&&calSel.start!==calSel.end)?`${f(calSel.start)}-${f(calSel.end)}`:f(calSel.start);const sd=[['รายงานยอดขาย'],['ช่วงวันที่',rl],['ยอดขายรวม (บาท)',bills.reduce((s,b)=>s+b.totalValue,0)],['จำนวนสินค้า (ชิ้น)',items.reduce((s,i)=>s+i.quantity,0)],['จำนวนบิล',bills.length],[],['วันที่','เวลา','SKU','สินค้า','แพลตฟอร์ม','จำนวน']];items.sort((a,b)=>(b.sortTime||0)-(a.sortTime||0));items.forEach(it=>{const pn=PLAT_MAP[it.platform]?PLAT_MAP[it.platform].name:(it.platform||'-');sd.push([it.dateStr.split('-').reverse().join('/'),it.timeStr,it.id,it.productName,pn,it.quantity])});const wb=XLSX.utils.book_new();const ws=XLSX.utils.aoa_to_sheet(sd);ws['!cols']=[{wch:12},{wch:8},{wch:12},{wch:30},{wch:12},{wch:8}];XLSX.utils.book_append_sheet(wb,ws,'ยอดขาย');XLSX.writeFile(wb,`ยอดขาย_${calSel.start}_${end}.xlsx`);window.showNotif('บันทึกไฟล์ Excel สำเร็จ')}
 
 function addCmp(){if(!ddYearVal){window.showNotif('เลือกปีก่อน','warn');return}const t=ddMonthVal===''?'year':'month',v=ddMonthVal===''?ddYearVal:`${ddYearVal}-${ddMonthVal}`;if(sCmpList.length>0&&sCmpMode!==t){window.showNotif('ผสมปี/เดือนไม่ได้','error');return}sCmpMode=t;if(!sCmpList.includes(v)){sCmpList.push(v);renderCmpChart()}}
 function clearCmp(){sCmpList=[];sCmpMode=null;renderCmpChart()}
