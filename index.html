@@ -310,6 +310,24 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
 .pin-key.del{color:var(--text-secondary);font-size:16px}
 .hidden{display:none!important}
 .info-bar{display:flex;justify-content:space-between;padding:6px 10px;border-radius:10px;background:var(--bg-glass-input);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-tertiary);margin-bottom:8px}
+
+/* ═══ FONT SIZE CONTROL ═══ */
+html[data-fsize="small"] #root,html[data-fsize="small"] #salesPage>header,html[data-fsize="small"] #salesPage>main{zoom:.9}
+html[data-fsize="large"] #root,html[data-fsize="large"] #salesPage>header,html[data-fsize="large"] #salesPage>main{zoom:1.12}
+html[data-fsize="large"] .genie-card,html[data-fsize="large"] .cal-sheet{zoom:1.08}
+html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.93}
+
+/* ═══ SKELETON LOADING ═══ */
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.skel{background:linear-gradient(90deg,var(--bg-glass) 25%,var(--bg-glass-heavy) 50%,var(--bg-glass) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:8px}
+.skel-row{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border-bottom:.5px solid var(--border-glass)}
+.skel-line{height:11px;border-radius:6px}
+.skel-short{width:38%}.skel-med{width:62%}.skel-long{width:88%}
+
+/* ═══ TOUCH TARGET IMPROVEMENTS ═══ */
+.glass-btn{min-width:44px;min-height:44px}
+.close-btn{background:none;border:none;color:var(--text-tertiary);font-size:18px;cursor:pointer;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;-webkit-tap-highlight-color:transparent;transition:background .15s;flex-shrink:0}
+.close-btn:active{background:var(--bg-glass-heavy)}
 </style>
 </head>
 <body>
@@ -340,7 +358,7 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
                     <div style="font-size:11px;color:var(--text-secondary);margin-top:1px">ใส่ PIN เพื่อเข้าถึง</div>
                 </div>
             </div>
-            <button onclick="pinCancel()" style="background:none;border:none;color:var(--text-tertiary);font-size:18px;cursor:pointer;padding:4px;line-height:1">×</button>
+            <button onclick="pinCancel()" class="close-btn">×</button>
         </div>
         <!-- dots -->
         <div id="pinDots" style="display:flex;justify-content:center;gap:16px;margin-bottom:20px;position:relative;z-index:2">
@@ -378,7 +396,7 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
                 <div style="font-size:15px;font-weight:700;letter-spacing:-.3px">ตั้งค่า</div>
                 <div style="font-size:11px;color:var(--text-secondary);margin-top:2px">จัดการธีมและโครงสร้างราคา</div>
             </div>
-            <button onclick="closeSettingsModal()" style="background:none;border:none;color:var(--text-tertiary);font-size:18px;cursor:pointer;padding:4px;line-height:1">×</button>
+            <button onclick="closeSettingsModal()" class="close-btn">×</button>
         </div>
         <div style="display:flex;flex-direction:column;gap:10px;position:relative;z-index:1">
             <button onclick="toggleSettingsTheme()" class="glass-btn" type="button" aria-label="สลับโหมดมืดและสว่าง" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px">
@@ -390,6 +408,16 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
                     </span>
                 </span>
                 <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-tertiary)"></i>
+            </button>
+            <button onclick="cycleTextSize()" class="glass-btn" type="button" aria-label="ปรับขนาดตัวอักษร" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px">
+                <span style="display:flex;align-items:center;gap:10px">
+                    <span style="width:30px;height:30px;border-radius:12px;background:var(--bg-glass-input);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-text-height" style="font-size:13px"></i></span>
+                    <span style="text-align:left">
+                        <span style="display:block;font-size:13px;font-weight:600;color:var(--text-primary)">ขนาดตัวอักษร</span>
+                        <span id="settingsFontMeta" style="display:block;font-size:10px;color:var(--text-secondary);margin-top:2px">กดเพื่อเปลี่ยน: เล็ก → ปกติ → ใหญ่</span>
+                    </span>
+                </span>
+                <span id="settingsFontBadge" style="font-size:11px;font-weight:700;color:var(--accent);border:.5px solid var(--accent-border);padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0">ปกติ</span>
             </button>
             <button onclick="openPricingModalFromSettings()" class="glass-btn" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px;position:relative">
                 <span style="display:flex;align-items:center;gap:10px">
@@ -446,7 +474,7 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
         <div style="position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,255,0.05) 0%,transparent 100%);pointer-events:none"></div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;position:relative;z-index:1">
             <div style="font-size:15px;font-weight:700">โครงสร้างราคา</div>
-            <button onclick="closePricingModal()" style="background:none;border:none;color:var(--text-tertiary);font-size:18px;cursor:pointer;padding:4px">×</button>
+            <button onclick="closePricingModal()" class="close-btn">×</button>
         </div>
         <div style="font-size:11px;color:var(--text-secondary);margin-bottom:16px;line-height:1.5;position:relative;z-index:1">กำหนดส่วนลดต้นทุน และ % กำไรสำหรับหน้าร้านกับช่องทางออนไลน์</div>
         <div style="display:flex;flex-direction:column;gap:14px;position:relative;z-index:1">
@@ -483,15 +511,38 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
 <div id="stockPage" class="page"><div id="root" style="height:100%;display:flex;flex-direction:column"></div></div>
 
 <div id="salesPage" class="page hidden">
-    <div id="salesOverlay" class="loading-overlay">
-        <div class="spinner" style="margin-bottom:16px"></div>
-        <div style="font-size:15px;font-weight:600;color:var(--text-primary)">กำลังซิงค์ยอดขาย...</div>
-        <div style="font-size:11px;color:var(--text-tertiary);margin-top:6px">กรุณารอสักครู่</div>
-        <div id="salesError" class="hidden" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;max-width:300px">
-            <div style="padding:20px;border-radius:20px;background:var(--danger-soft);backdrop-filter:blur(30px);border:.5px solid rgba(248,113,113,.15)">
-                <i class="fa-solid fa-triangle-exclamation" style="color:var(--danger);font-size:28px;margin-bottom:10px"></i>
-                <p id="salesErrorMsg" style="color:var(--danger);font-size:13px;font-weight:500;margin:8px 0 12px"></p>
-                <button onclick="salesFetch()" style="padding:10px 24px;border-radius:14px;border:.5px solid var(--border-glass);background:var(--bg-glass);backdrop-filter:blur(20px);color:var(--danger);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer"><i class="fa-solid fa-rotate-right" style="margin-right:6px"></i>ลองใหม่</button>
+    <div id="salesOverlay" class="loading-overlay" style="justify-content:flex-start;overflow-y:auto;padding:max(80px,calc(var(--safe-top) + 68px)) 16px 120px">
+        <!-- Skeleton layout while loading -->
+        <div style="width:100%;max-width:500px">
+            <div class="skel" style="height:48px;border-radius:14px;margin-bottom:12px"></div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
+                <div class="skel" style="height:62px;border-radius:14px"></div>
+                <div class="skel" style="height:62px;border-radius:14px"></div>
+                <div class="skel" style="height:62px;border-radius:14px"></div>
+            </div>
+            <div style="background:var(--bg-glass);border:.5px solid var(--border-glass);border-radius:18px;overflow:hidden">
+                <div style="padding:12px 14px;border-bottom:.5px solid var(--border-glass)"><div class="skel skel-line skel-med"></div></div>
+                <div class="skel-row"><div class="skel skel-line skel-short" style="margin-bottom:4px"></div><div class="skel skel-line skel-long"></div></div>
+                <div class="skel-row"><div class="skel skel-line skel-med" style="margin-bottom:4px"></div><div class="skel skel-line skel-short"></div></div>
+                <div class="skel-row"><div class="skel skel-line skel-long" style="margin-bottom:4px"></div><div class="skel skel-line skel-med"></div></div>
+                <div class="skel-row"><div class="skel skel-line skel-short" style="margin-bottom:4px"></div><div class="skel skel-line skel-long"></div></div>
+                <div class="skel-row"><div class="skel skel-line skel-med" style="margin-bottom:4px"></div><div class="skel skel-line skel-short"></div></div>
+            </div>
+        </div>
+        <!-- Error state — shown when fetch fails with no cached data -->
+        <div id="salesError" class="hidden" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;background:var(--bg-primary)">
+            <div style="padding:28px 24px;border-radius:24px;background:var(--bg-glass-heavy);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:.5px solid var(--border-glass-strong);max-width:320px;width:100%;text-align:center">
+                <div style="width:64px;height:64px;border-radius:20px;background:var(--danger-soft);border:.5px solid rgba(248,113,113,.2);display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+                    <i class="fa-solid fa-wifi" style="color:var(--danger);font-size:26px"></i>
+                </div>
+                <div style="font-size:17px;font-weight:700;color:var(--text-primary);margin-bottom:6px">เชื่อมต่อไม่สำเร็จ</div>
+                <p id="salesErrorMsg" style="color:var(--text-secondary);font-size:13px;font-weight:400;margin:0 0 20px;line-height:1.6"></p>
+                <button onclick="salesFetch()" style="width:100%;padding:14px;border-radius:16px;border:none;background:var(--accent);color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px var(--accent-glow);-webkit-tap-highlight-color:transparent">
+                    <i class="fa-solid fa-rotate-right" style="margin-right:8px"></i>ลองใหม่อีกครั้ง
+                </button>
+                <button onclick="navGoStock()" style="width:100%;margin-top:10px;padding:12px;border-radius:16px;border:.5px solid var(--border-glass);background:transparent;color:var(--text-secondary);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent">
+                    กลับหน้าสต็อก
+                </button>
             </div>
         </div>
     </div>
@@ -509,8 +560,8 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
                     </div>
                 </div>
                 <div style="display:flex;gap:6px">
-                    <button onclick="openSettingsModal()" class="glass-btn" id="salesSettingsBtn" type="button" aria-label="เปิดการตั้งค่า" style="width:40px;height:40px;position:relative"><i class="fa-solid fa-gear settings-gear" aria-hidden="true" style="font-size:14px"></i><span id="salesSettingsDot" class="hidden" style="position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent-glow)"></span></button>
-                    <button onclick="salesFetch()" class="glass-btn" type="button" aria-label="รีเฟรชข้อมูลยอดขาย" style="width:40px;height:40px"><i class="fa-solid fa-arrows-rotate" aria-hidden="true" style="font-size:14px"></i></button>
+                    <button onclick="openSettingsModal()" class="glass-btn" id="salesSettingsBtn" type="button" aria-label="เปิดการตั้งค่า" style="width:48px;height:48px;position:relative"><i class="fa-solid fa-gear settings-gear" aria-hidden="true" style="font-size:14px"></i><span id="salesSettingsDot" class="hidden" style="position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent-glow)"></span></button>
+                    <button onclick="salesFetch()" class="glass-btn" type="button" aria-label="รีเฟรชข้อมูลยอดขาย" style="width:48px;height:48px"><i class="fa-solid fa-arrows-rotate" aria-hidden="true" style="font-size:14px"></i></button>
                 </div>
             </div>
         </div>
@@ -603,9 +654,9 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
     <div class="cal-sheet shine" onclick="event.stopPropagation()">
         <div style="width:36px;height:4px;border-radius:2px;background:var(--border-glass-strong);margin:0 auto 16px"></div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-            <button onclick="calMonth(-1)" class="glass-btn" style="width:38px;height:38px;border-radius:12px;padding:0"><i class="fa-solid fa-chevron-left" style="font-size:12px"></i></button>
+            <button onclick="calMonth(-1)" class="glass-btn" style="width:44px;height:44px;border-radius:13px;padding:0"><i class="fa-solid fa-chevron-left" style="font-size:12px"></i></button>
             <div id="calTitle" style="font-weight:700;font-size:16px">...</div>
-            <button onclick="calMonth(1)" class="glass-btn" style="width:38px;height:38px;border-radius:12px;padding:0"><i class="fa-solid fa-chevron-right" style="font-size:12px"></i></button>
+            <button onclick="calMonth(1)" class="glass-btn" style="width:44px;height:44px;border-radius:13px;padding:0"><i class="fa-solid fa-chevron-right" style="font-size:12px"></i></button>
         </div>
         <div style="display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:8px;text-align:center">
             <span style="font-size:11px;font-weight:600;color:var(--text-tertiary);padding:6px 0">อา</span><span style="font-size:11px;font-weight:600;color:var(--text-tertiary);padding:6px 0">จ</span><span style="font-size:11px;font-weight:600;color:var(--text-tertiary);padding:6px 0">อ</span><span style="font-size:11px;font-weight:600;color:var(--text-tertiary);padding:6px 0">พ</span><span style="font-size:11px;font-weight:600;color:var(--text-tertiary);padding:6px 0">พฤ</span><span style="font-size:11px;font-weight:600;color:var(--text-tertiary);padding:6px 0">ศ</span><span style="font-size:11px;font-weight:600;color:var(--text-tertiary);padding:6px 0">ส</span>
@@ -689,7 +740,7 @@ window.selectAccentTheme=theme=>{const resolved=applyAccentTheme(theme);localSto
 window.__updateSalesThemeBtn=isDk=>{const icon=document.getElementById('settingsThemeIcon');const meta=document.getElementById('settingsThemeMeta');const toneMeta=document.getElementById('settingsToneMeta');const tone=getAccentTheme();if(icon)icon.innerHTML=isDk?'<i class="fa-solid fa-moon" style="font-size:14px"></i>':'<i class="fa-solid fa-sun" style="font-size:14px"></i>';if(meta)meta.textContent=isDk?'ตอนนี้เป็น Dark Mode':'ตอนนี้เป็น Light Mode';if(toneMeta)toneMeta.textContent=isDk?`โทนปัจจุบัน: ${DARK_ACCENT_THEMES[tone].label} • เลือกสีเน้นสำหรับค่าบวกและองค์ประกอบหลัก`:'รายการโทนสีจะเปิดให้เลือกเมื่อใช้ Dark Mode'};
 window.__updateSettingsThemeOptions=()=>{const isDark=document.documentElement.getAttribute('data-theme')==='dark';const tone=getAccentTheme();const wrap=document.getElementById('settingsToneWrap');if(wrap)wrap.classList.toggle('hidden',!isDark);document.querySelectorAll('#settingsToneGrid .settings-tone-chip').forEach(btn=>btn.setAttribute('data-active',String(btn.dataset.tone===tone)));window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(isDark)};
 window.__updateSettingsPricing=()=>{const s=getPricingSettings();const meta=document.getElementById('settingsPricingMeta');const dot=document.getElementById('settingsPricingDot');const salesDot=document.getElementById('salesSettingsDot');if(meta)meta.textContent=`ส่วนลด ${s.discPct}% / หน้าร้าน ${s.shopMkup}% / ออนไลน์ ${s.onlineMkup}%`;[dot,salesDot].forEach(el=>{if(!el)return;el.classList.toggle('hidden',!pricingIsCustom(s))})};
-window.openSettingsModal=()=>{const ov=document.getElementById('settingsOverlay'),card=document.getElementById('settingsCard');window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(document.documentElement.getAttribute('data-theme')==='dark');window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions();window.__updateSettingsPricing&&window.__updateSettingsPricing();ov.classList.remove('hidden','exiting');card.classList.remove('exiting');void ov.offsetWidth;ov.classList.add('entering');card.classList.add('entering')};
+window.openSettingsModal=()=>{const ov=document.getElementById('settingsOverlay'),card=document.getElementById('settingsCard');window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(document.documentElement.getAttribute('data-theme')==='dark');window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions();window.__updateSettingsPricing&&window.__updateSettingsPricing();window.__updateSettingsFont&&window.__updateSettingsFont();ov.classList.remove('hidden','exiting');card.classList.remove('exiting');void ov.offsetWidth;ov.classList.add('entering');card.classList.add('entering')};
 window.closeSettingsModal=()=>{const ov=document.getElementById('settingsOverlay'),card=document.getElementById('settingsCard');ov.classList.remove('entering');card.classList.remove('entering');ov.classList.add('exiting');card.classList.add('exiting');setTimeout(()=>{ov.classList.add('hidden');ov.classList.remove('exiting');card.classList.remove('exiting')},220)};
 window.toggleSettingsTheme=()=>{window.toggleGlobalTheme();window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions()};
 window.openPricingModalFromSettings=()=>{closeSettingsModal();openPricingModal()};
@@ -699,6 +750,28 @@ window.saveGlobalPricingSettings=()=>{const vd=parseFloat(document.getElementByI
 window.resetGlobalPricingSettings=()=>{document.getElementById('pricingDiscInput').value='58';document.getElementById('pricingShopInput').value='25';document.getElementById('pricingOnlineInput').value='35';localStorage.setItem('ts_disc','58');localStorage.setItem('ts_mk_shop','25');localStorage.setItem('ts_mk_online','35');window.dispatchEvent(new CustomEvent('ts:pricing-updated',{detail:{discPct:58,shopMkup:25,onlineMkup:35}}));window.__updateSettingsPricing&&window.__updateSettingsPricing();closePricingModal();window.showNotif('รีเซ็ตค่าทั้งหมด')};
 window.showNotif=(msg,type='success')=>{const a=document.getElementById('notifArea');const w=document.createElement('div');w.className='notif-wrap';const n=document.createElement('div');n.className='notif';const clr=type==='success'?'var(--accent)':type==='error'?'var(--danger)':'#fbbf24';const dot=document.createElement('div');dot.className='notif-dot';dot.style.background=clr;dot.style.boxShadow=`0 0 8px ${clr}`;const text=document.createElement('div');text.className='notif-text';text.textContent=String(msg??'');n.appendChild(dot);n.appendChild(text);w.appendChild(n);a.appendChild(w);setTimeout(()=>{n.classList.add('exit');setTimeout(()=>w.remove(),300)},3000)};
 applyAccentTheme(getAccentTheme());
+
+/* ── FONT SIZE CONTROL ── */
+const FONT_SIZE_KEY='ts_font_size';
+const FONT_SIZES=['small','normal','large'];
+const FONT_LABELS={small:'เล็ก',normal:'ปกติ',large:'ใหญ่'};
+const applyFontSize=size=>{if(size==='normal')document.documentElement.removeAttribute('data-fsize');else document.documentElement.setAttribute('data-fsize',size)};
+(()=>{const saved=localStorage.getItem(FONT_SIZE_KEY)||'normal';applyFontSize(saved)})();
+window.cycleTextSize=()=>{
+    const cur=localStorage.getItem(FONT_SIZE_KEY)||'normal';
+    const next=FONT_SIZES[(FONT_SIZES.indexOf(cur)+1)%FONT_SIZES.length];
+    applyFontSize(next);
+    localStorage.setItem(FONT_SIZE_KEY,next);
+    window.__updateSettingsFont&&window.__updateSettingsFont();
+    window.showNotif(`ขนาดตัวอักษร: ${FONT_LABELS[next]}`);
+};
+window.__updateSettingsFont=()=>{
+    const cur=localStorage.getItem(FONT_SIZE_KEY)||'normal';
+    const badge=document.getElementById('settingsFontBadge');
+    const meta=document.getElementById('settingsFontMeta');
+    if(badge)badge.textContent=FONT_LABELS[cur];
+    if(meta)meta.textContent=`ปัจจุบัน: ${FONT_LABELS[cur]} • กดเพื่อเปลี่ยนขนาด`;
+};
 
 /* PriceRow — expandable pricing with calculation breakdown */
 const PriceRow=({icon,label,result,color,price,base,markup,pid,ch,disc,factor})=>{
@@ -1203,21 +1276,25 @@ salesFetch=async function(){
             if(changed)window.showNotif('มีข้อมูลยอดขายใหม่แล้ว');
         }
     }catch(e){
-        const msg=e.name==='AbortError'?'การเชื่อมต่อใช้เวลานานเกินไป':e.message;
+        const friendlyMsg=e.name==='AbortError'
+            ?'การเชื่อมต่อหมดเวลา กรุณาตรวจสอบสัญญาณ Wi-Fi หรือเน็ตมือถือ แล้วลองใหม่'
+            :(e instanceof TypeError||String(e.message).toLowerCase().includes('fetch'))
+            ?'ไม่สามารถเชื่อมต่ออินเทอร์เน็ตได้ กรุณาตรวจสอบสัญญาณ แล้วกด "ลองใหม่อีกครั้ง"'
+            :'เกิดข้อผิดพลาดในการโหลดข้อมูล กรุณาลองใหม่อีกครั้ง';
         console.error(e);
         if(hasCachedData){
             badge.className='badge badge-ready';
             navBtn.disabled=false;
             salesReady=true;
             setSalesSyncState('error',getCachedSalesUpdatedAt(previous)||new Date().toISOString(),false);
-            window.showNotif('รีเฟรชยอดขายไม่สำเร็จ กำลังใช้ข้อมูลล่าสุด','warn');
+            window.showNotif('รีเฟรชไม่สำเร็จ — กำลังใช้ข้อมูลล่าสุด','warn');
         }else{
-            document.getElementById('salesErrorMsg').textContent=msg;
+            document.getElementById('salesErrorMsg').textContent=friendlyMsg;
             errDiv.classList.remove('hidden');
             badge.className='badge badge-error';
             navBtn.disabled=false;
             salesReady=false;
-            window.showNotif(msg,'error');
+            window.showNotif('เชื่อมต่อไม่สำเร็จ — ตรวจสอบอินเทอร์เน็ต','error');
         }
     }finally{
         clearTimeout(tid);
