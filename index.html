@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th" data-theme="dark">
+<html lang="th" data-theme="dark" data-accent-theme="emerald">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -24,9 +24,10 @@
 --bg-glass:rgba(255,255,255,0.05);--bg-glass-heavy:rgba(255,255,255,0.09);--bg-glass-input:rgba(255,255,255,0.06);
 --border-glass:rgba(255,255,255,0.10);--border-glass-strong:rgba(255,255,255,0.16);
 --text-primary:#f5f5f7;--text-secondary:rgba(255,255,255,0.50);--text-tertiary:rgba(255,255,255,0.25);
---accent:#34d399;--accent-glow:rgba(52,211,153,0.22);--accent-soft:rgba(52,211,153,0.10);
+--accent:#34d399;--accent-glow:rgba(52,211,153,0.22);--accent-soft:rgba(52,211,153,0.10);--accent-border:rgba(52,211,153,0.26);
 --accent2:#818cf8;--accent2-glow:rgba(129,140,248,0.20);
 --danger:#f87171;--danger-soft:rgba(248,113,113,0.10);
+--stock-flat:#e5e7eb;--stock-flat-soft:rgba(229,231,235,0.12);
 --yellow:#fbbf24;--yellow-glow:rgba(251,191,36,0.25);
 --nav-bg:rgba(0,0,0,0.82);
 --thead-bg:rgba(10,10,10,0.97);
@@ -35,19 +36,38 @@
 --plat-tiktok:#FE2C55;--plat-shop:#ffffff;--plat-lazada:#1a36e0}
 
 [data-theme="light"]{
---bg-primary:#f0f0f5;--bg-secondary:#fff;
---bg-glass:rgba(255,255,255,0.60);--bg-glass-heavy:rgba(255,255,255,0.78);--bg-glass-input:rgba(0,0,0,0.03);
---border-glass:rgba(0,0,0,0.06);--border-glass-strong:rgba(0,0,0,0.10);
---text-primary:#1c1c1e;--text-secondary:rgba(0,0,0,0.45);--text-tertiary:rgba(0,0,0,0.22);
---accent:#059669;--accent-glow:rgba(5,150,105,0.18);--accent-soft:rgba(5,150,105,0.07);
---accent2:#6366f1;--accent2-glow:rgba(99,102,241,0.15);
+--bg-primary:#f6f2eb;--bg-secondary:#fffdf8;
+--bg-glass:rgba(255,250,244,0.82);--bg-glass-heavy:rgba(255,252,248,0.94);--bg-glass-input:rgba(118,92,58,0.05);
+--border-glass:rgba(113,87,59,0.10);--border-glass-strong:rgba(113,87,59,0.16);
+--text-primary:#2f241c;--text-secondary:rgba(62,44,28,0.62);--text-tertiary:rgba(62,44,28,0.36);
+--accent:#2f9e7c;--accent-glow:rgba(47,158,124,0.16);--accent-soft:rgba(47,158,124,0.08);--accent-border:rgba(47,158,124,0.20);
+--accent2:#5f7ee8;--accent2-glow:rgba(95,126,232,0.14);
 --danger:#ef4444;--danger-soft:rgba(239,68,68,0.07);
+--stock-flat:#765c3a;--stock-flat-soft:rgba(118,92,58,0.10);
 --yellow:#b45309;--yellow-glow:rgba(180,83,9,0.15);
---nav-bg:rgba(255,255,255,0.82);
---thead-bg:rgba(240,240,245,0.97);
---dropdown-bg:rgba(240,240,245,0.97);--dropdown-hover:rgba(0,0,0,0.04);--dropdown-border:rgba(0,0,0,0.08);
---mesh-1:#059669;--mesh-2:#6366f1;--mesh-3:#0891b2;
+--nav-bg:rgba(255,251,245,0.84);
+--thead-bg:rgba(246,242,235,0.97);
+--dropdown-bg:rgba(255,249,241,0.96);--dropdown-hover:rgba(118,92,58,0.05);--dropdown-border:rgba(113,87,59,0.10);
+--mesh-1:#f0c89e;--mesh-2:#d8e6d2;--mesh-3:#dfe6ff;
 --plat-tiktok:#bf1536;--plat-shop:#000000;--plat-lazada:#0f1dba}
+[data-theme="dark"][data-accent-theme="emerald"]{
+--accent:#34d399;--accent-glow:rgba(52,211,153,0.22);--accent-soft:rgba(52,211,153,0.10);--accent-border:rgba(52,211,153,0.26);
+--mesh-1:#10b981;--mesh-2:#6366f1;--mesh-3:#06b6d4}
+[data-theme="dark"][data-accent-theme="pink"]{
+--accent:#fe81d4;--accent-glow:rgba(254,129,212,0.22);--accent-soft:rgba(254,129,212,0.10);--accent-border:rgba(254,129,212,0.26);
+--mesh-1:#f13e93;--mesh-2:#fe81d4;--mesh-3:#ffb0e4}
+[data-theme="dark"][data-accent-theme="blue"]{
+--accent:#0ac4e0;--accent-glow:rgba(10,196,224,0.22);--accent-soft:rgba(10,196,224,0.10);--accent-border:rgba(10,196,224,0.24);
+--accent2:#5478ff;--accent2-glow:rgba(84,120,255,0.20);--mesh-1:#03aed2;--mesh-2:#5478ff;--mesh-3:#0992c2}
+[data-theme="dark"][data-accent-theme="pistachio"]{
+--accent:#9ab17a;--accent-glow:rgba(154,177,122,0.22);--accent-soft:rgba(154,177,122,0.10);--accent-border:rgba(154,177,122,0.24);
+--mesh-1:#7fb77e;--mesh-2:#9ab17a;--mesh-3:#bfd3a5}
+[data-theme="dark"][data-accent-theme="peach"]{
+--accent:#ff7070;--accent-glow:rgba(255,112,112,0.22);--accent-soft:rgba(255,112,112,0.10);--accent-border:rgba(255,112,112,0.24);
+--mesh-1:#eb4c4c;--mesh-2:#ffa6a6;--mesh-3:#ffedc7}
+[data-theme="dark"][data-accent-theme="violet"]{
+--accent:#ff3f7f;--accent-glow:rgba(255,63,127,0.22);--accent-soft:rgba(255,63,127,0.10);--accent-border:rgba(255,63,127,0.24);
+--accent2:#ffc400;--accent2-glow:rgba(255,196,0,0.20);--mesh-1:#450693;--mesh-2:#8c00ff;--mesh-3:#ffc400}
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{height:100%;overflow:hidden}
@@ -73,6 +93,53 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
 [data-theme="light"] .shine::before{background:linear-gradient(180deg,rgba(255,255,255,0.35) 0%,transparent 100%)}
 .glass-btn{background:var(--bg-glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:.5px solid var(--border-glass);border-radius:14px;padding:10px;color:var(--text-secondary);cursor:pointer;transition:all .2s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;justify-content:center}
 .glass-btn:active{transform:scale(.90);background:var(--bg-glass-heavy);box-shadow:0 0 16px var(--accent-glow)}
+.settings-gear{animation:gearSpin 8s linear infinite;transform-origin:center}
+@keyframes gearSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.settings-gear{animation:none}}
+.settings-tone-wrap{display:flex;flex-direction:column;gap:10px;padding:12px 14px;border-radius:18px;background:var(--bg-glass-input);border:.5px solid var(--border-glass)}
+.settings-tone-wrap.hidden{display:none}
+.settings-tone-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.settings-tone-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.settings-tone-chip{width:100%;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;border:.5px solid var(--border-glass);background:var(--bg-glass);color:var(--text-primary);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.settings-tone-chip:active{transform:scale(.98)}
+.settings-tone-chip[data-active="true"]{border-color:var(--accent-border);box-shadow:0 0 0 1px var(--accent-border),0 8px 20px rgba(0,0,0,.12)}
+.settings-tone-swatch{display:flex;align-items:center;gap:3px;flex-shrink:0}
+.settings-tone-swatch i{display:block;width:8px;height:18px;border-radius:999px}
+.settings-tone-chip small{display:block;font-size:10px;color:var(--text-secondary);margin-top:2px}
+.compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.compare-card{background:var(--bg-glass);border:.5px solid var(--border-glass);border-radius:18px;padding:14px;min-width:0}
+.compare-card.hero{grid-column:1 / -1;padding:16px}
+.compare-card.list{grid-column:1 / -1;padding:12px}
+.compare-card.full{grid-column:1 / -1}
+.compare-icon{width:40px;height:40px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--accent-soft);border:.5px solid var(--accent-border);color:var(--accent);flex-shrink:0}
+.compare-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.compare-title{font-size:13px;font-weight:700;color:var(--text-primary)}
+.compare-meta{font-size:10px;color:var(--text-secondary);margin-top:4px;line-height:1.5}
+.compare-metric{display:flex;flex-direction:column;gap:8px;justify-content:space-between}
+.compare-metric .value{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--text-primary);line-height:1}
+.compare-metric .label{font-size:10px;color:var(--text-secondary)}
+.compare-split{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px}
+.compare-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:10px;font-weight:700}
+.compare-pill.up{background:var(--accent-soft);border:.5px solid var(--accent-border);color:var(--accent)}
+.compare-pill.down{background:var(--danger-soft);border:.5px solid rgba(248,113,113,.22);color:var(--danger)}
+.compare-pill.flat{background:var(--stock-flat-soft);border:.5px solid rgba(229,231,235,.16);color:var(--stock-flat)}
+[data-theme="light"] .compare-pill.flat{border-color:rgba(118,92,58,.18)}
+.compare-list-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.compare-list-title{display:flex;align-items:center;gap:10px;min-width:0}
+.compare-list-title svg{flex-shrink:0}
+.compare-list-body{display:flex;flex-direction:column;gap:8px}
+.compare-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:12px;border-radius:16px;background:var(--bg-glass-input);border:.5px solid var(--border-glass)}
+.compare-row-main{min-width:0}
+.compare-row-main strong{display:block;font-size:12px;font-weight:700;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.compare-row-main span{display:block;font-size:10px;color:var(--text-secondary);margin-top:4px;line-height:1.45}
+.compare-row-delta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.compare-empty{padding:18px;border-radius:16px;background:var(--bg-glass-input);border:.5px dashed var(--border-glass);font-size:11px;line-height:1.6;color:var(--text-secondary)}
+#stockCompareList{scrollbar-width:thin;scrollbar-color:var(--accent-border) transparent}
+#stockCompareList::-webkit-scrollbar{width:8px}
+#stockCompareList::-webkit-scrollbar-track{background:transparent}
+#stockCompareList::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent-soft),rgba(255,255,255,0.06));border:1px solid var(--accent-border);border-radius:999px}
+#stockCompareList::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,var(--accent-border),var(--accent-soft))}
+@media (max-width:420px){.settings-tone-grid,.compare-grid{grid-template-columns:1fr}.compare-card.hero,.compare-card.full{grid-column:auto}.compare-row{grid-template-columns:1fr}.compare-row-delta{justify-content:flex-start}}
 
 /* ═══ SCROLL ═══ */
 .scroll-area{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;scroll-behavior:smooth}
@@ -314,7 +381,7 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
             <button onclick="closeSettingsModal()" style="background:none;border:none;color:var(--text-tertiary);font-size:18px;cursor:pointer;padding:4px;line-height:1">×</button>
         </div>
         <div style="display:flex;flex-direction:column;gap:10px;position:relative;z-index:1">
-            <button onclick="toggleSettingsTheme()" class="glass-btn" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px">
+            <button onclick="toggleSettingsTheme()" class="glass-btn" type="button" aria-label="สลับโหมดมืดและสว่าง" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px">
                 <span style="display:flex;align-items:center;gap:10px">
                     <span id="settingsThemeIcon" style="width:30px;height:30px;border-radius:12px;background:var(--bg-glass-input);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-moon" style="font-size:14px"></i></span>
                     <span style="text-align:left">
@@ -335,6 +402,41 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
                 <span id="settingsPricingDot" class="hidden" style="position:absolute;top:10px;right:34px;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent-glow)"></span>
                 <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-tertiary)"></i>
             </button>
+            <div id="settingsToneWrap" class="settings-tone-wrap hidden" aria-live="polite">
+                <div class="settings-tone-header">
+                    <div>
+                        <div style="font-size:12px;font-weight:700;color:var(--text-primary)">โทนสี Dark Mode</div>
+                        <div id="settingsToneMeta" style="font-size:10px;color:var(--text-secondary);margin-top:3px">เลือกสีเน้นสำหรับค่าบวกและองค์ประกอบหลัก</div>
+                    </div>
+                    <div style="font-size:10px;color:var(--text-tertiary);text-align:right;line-height:1.5">ค่า 0 หรือค่าติดลบจะยังใช้สีแยกเพื่อให้อ่านง่ายบนมือถือ</div>
+                </div>
+                <div class="settings-tone-grid" id="settingsToneGrid">
+                    <button type="button" class="settings-tone-chip" data-tone="emerald" onclick="selectAccentTheme('emerald')" aria-label="เลือกโทนเขียวเดิม">
+                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#10b981"></i><i style="background:#34d399"></i></span>
+                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Emerald</span><small>โทนเดิม</small></span>
+                    </button>
+                    <button type="button" class="settings-tone-chip" data-tone="pink" onclick="selectAccentTheme('pink')" aria-label="เลือกโทนชมพู">
+                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#F13E93"></i><i style="background:#FE81D4"></i></span>
+                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Pink</span><small>#F13E93 / #FE81D4</small></span>
+                    </button>
+                    <button type="button" class="settings-tone-chip" data-tone="blue" onclick="selectAccentTheme('blue')" aria-label="เลือกโทนฟ้า">
+                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#03AED2"></i><i style="background:#5478FF"></i><i style="background:#0AC4E0"></i></span>
+                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Blue</span><small>#03AED2 / #5478FF</small></span>
+                    </button>
+                    <button type="button" class="settings-tone-chip" data-tone="pistachio" onclick="selectAccentTheme('pistachio')" aria-label="เลือกโทนพิสตาชิโอ">
+                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#9AB17A"></i><i style="background:#7FB77E"></i></span>
+                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Pistachio</span><small>#9AB17A / #7FB77E</small></span>
+                    </button>
+                    <button type="button" class="settings-tone-chip" data-tone="peach" onclick="selectAccentTheme('peach')" aria-label="เลือกโทนพีช">
+                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#EB4C4C"></i><i style="background:#FF7070"></i><i style="background:#FFA6A6"></i></span>
+                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Peach</span><small>#EB4C4C / #FF7070</small></span>
+                    </button>
+                    <button type="button" class="settings-tone-chip" data-tone="violet" onclick="selectAccentTheme('violet')" aria-label="เลือกโทนม่วง">
+                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#450693"></i><i style="background:#8C00FF"></i><i style="background:#FF3F7F"></i><i style="background:#FFC400"></i></span>
+                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Violet</span><small>#8C00FF / #FF3F7F</small></span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -407,7 +509,7 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
                     </div>
                 </div>
                 <div style="display:flex;gap:6px">
-                    <button onclick="openSettingsModal()" class="glass-btn" id="salesSettingsBtn" type="button" aria-label="เปิดการตั้งค่า" style="width:40px;height:40px;position:relative"><i class="fa-solid fa-sliders" aria-hidden="true" style="font-size:14px"></i><span id="salesSettingsDot" class="hidden" style="position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent-glow)"></span></button>
+                    <button onclick="openSettingsModal()" class="glass-btn" id="salesSettingsBtn" type="button" aria-label="เปิดการตั้งค่า" style="width:40px;height:40px;position:relative"><i class="fa-solid fa-gear settings-gear" aria-hidden="true" style="font-size:14px"></i><span id="salesSettingsDot" class="hidden" style="position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent-glow)"></span></button>
                     <button onclick="salesFetch()" class="glass-btn" type="button" aria-label="รีเฟรชข้อมูลยอดขาย" style="width:40px;height:40px"><i class="fa-solid fa-arrows-rotate" aria-hidden="true" style="font-size:14px"></i></button>
                 </div>
             </div>
@@ -445,7 +547,7 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
                 <div class="s-pill"><div class="lbl">ยอดขาย</div><div class="val mono" id="totalRev" style="color:var(--accent)">0.00</div><div class="unit">บาท</div></div>
                 <div class="s-pill"><div class="lbl">สินค้า</div><div class="val mono" id="totalQty" style="color:var(--accent2)">0</div><div class="unit">ชิ้น</div></div>
-                <div class="s-pill"><div class="lbl">บิล</div><div class="val mono" id="totalTrans" style="color:#22c55e">0</div><div class="unit">รายการ</div></div>
+                <div class="s-pill"><div class="lbl">บิล</div><div class="val mono" id="totalTrans" style="color:var(--accent)">0</div><div class="unit">รายการ</div></div>
             </div>
             <!-- Platform Breakdown -->
             <div id="platBreakdown" class="hidden" style="display:none">
@@ -541,6 +643,17 @@ const sameJson=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const normalizeStockRows=data=>data.map((r,i)=>({id:r['P_SystemID']||`ID-${i}`,name:r['P_Name']||'Unknown',cost:r['P_EstimateCost']||0,price:r['P_RetailPrice1_1']||0,in:r['P_ReceiveOrder_In']||0,out:r['P_SaleOrder_Out']||0,createTime:r['P_CreateTime']||'-',updateTime:r['P_UpdateTime']||'-'})).filter(x=>x.name!=='Unknown');
 const getPricingSettings=()=>({discPct:Number(localStorage.getItem('ts_disc')??58),shopMkup:Number(localStorage.getItem('ts_mk_shop')??25),onlineMkup:Number(localStorage.getItem('ts_mk_online')??35)});
 const pricingIsCustom=({discPct,shopMkup,onlineMkup})=>discPct!==58||shopMkup!==25||onlineMkup!==35;
+const ACCENT_THEME_KEY='ts_dark_accent_theme';
+const DARK_ACCENT_THEMES={
+    emerald:{label:'Emerald',meta:'โทนเขียวเดิม'},
+    pink:{label:'Pink',meta:'ชมพูสดตัดดำชัด'},
+    blue:{label:'Blue',meta:'ฟ้านิ่งอ่านง่าย'},
+    pistachio:{label:'Pistachio',meta:'เขียวอ่อนสบายตา'},
+    peach:{label:'Peach',meta:'ส้มชมพูคอนทราสต์สูง'},
+    violet:{label:'Violet',meta:'ม่วงสดพร้อมไฮไลต์'}
+};
+const getAccentTheme=()=>{const saved=localStorage.getItem(ACCENT_THEME_KEY)||'emerald';return DARK_ACCENT_THEMES[saved]?saved:'emerald'};
+const applyAccentTheme=theme=>{const resolved=DARK_ACCENT_THEMES[theme]?theme:'emerald';document.documentElement.setAttribute('data-accent-theme',resolved);return resolved};
 const STOCK_COMPARE_DB='ts_stock_compare_db_v1';
 const STOCK_COMPARE_STORE='kv';
 const defaultStockCompareState=()=>({seq:0,previous:null,current:null});
@@ -557,18 +670,21 @@ const syncStockCompareState=(state,items,updatedAt)=>{const snapshot=buildStockC
 const commitStockCompareState=(state,items,updatedAt)=>{const snapshot=buildStockCompareSnapshot(items,updatedAt);if(!snapshot)return state&&typeof state==='object'?state:defaultStockCompareState();const base=state&&typeof state==='object'?state:defaultStockCompareState();if(!base.current)return{seq:1,previous:null,current:{id:stockCompareId(1),...snapshot,cachedAt:new Date().toISOString()}};if(base.current.signature===snapshot.signature){if(updatedAt&&base.current.updatedAt!==updatedAt)return{...base,current:{...base.current,updatedAt}};return base}const nextSeq=(base.seq||0)+1;return{seq:nextSeq,previous:{...base.current},current:{id:stockCompareId(nextSeq),...snapshot,cachedAt:new Date().toISOString()}}};
 const getStockCompareDiff=state=>{if(!state?.previous||!state?.current)return{count:0,items:[],plusTotal:0,minusTotal:0};const previous=state.previous.lineTotals||{},current=state.current.lineTotals||{};const keys=new Set([...Object.keys(previous),...Object.keys(current)]);const byProduct=new Map();keys.forEach(key=>{const prevQty=stockCompareNumber(previous[key]?.quantity||0),currQty=stockCompareNumber(current[key]?.quantity||0);if(prevQty===currQty)return;const productName=current[key]?.productName||previous[key]?.productName||'ไม่ระบุสินค้า';if(!byProduct.has(productName))byProduct.set(productName,{productName,plus:0,minus:0});const row=byProduct.get(productName);if(currQty>prevQty)row.plus=stockCompareNumber(row.plus+(currQty-prevQty));else row.minus=stockCompareNumber(row.minus+(prevQty-currQty))});const items=Array.from(byProduct.values()).sort((a,b)=>{const aMag=Math.max(a.plus,a.minus),bMag=Math.max(b.plus,b.minus);return bMag-aMag||a.productName.localeCompare(b.productName,'th')});return{count:items.length,items,plusTotal:items.reduce((sum,item)=>stockCompareNumber(sum+item.plus),0),minusTotal:items.reduce((sum,item)=>stockCompareNumber(sum+item.minus),0)}};
 
-window.toggleGlobalTheme=()=>{const c=document.documentElement.getAttribute('data-theme');const n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('ts_dark',JSON.stringify(n==='dark'))};
-window.__updateSalesThemeBtn=isDk=>{const icon=document.getElementById('settingsThemeIcon');const meta=document.getElementById('settingsThemeMeta');if(icon)icon.innerHTML=isDk?'<i class="fa-solid fa-moon" style="font-size:14px"></i>':'<i class="fa-solid fa-sun" style="font-size:14px"></i>';if(meta)meta.textContent=isDk?'ตอนนี้เป็น Dark Mode':'ตอนนี้เป็น Light Mode'};
+window.toggleGlobalTheme=()=>{const c=document.documentElement.getAttribute('data-theme');const n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('ts_dark',JSON.stringify(n==='dark'));if(n==='dark')applyAccentTheme(getAccentTheme());window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions()};
+window.selectAccentTheme=theme=>{const resolved=applyAccentTheme(theme);localStorage.setItem(ACCENT_THEME_KEY,resolved);window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions();if(document.documentElement.getAttribute('data-theme')==='dark')window.showNotif(`เปลี่ยนโทนสีเป็น ${DARK_ACCENT_THEMES[resolved].label}`)};
+window.__updateSalesThemeBtn=isDk=>{const icon=document.getElementById('settingsThemeIcon');const meta=document.getElementById('settingsThemeMeta');const toneMeta=document.getElementById('settingsToneMeta');const tone=getAccentTheme();if(icon)icon.innerHTML=isDk?'<i class="fa-solid fa-moon" style="font-size:14px"></i>':'<i class="fa-solid fa-sun" style="font-size:14px"></i>';if(meta)meta.textContent=isDk?'ตอนนี้เป็น Dark Mode':'ตอนนี้เป็น Light Mode';if(toneMeta)toneMeta.textContent=isDk?`โทนปัจจุบัน: ${DARK_ACCENT_THEMES[tone].label} • เลือกสีเน้นสำหรับค่าบวกและองค์ประกอบหลัก`:'รายการโทนสีจะเปิดให้เลือกเมื่อใช้ Dark Mode'};
+window.__updateSettingsThemeOptions=()=>{const isDark=document.documentElement.getAttribute('data-theme')==='dark';const tone=getAccentTheme();const wrap=document.getElementById('settingsToneWrap');if(wrap)wrap.classList.toggle('hidden',!isDark);document.querySelectorAll('#settingsToneGrid .settings-tone-chip').forEach(btn=>btn.setAttribute('data-active',String(btn.dataset.tone===tone)));window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(isDark)};
 window.__updateSettingsPricing=()=>{const s=getPricingSettings();const meta=document.getElementById('settingsPricingMeta');const dot=document.getElementById('settingsPricingDot');const salesDot=document.getElementById('salesSettingsDot');if(meta)meta.textContent=`ส่วนลด ${s.discPct}% / หน้าร้าน ${s.shopMkup}% / ออนไลน์ ${s.onlineMkup}%`;[dot,salesDot].forEach(el=>{if(!el)return;el.classList.toggle('hidden',!pricingIsCustom(s))})};
-window.openSettingsModal=()=>{const ov=document.getElementById('settingsOverlay'),card=document.getElementById('settingsCard');window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(document.documentElement.getAttribute('data-theme')==='dark');window.__updateSettingsPricing&&window.__updateSettingsPricing();ov.classList.remove('hidden','exiting');card.classList.remove('exiting');void ov.offsetWidth;ov.classList.add('entering');card.classList.add('entering')};
+window.openSettingsModal=()=>{const ov=document.getElementById('settingsOverlay'),card=document.getElementById('settingsCard');window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(document.documentElement.getAttribute('data-theme')==='dark');window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions();window.__updateSettingsPricing&&window.__updateSettingsPricing();ov.classList.remove('hidden','exiting');card.classList.remove('exiting');void ov.offsetWidth;ov.classList.add('entering');card.classList.add('entering')};
 window.closeSettingsModal=()=>{const ov=document.getElementById('settingsOverlay'),card=document.getElementById('settingsCard');ov.classList.remove('entering');card.classList.remove('entering');ov.classList.add('exiting');card.classList.add('exiting');setTimeout(()=>{ov.classList.add('hidden');ov.classList.remove('exiting');card.classList.remove('exiting')},220)};
-window.toggleSettingsTheme=()=>{window.toggleGlobalTheme();window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(document.documentElement.getAttribute('data-theme')==='dark')};
+window.toggleSettingsTheme=()=>{window.toggleGlobalTheme();window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions()};
 window.openPricingModalFromSettings=()=>{closeSettingsModal();openPricingModal()};
 window.openPricingModal=()=>{const s=getPricingSettings();document.getElementById('pricingDiscInput').value=String(s.discPct);document.getElementById('pricingShopInput').value=String(s.shopMkup);document.getElementById('pricingOnlineInput').value=String(s.onlineMkup);const ov=document.getElementById('pricingOverlay'),card=document.getElementById('pricingCard');ov.classList.remove('hidden','exiting');card.classList.remove('exiting');void ov.offsetWidth;ov.classList.add('entering');card.classList.add('entering')};
 window.closePricingModal=()=>{const ov=document.getElementById('pricingOverlay'),card=document.getElementById('pricingCard');ov.classList.remove('entering');card.classList.remove('entering');ov.classList.add('exiting');card.classList.add('exiting');setTimeout(()=>{ov.classList.add('hidden');ov.classList.remove('exiting');card.classList.remove('exiting')},220)};
 window.saveGlobalPricingSettings=()=>{const vd=parseFloat(document.getElementById('pricingDiscInput').value),vs=parseFloat(document.getElementById('pricingShopInput').value),vo=parseFloat(document.getElementById('pricingOnlineInput').value);if(isNaN(vd)||vd<0||vd>99){window.showNotif('ส่วนลด: ใส่ 0-99','error');return}if(isNaN(vs)||vs<0||vs>999){window.showNotif('หน้าร้าน: ใส่ 0-999','error');return}if(isNaN(vo)||vo<0||vo>999){window.showNotif('TikTok/Shopee: ใส่ 0-999','error');return}localStorage.setItem('ts_disc',String(vd));localStorage.setItem('ts_mk_shop',String(vs));localStorage.setItem('ts_mk_online',String(vo));window.dispatchEvent(new CustomEvent('ts:pricing-updated',{detail:{discPct:vd,shopMkup:vs,onlineMkup:vo}}));window.__updateSettingsPricing&&window.__updateSettingsPricing();closePricingModal();window.showNotif('บันทึกโครงสร้างราคาแล้ว')};
 window.resetGlobalPricingSettings=()=>{document.getElementById('pricingDiscInput').value='58';document.getElementById('pricingShopInput').value='25';document.getElementById('pricingOnlineInput').value='35';localStorage.setItem('ts_disc','58');localStorage.setItem('ts_mk_shop','25');localStorage.setItem('ts_mk_online','35');window.dispatchEvent(new CustomEvent('ts:pricing-updated',{detail:{discPct:58,shopMkup:25,onlineMkup:35}}));window.__updateSettingsPricing&&window.__updateSettingsPricing();closePricingModal();window.showNotif('รีเซ็ตค่าทั้งหมด')};
 window.showNotif=(msg,type='success')=>{const a=document.getElementById('notifArea');const w=document.createElement('div');w.className='notif-wrap';const n=document.createElement('div');n.className='notif';const clr=type==='success'?'var(--accent)':type==='error'?'var(--danger)':'#fbbf24';const dot=document.createElement('div');dot.className='notif-dot';dot.style.background=clr;dot.style.boxShadow=`0 0 8px ${clr}`;const text=document.createElement('div');text.className='notif-text';text.textContent=String(msg??'');n.appendChild(dot);n.appendChild(text);w.appendChild(n);a.appendChild(w);setTimeout(()=>{n.classList.add('exit');setTimeout(()=>w.remove(),300)},3000)};
+applyAccentTheme(getAccentTheme());
 
 /* PriceRow — expandable pricing with calculation breakdown */
 const PriceRow=({icon,label,result,color,price,base,markup,pid,ch,disc,factor})=>{
@@ -673,8 +789,8 @@ const App=()=>{
         },260);
     };
 
-    useEffect(()=>{document.documentElement.setAttribute('data-theme',dark?'dark':'light');localStorage.setItem('ts_dark',JSON.stringify(dark));window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(dark)},[dark]);
-    useEffect(()=>{const obs=new MutationObserver(()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';setDark(d);window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(d)});obs.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});return()=>obs.disconnect()},[]);
+    useEffect(()=>{document.documentElement.setAttribute('data-theme',dark?'dark':'light');localStorage.setItem('ts_dark',JSON.stringify(dark));window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(dark);window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions()},[dark]);
+    useEffect(()=>{const obs=new MutationObserver(()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';setDark(d);window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(d);window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions()});obs.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme','data-accent-theme']});return()=>obs.disconnect()},[]);
     useEffect(()=>{const syncPricing=e=>{const detail=e.detail||{};if(typeof detail.discPct==='number')setDiscPct(detail.discPct);if(typeof detail.shopMkup==='number')setShopMkup(detail.shopMkup);if(typeof detail.onlineMkup==='number')setOnlineMkup(detail.onlineMkup);window.__updateSettingsPricing&&window.__updateSettingsPricing()};window.addEventListener('ts:pricing-updated',syncPricing);window.__updateSettingsPricing&&window.__updateSettingsPricing();return()=>window.removeEventListener('ts:pricing-updated',syncPricing)},[]);
     useEffect(()=>{let cancelled=false;(async()=>{await loadStockCompareState();if(cancelled)return;const cached=readCache(STOCK_CACHE_KEY);if(cached?.items?.length){setItems(cached.items);setUpdated(cached.updatedAt?new Date(cached.updatedAt):null);setLoading(false);setStockSync({mode:'cached',cachedAt:cached.updatedAt||cached.cachedAt||null,refreshing:true});await syncStockCompareFromCache(cached.items,cached.updatedAt||cached.cachedAt||null);if(cancelled)return}refreshStock(Boolean(cached?.items?.length));window.__salesFetch&&window.__salesFetch()})().catch(()=>{const cached=readCache(STOCK_CACHE_KEY);if(cached?.items?.length){setItems(cached.items);setUpdated(cached.updatedAt?new Date(cached.updatedAt):null);setLoading(false);setStockSync({mode:'cached',cachedAt:cached.updatedAt||cached.cachedAt||null,refreshing:true})}refreshStock(Boolean(cached?.items?.length));window.__salesFetch&&window.__salesFetch()});return()=>{cancelled=true}},[]);
     useEffect(()=>{if(stockCompareModal==='hidden')return;const tid=setTimeout(()=>{if(stockCompareCloseRef.current)stockCompareCloseRef.current.focus()},20);return()=>clearTimeout(tid)},[stockCompareModal]);
@@ -717,6 +833,9 @@ const App=()=>{
     const stockCompareMeta=!stockCompareState.current?'ยังไม่พบข้อมูลแคชสต็อก':!stockCompareState.previous?`มีเพียง Cache ${stockCompareState.current.id}`:`Cache ${stockCompareState.previous.id} -> Cache ${stockCompareState.current.id}`;
     const stockCompareSummary=!stockCompareState.current?'รอข้อมูลสต็อกชุดแรกก่อน':!stockCompareState.previous?'ยังมีแคชชุดเดียว':stockCompareDiff.count>0?`มี ${stockCompareDiff.count.toLocaleString('th-TH')} รายการเปลี่ยนแปลง`:'ไม่มีรายการเปลี่ยนแปลง';
     const stockCompareWindow=!stockCompareState.current?'เมื่อมีแคชชุดล่าสุดแล้ว ระบบจะเริ่มเตรียมฐานสำหรับเปรียบเทียบอัตโนมัติ':!stockCompareState.previous?`Cache ${stockCompareState.current.id} • ${fmt24(stockCompareState.current.updatedAt)}`:`${fmt24(stockCompareState.previous.updatedAt)} -> ${fmt24(stockCompareState.current.updatedAt)}${stockCompareDiff.count>0?` • เพิ่ม ${stockCompareText(stockCompareDiff.plusTotal)} / ลด ${stockCompareText(stockCompareDiff.minusTotal)}`:''}`;
+    const stockCompareGroups=useMemo(()=>{const groups={mixed:[],up:[],down:[]};stockCompareDiff.items.forEach(item=>{if(item.plus>0&&item.minus>0)groups.mixed.push(item);else if(item.plus>0)groups.up.push(item);else groups.down.push(item)});return groups},[stockCompareDiff]);
+    const stockCompareCards=[{key:'up',title:'สินค้าเพิ่มขึ้น',note:'ของเข้าเพิ่มหรือขายออกลดลง',items:stockCompareGroups.up,tone:'var(--accent)'},{key:'down',title:'สินค้าลดลง',note:'ของออกมากกว่ารอบก่อน',items:stockCompareGroups.down,tone:'var(--danger)'},{key:'mixed',title:'เพิ่มและลดในสินค้าเดียวกัน',note:'มีทั้งบวกและลบภายในสินค้าเดียว',items:stockCompareGroups.mixed,tone:'var(--accent2)'}];
+    const renderCompareGlyph=(kind,color)=>{const common={width:18,height:18,viewBox:'0 0 24 24',fill:'none',stroke:color,strokeWidth:'1.8',strokeLinecap:'round',strokeLinejoin:'round','aria-hidden':'true'};if(kind==='up')return<svg {...common}><path d="M12 19V5"/><path d="M6.5 10.5 12 5l5.5 5.5"/><path d="M5 19h14"/></svg>;if(kind==='down')return<svg {...common}><path d="M12 5v14"/><path d="M6.5 13.5 12 19l5.5-5.5"/><path d="M5 5h14"/></svg>;if(kind==='mixed')return<svg {...common}><path d="M7 7h6a4 4 0 0 1 4 4v6"/><path d="M17 17h-6a4 4 0 0 1-4-4V7"/><path d="m14 6 3 3 3-3"/><path d="m10 18-3-3-3 3"/></svg>;return<svg {...common}><rect x="4" y="5" width="16" height="14" rx="4"/><path d="M8 10h8"/><path d="M8 14h5"/></svg>};
 
     return(
         <div style={{height:'100%',display:'flex',flexDirection:'column',color:'var(--text-primary)',position:'relative',overflow:'hidden'}}>
@@ -771,15 +890,36 @@ const App=()=>{
                         </div>
                         <button ref={stockCompareCloseRef} type="button" aria-label="ปิดหน้าต่างเปรียบเทียบแคชสต็อก" onClick={closeStockCompareModal} style={{background:'none',border:'none',color:'var(--text-tertiary)',fontSize:18,cursor:'pointer',padding:4,lineHeight:1}}>×</button>
                     </div>
-                    <div className="lg" style={{padding:'12px 14px',borderRadius:16,marginBottom:12,position:'relative',zIndex:1}}>
-                        <div id="stockCompareSummary" style={{fontSize:13,fontWeight:700,color:'var(--text-primary)'}}>{stockCompareSummary}</div>
-                        <div id="stockCompareWindow" className="mono" style={{fontSize:10,color:'var(--text-tertiary)',marginTop:4}}>{stockCompareWindow}</div>
-                    </div>
-                    <div id="stockCompareList" style={{display:'flex',flexDirection:'column',gap:8,maxHeight:'min(52dvh,420px)',overflowY:'auto',paddingRight:2,position:'relative',zIndex:1}}>
-                        {!stockCompareState.current&&<div className="lg" style={{padding:16,borderRadius:16,fontSize:12,color:'var(--text-secondary)',lineHeight:1.6}}>เปิดหน้า stock ให้โหลดข้อมูลสำเร็จก่อน จากนั้นการรีเฟรชครั้งถัดไปจะเริ่มเทียบความเปลี่ยนแปลงให้ทันที</div>}
-                        {stockCompareState.current&&!stockCompareState.previous&&<div className="lg" style={{padding:16,borderRadius:16,fontSize:12,color:'var(--text-secondary)',lineHeight:1.6}}>เมื่อข้อมูลสต็อกรอบถัดไปมาและไม่เหมือนเดิม ระบบจะเก็บ Cache ใหม่แล้วเริ่มสรุปรายการที่เปลี่ยนให้โดยอัตโนมัติ</div>}
-                        {stockCompareState.previous&&stockCompareDiff.count===0&&<div className="lg" style={{padding:16,borderRadius:16,fontSize:12,color:'var(--text-secondary)',lineHeight:1.6}}>ข้อมูลระหว่างสองแคชล่าสุดยังเหมือนกันทั้งหมด ระบบจึงยังไม่พบสินค้าที่ต้องรายงาน</div>}
-                        {stockCompareState.previous&&stockCompareDiff.items.map(item=><div key={item.productName} className="lg" style={{padding:'12px 14px',borderRadius:16,display:'flex',alignItems:'flex-start',justifyContent:'space-between',gap:10}}>
+                    <div id="stockCompareList" className="compare-grid" style={{maxHeight:'min(58dvh,500px)',overflowY:'auto',paddingRight:2,position:'relative',zIndex:1}}>
+                        <div className="compare-card hero shine">
+                            <div className="compare-head">
+                                <div style={{minWidth:0}}>
+                                    <div id="stockCompareSummary" className="compare-title">{stockCompareSummary}</div>
+                                    <div id="stockCompareWindow" className="compare-meta mono">{stockCompareWindow}</div>
+                                </div>
+                                <div className="compare-icon">{renderCompareGlyph('summary','var(--accent)')}</div>
+                            </div>
+                            <div className="compare-split">
+                                <span className="compare-pill up">{`เพิ่ม ${stockCompareText(stockCompareDiff.plusTotal)}`}</span>
+                                <span className="compare-pill down">{`ลด ${stockCompareText(stockCompareDiff.minusTotal)}`}</span>
+                                <span className="compare-pill flat">{`Cache ${stockCompareState.previous?.id||'--'} -> ${stockCompareState.current?.id||'--'}`}</span>
+                            </div>
+                        </div>
+                        <div className="compare-card compare-metric">
+                            <span className="label">รายการที่เปลี่ยน</span>
+                            <span className="value">{stockCompareDiff.count.toLocaleString('th-TH')}</span>
+                            <span className="label">สินค้าที่พบความต่างระหว่างสองแคชล่าสุด</span>
+                        </div>
+                        <div className="compare-card compare-metric">
+                            <span className="label">จำนวนแถวในแคชล่าสุด</span>
+                            <span className="value">{(stockCompareState.current?.totalRows||0).toLocaleString('th-TH')}</span>
+                            <span className="label">ใช้เทียบกับ Cache ปัจจุบัน</span>
+                        </div>
+                        {!stockCompareState.current&&<div className="compare-card full"><div className="compare-empty">เปิดหน้า stock ให้โหลดข้อมูลสำเร็จก่อน จากนั้นระบบจะเก็บ Cache ล่าสุดไว้และเริ่มเทียบให้อัตโนมัติเมื่อมีข้อมูลรอบใหม่</div></div>}
+                        {false&&!stockCompareState.current&&<div className="lg" style={{padding:16,borderRadius:16,fontSize:12,color:'var(--text-secondary)',lineHeight:1.6}}>เปิดหน้า stock ให้โหลดข้อมูลสำเร็จก่อน จากนั้นการรีเฟรชครั้งถัดไปจะเริ่มเทียบความเปลี่ยนแปลงให้ทันที</div>}
+                        {stockCompareState.current&&!stockCompareState.previous&&<div className="compare-card full"><div className="compare-empty">ตอนนี้มี Cache ล่าสุดเพียงชุดเดียว เมื่อรอบถัดไปมีข้อมูลใหม่ ระบบจะสร้าง Cache ใหม่และเริ่มสรุปความเปลี่ยนแปลงให้ทันที</div></div>}
+                        {stockCompareState.previous&&stockCompareDiff.count===0&&<div className="compare-card full"><div className="compare-empty">สองแคชล่าสุดยังให้ผลเหมือนกันทั้งหมด จึงยังไม่มีรายการที่ต้องรายงานในรอบนี้</div></div>}
+                        {false&&stockCompareState.previous&&stockCompareDiff.items.map(item=><div key={item.productName} className="lg" style={{padding:'12px 14px',borderRadius:16,display:'flex',alignItems:'flex-start',justifyContent:'space-between',gap:10}}>
                             <div style={{flex:1,minWidth:0}}>
                                 <div style={{fontSize:12,fontWeight:600,color:'var(--text-primary)',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{item.productName}</div>
                                 <div style={{fontSize:10,color:'var(--text-secondary)',marginTop:4}}>{item.plus>0&&item.minus>0?'มีทั้งจำนวนเพิ่มและลดระหว่างสองแคช':item.plus>0?'พบจำนวนคงเหลือเพิ่มขึ้นจากแคชก่อนหน้า':'พบจำนวนคงเหลือลดลงจากแคชก่อนหน้า'}</div>
@@ -788,6 +928,28 @@ const App=()=>{
                                 {item.plus>0&&<span className="mono" style={{display:'inline-flex',alignItems:'center',justifyContent:'center',padding:'6px 8px',borderRadius:999,background:'rgba(34,197,94,.14)',border:'.5px solid rgba(34,197,94,.24)',color:'#22c55e',fontSize:10,fontWeight:700}}>{`+${stockCompareText(item.plus)}`}</span>}
                                 {item.minus>0&&<span className="mono" style={{display:'inline-flex',alignItems:'center',justifyContent:'center',padding:'6px 8px',borderRadius:999,background:'rgba(248,113,113,.14)',border:'.5px solid rgba(248,113,113,.24)',color:'var(--danger)',fontSize:10,fontWeight:700}}>{`-${stockCompareText(item.minus)}`}</span>}
                             </div>
+                        </div>)}
+                        {stockCompareState.previous&&stockCompareCards.map(card=><div key={card.key} className={`compare-card list ${card.items.length?'':'full'}`}>
+                            <div className="compare-list-head">
+                                <div className="compare-list-title">
+                                    <span className="compare-icon" style={{width:36,height:36,borderRadius:12,background:'var(--bg-glass-input)',borderColor:'var(--border-glass)',color:card.tone}}>{renderCompareGlyph(card.key,card.tone)}</span>
+                                    <div style={{minWidth:0}}>
+                                        <div className="compare-title" style={{fontSize:12}}>{card.title}</div>
+                                        <div className="compare-meta" style={{marginTop:2}}>{card.note}</div>
+                                    </div>
+                                </div>
+                                <span className="compare-pill flat">{card.items.length.toLocaleString('th-TH')}</span>
+                            </div>
+                            {card.items.length===0?<div className="compare-empty">ยังไม่มีรายการในหมวดนี้</div>:<div className="compare-list-body">{card.items.map(item=><div key={`${card.key}-${item.productName}`} className="compare-row">
+                                <div className="compare-row-main">
+                                    <strong>{item.productName}</strong>
+                                    <span>{item.plus>0&&item.minus>0?'มีการขยับทั้งบวกและลบในสินค้าเดียวกัน':item.plus>0?'ยอดคงเหลือเพิ่มขึ้นจากแคชก่อนหน้า':'ยอดคงเหลือลดลงจากแคชก่อนหน้า'}</span>
+                                </div>
+                                <div className="compare-row-delta">
+                                    {item.plus>0&&<span className="compare-pill up mono">{`+${stockCompareText(item.plus)}`}</span>}
+                                    {item.minus>0&&<span className="compare-pill down mono">{`-${stockCompareText(item.minus)}`}</span>}
+                                </div>
+                            </div>)}</div>}
                         </div>)}
                     </div>
                 </div>
@@ -804,9 +966,9 @@ const App=()=>{
                             <button onClick={()=>setCopyMode(!copyMode)} className="glass-btn" style={{width:40,height:40,position:'relative',borderColor:copyMode?'rgba(99,102,241,.5)':'var(--border-glass)',boxShadow:copyMode?'0 0 12px rgba(99,102,241,.4), inset 0 0 8px rgba(99,102,241,.15)':'none'}}><i className="fa-solid fa-copy" style={{fontSize:14,color:copyMode?'#818cf8':'var(--text-secondary)'}}></i></button>
                             <button id="stockCompareBtn" ref={stockCompareTriggerRef} onClick={openStockCompareModal} className="glass-btn" type="button" aria-label="เปรียบเทียบความเปลี่ยนแปลงของข้อมูลสต็อก" title={stockCompareButtonTitle} disabled={!stockCompareHasCurrent} style={{width:40,height:40,position:'relative',opacity:stockCompareHasCurrent?1:.6,cursor:stockCompareHasCurrent?'pointer':'default'}}>
                                 <i className="fa-solid fa-arrow-right-arrow-left" style={{fontSize:13}}></i>
-                                {stockCompareDiff.count>0&&<span id="stockCompareCount" className="mono" style={{position:'absolute',top:3,right:3,minWidth:16,height:16,padding:'0 4px',borderRadius:999,background:'rgba(34,197,94,.16)',border:'.5px solid rgba(34,197,94,.24)',color:'#22c55e',fontSize:9,fontWeight:700,display:'flex',alignItems:'center',justifyContent:'center'}}>{stockCompareDiff.count>99?'99+':stockCompareDiff.count}</span>}
+                                {stockCompareDiff.count>0&&<span id="stockCompareCount" className="mono" style={{position:'absolute',top:3,right:3,minWidth:16,height:16,padding:'0 4px',borderRadius:999,background:'var(--accent-soft)',border:'.5px solid var(--accent-border)',color:'var(--accent)',fontSize:9,fontWeight:700,display:'flex',alignItems:'center',justifyContent:'center'}}>{stockCompareDiff.count>99?'99+':stockCompareDiff.count}</span>}
                             </button>
-                            <button onClick={()=>window.openSettingsModal&&window.openSettingsModal()} className="glass-btn" style={{width:40,height:40,position:'relative'}}><i className="fa-solid fa-sliders" style={{fontSize:14}}></i>{(discPct!==58||shopMkup!==25||onlineMkup!==35)&&<div style={{position:'absolute',top:4,right:4,width:6,height:6,borderRadius:'50%',background:'var(--accent)',boxShadow:'0 0 6px var(--accent-glow)'}}></div>}</button>
+                            <button onClick={()=>window.openSettingsModal&&window.openSettingsModal()} className="glass-btn" type="button" aria-label="เปิดการตั้งค่า" style={{width:40,height:40,position:'relative'}}><i className="fa-solid fa-gear settings-gear" style={{fontSize:14}}></i>{(discPct!==58||shopMkup!==25||onlineMkup!==35)&&<div style={{position:'absolute',top:4,right:4,width:6,height:6,borderRadius:'50%',background:'var(--accent)',boxShadow:'0 0 6px var(--accent-glow)'}}></div>}</button>
                             <button onClick={nextSort} className="glass-btn" style={{width:40,height:40}}><i className="fa-solid fa-arrow-down-wide-short" style={{fontSize:14}}></i></button>
                             <button onClick={()=>refreshStock(items.length>0)} className="glass-btn" style={{width:40,height:40}}><i className={`fa-solid fa-arrows-rotate ${loading?'fa-spin':''}`} style={{fontSize:14}}></i></button>
                         </div>
@@ -830,7 +992,7 @@ const App=()=>{
             <div className="scroll-area" style={{flex:1,padding:'8px 10px 100px',position:'relative',zIndex:1}}>
                 {err?(<div style={{padding:24,textAlign:'center',color:'var(--danger)',background:'var(--danger-soft)',backdropFilter:'blur(30px)',borderRadius:20,margin:8,border:'.5px solid rgba(248,113,113,.12)'}}>{err}<br/><button onClick={()=>refreshStock(items.length>0)} style={{marginTop:10,padding:'8px 20px',borderRadius:14,border:'.5px solid var(--border-glass)',background:'var(--bg-glass)',backdropFilter:'blur(20px)',color:'var(--accent)',fontFamily:'inherit',fontSize:12,fontWeight:600,cursor:'pointer'}}>ลองใหม่</button></div>):(
                     <div style={{display:'flex',flexDirection:'column',gap:6}}>
-                        {filtered.map((p,i)=>{const s=stock(p);const isExp=expanded===p.id;const clr=s>0?'var(--accent)':'var(--danger)';
+                        {filtered.map((p,i)=>{const s=stock(p);const isExp=expanded===p.id;const clr=s>0?'var(--accent)':s===0?'var(--stock-flat)':'var(--danger)';
                             return(<div key={p.id} onClick={(e)=>{if(copyMode){e.stopPropagation();navigator.clipboard.writeText(p.name).then(()=>window.showNotif(`คัดลอก "${p.name}"`)).catch(()=>window.showNotif('คัดลอกไม่สำเร็จ','error'));return}setExpanded(isExp?null:p.id)}} style={{animationDelay:`${i*0.025}s`}} className={`stock-card anim-item ${isExp?'expanded':''}`}>
                                 <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'14px 16px'}}>
                                     <div style={{display:'flex',alignItems:'center',gap:12,flex:1,minWidth:0}}><div className="dot-glow" style={{width:8,height:8,borderRadius:'50%',background:clr,flexShrink:0,'--glow-c':clr}}></div><div style={{overflow:'hidden'}}><div style={{fontSize:15,fontWeight:600,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{p.name}</div>{isExp&&<div className="mono anim-slide" style={{fontSize:10,color:'var(--text-tertiary)',marginTop:2}}>{p.id}</div>}</div></div>
@@ -844,7 +1006,7 @@ const App=()=>{
                                             <div className="lg anim-slide" style={{padding:'10px 12px',textAlign:'center',borderRadius:14,animationDelay:'.1s'}}><div style={{fontSize:9,fontWeight:700,textTransform:'uppercase',letterSpacing:'.5px',color:'var(--text-tertiary)'}}>ต้นทุน</div><div className="mono" style={{fontSize:15,fontWeight:700,marginTop:4}}>{fmtM(p.cost)}</div></div>
                                             <div className="lg anim-slide" style={{padding:'10px 12px',textAlign:'center',borderRadius:14,animationDelay:'.12s',borderColor:'var(--yellow-glow)'}}><div style={{fontSize:9,fontWeight:700,letterSpacing:'.5px',color:'var(--yellow)'}}>ถ้าคิด 55%</div><div className="mono" style={{fontSize:15,fontWeight:700,marginTop:4,color:'var(--yellow)',animation:'textPulse 2.5s ease-in-out infinite'}}>{fmtM(Number(p.price)*0.45)}</div></div>
                                             <div className="lg anim-slide" style={{padding:'10px 12px',textAlign:'center',borderRadius:14,animationDelay:'.14s',borderColor:'var(--yellow-glow)'}}><div style={{fontSize:9,fontWeight:700,letterSpacing:'.5px',color:'var(--yellow)'}}>ถ้าคิด 58%</div><div className="mono" style={{fontSize:15,fontWeight:700,marginTop:4,color:'var(--yellow)',animation:'textPulse 2.5s ease-in-out infinite'}}>{fmtM(Number(p.price)*0.42)}</div></div>
-                                            <div className="lg anim-slide" style={{padding:'8px 12px',display:'flex',justifyContent:'space-between',alignItems:'center',borderRadius:14,animationDelay:'.15s'}}><span style={{fontSize:12,color:'var(--text-secondary)'}}>นำเข้า</span><span className="mono" style={{fontSize:14,fontWeight:700,color:'#22c55e'}}>+{p.in}</span></div>
+                                            <div className="lg anim-slide" style={{padding:'8px 12px',display:'flex',justifyContent:'space-between',alignItems:'center',borderRadius:14,animationDelay:'.15s'}}><span style={{fontSize:12,color:'var(--text-secondary)'}}>นำเข้า</span><span className="mono" style={{fontSize:14,fontWeight:700,color:'var(--accent)'}}>+{p.in}</span></div>
                                             <div className="lg anim-slide" style={{padding:'8px 12px',display:'flex',justifyContent:'space-between',alignItems:'center',borderRadius:14,animationDelay:'.2s'}}><span style={{fontSize:12,color:'var(--text-secondary)'}}>ขายออก</span><span className="mono" style={{fontSize:14,fontWeight:700,color:'var(--danger)'}}>-{p.out}</span></div>
                                         </div>
                                         <div className="mono" style={{fontSize:10,textAlign:'center',color:'var(--text-primary)',marginTop:10}}>อัปเดต: {fmt24(p.updateTime)}</div>
@@ -1129,7 +1291,7 @@ function renderDaily(){
     const tb=document.getElementById('salesTBody');clearNode(tb);
     if(!items.length){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=4;td.style.cssText='text-align:center;padding:32px 12px;color:var(--text-tertiary)';td.textContent='ไม่พบรายการ';tr.appendChild(td);tb.appendChild(tr);return}
     items.sort((a,b)=>(b.sortTime||0)-(a.sortTime||0));
-    items.forEach((it,i)=>{const tr=document.createElement('tr');tr.className='anim-item';tr.style.animationDelay=`${Math.min(i*.02,.8)}s`;tr.appendChild(makeCell(`${it.dateStr.split('-').reverse().slice(0,2).join('/')} ${it.timeStr}`,'font-size:11px;color:var(--text-secondary);white-space:nowrap','mono'));tr.appendChild(makeCell(it.productName,'font-size:12px;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'));const platTd=document.createElement('td');platTd.style.textAlign='center';platTd.appendChild(makePlatformIcon(it.platform));tr.appendChild(platTd);tr.appendChild(makeCell(String(it.quantity),'text-align:right;font-weight:700;color:#22c55e','mono'));tb.appendChild(tr)});
+    items.forEach((it,i)=>{const tr=document.createElement('tr');tr.className='anim-item';tr.style.animationDelay=`${Math.min(i*.02,.8)}s`;tr.appendChild(makeCell(`${it.dateStr.split('-').reverse().slice(0,2).join('/')} ${it.timeStr}`,'font-size:11px;color:var(--text-secondary);white-space:nowrap','mono'));tr.appendChild(makeCell(it.productName,'font-size:12px;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'));const platTd=document.createElement('td');platTd.style.textAlign='center';platTd.appendChild(makePlatformIcon(it.platform));tr.appendChild(platTd);tr.appendChild(makeCell(String(it.quantity),'text-align:right;font-weight:700;color:var(--accent)','mono'));tb.appendChild(tr)});
 }
 
 function exportExcel(){if(!calSel.start||!sData.length)return;const end=calSel.end||calSel.start;const items=sData.filter(d=>d.dateStr>=calSel.start&&d.dateStr<=end);const bills=sBills.filter(b=>b.dateStr>=calSel.start&&b.dateStr<=end);if(!items.length){window.showNotif('ไม่พบรายการ','error');return}const f=s=>s.split('-').reverse().join('/');const rl=(calSel.end&&calSel.start!==calSel.end)?`${f(calSel.start)}-${f(calSel.end)}`:f(calSel.start);const sd=[['รายงานยอดขาย'],['ช่วงวันที่',rl],['ยอดขายรวม (บาท)',bills.reduce((s,b)=>s+b.totalValue,0)],['จำนวนสินค้า (ชิ้น)',items.reduce((s,i)=>s+i.quantity,0)],['จำนวนบิล',bills.length],[],['วันที่','เวลา','SKU','สินค้า','แพลตฟอร์ม','จำนวน']];items.sort((a,b)=>(b.sortTime||0)-(a.sortTime||0));items.forEach(it=>{const pn=PLAT_MAP[it.platform]?PLAT_MAP[it.platform].name:(it.platform||'-');sd.push([it.dateStr.split('-').reverse().join('/'),it.timeStr,it.id,it.productName,pn,it.quantity])});const wb=XLSX.utils.book_new();const ws=XLSX.utils.aoa_to_sheet(sd);ws['!cols']=[{wch:12},{wch:8},{wch:12},{wch:30},{wch:12},{wch:8}];XLSX.utils.book_append_sheet(wb,ws,'ยอดขาย');XLSX.writeFile(wb,`ยอดขาย_${calSel.start}_${end}.xlsx`);window.showNotif('บันทึกไฟล์ Excel สำเร็จ')}
