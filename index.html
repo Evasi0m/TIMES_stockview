@@ -259,10 +259,6 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
 .s-pill .lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-bottom:3px;position:relative}
 .s-pill .unit{font-size:8px;color:var(--text-tertiary);margin-top:2px;position:relative}
 
-/* ═══ TABLE ═══ */
-.s-table{width:100%;border-collapse:collapse}
-.s-table th{position:sticky;top:0;z-index:10;padding:10px 12px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-tertiary);background:var(--thead-bg);backdrop-filter:blur(20px);text-align:left;border-bottom:1px solid var(--border-glass-strong)}
-.s-table td{padding:10px 12px;border-bottom:.5px solid var(--border-glass);font-size:13px}
 
 /* ═══ HEADER ═══ */
 .hdr{flex-shrink:0;background:var(--bg-glass);backdrop-filter:blur(40px) saturate(180%);-webkit-backdrop-filter:blur(40px) saturate(180%);border-bottom:.5px solid var(--border-glass);z-index:40;position:relative}
@@ -317,6 +313,13 @@ html[data-fsize="large"] #root,html[data-fsize="large"] #salesPage>header,html[d
 html[data-fsize="large"] .genie-card,html[data-fsize="large"] .cal-sheet{zoom:1.08}
 html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.93}
 
+/* ═══ SETTINGS CARD RESPONSIVE ═══ */
+@media (max-height: 700px){
+  #settingsCard{padding:14px!important}
+  #settingsCard .glass-btn{padding:10px 12px!important}
+  #settingsCard>div:last-child{gap:7px!important}
+}
+
 /* ═══ SKELETON LOADING ═══ */
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
 .skel{background:linear-gradient(90deg,var(--bg-glass) 25%,var(--bg-glass-heavy) 50%,var(--bg-glass) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:8px}
@@ -356,10 +359,7 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
 .sale-card-name{font-size:13px;font-weight:600;color:var(--text-primary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
 .sale-card-qty{font-size:15px;font-weight:700;color:var(--accent);flex-shrink:0;font-family:'JetBrains Mono',monospace}
 .sale-card-meta{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text-secondary)}
-.view-toggle{background:var(--bg-glass-input);border:.5px solid var(--border-glass);border-radius:10px;padding:5px 10px;color:var(--text-secondary);font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;-webkit-tap-highlight-color:transparent;transition:all .2s;font-family:inherit}
-.view-toggle:active{transform:scale(.94);background:var(--bg-glass-heavy)}
 #cardViewList{display:flex;flex-direction:column;gap:6px;padding:8px}
-#salesTableWrap{flex:1;overflow:hidden}
 
 /* ═══ SWIPE DOTS ═══ */
 .swipe-dots{display:flex;justify-content:center;gap:5px;padding:4px 0 5px}
@@ -399,12 +399,31 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
 .pill-update{animation:pillCountUp .4s cubic-bezier(.2,.8,.2,1) forwards}
 
 /* ═══ STICKY SUMMARY STRIP ═══ */
-#salesSummaryStrip{display:flex;align-items:center;padding:6px 16px;gap:0;border-top:.5px solid var(--border-glass);background:var(--bg-glass);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);transform:translateY(-100%);transition:transform .3s cubic-bezier(.2,.8,.2,1);opacity:0}
-#salesSummaryStrip.show{transform:translateY(0);opacity:1}
-.ss-item{display:flex;flex-direction:column;align-items:center;flex:1;padding:4px 0}
-.ss-val{font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace;line-height:1}
-.ss-lbl{font-size:9px;color:var(--text-secondary);margin-top:2px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-.ss-div{width:.5px;height:24px;background:var(--border-glass)}
+#salesSummaryStrip{
+  display:flex;align-items:center;padding:0 16px;gap:0;
+  background:var(--bg-glass);backdrop-filter:blur(40px) saturate(180%);-webkit-backdrop-filter:blur(40px) saturate(180%);
+  border-top:.5px solid var(--border-glass);
+  max-height:0;overflow:hidden;opacity:0;filter:blur(10px);pointer-events:none;
+  transition:max-height .45s cubic-bezier(.2,.8,.2,1),opacity .35s ease,filter .35s ease,padding .45s cubic-bezier(.2,.8,.2,1)
+}
+#salesSummaryStrip.show{max-height:72px;opacity:1;filter:blur(0);padding:10px 16px;pointer-events:auto}
+.ss-item{display:flex;flex-direction:column;align-items:center;flex:1;gap:2px}
+.ss-val{font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;line-height:1;letter-spacing:-.5px}
+.ss-lbl{font-size:9px;color:var(--text-secondary);font-weight:600;text-transform:uppercase;letter-spacing:.6px}
+.ss-div{width:.5px;height:30px;background:var(--border-glass-strong);flex-shrink:0;margin:0 4px}
+
+/* ═══ ICON CHANGER ═══ */
+#iconChangerOverlay{position:fixed;inset:0;z-index:9700;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:16px}
+#iconChangerOverlay.open{display:flex}
+#iconChangerCard{width:100%;max-width:340px;background:var(--dropdown-bg);backdrop-filter:blur(60px) saturate(200%);-webkit-backdrop-filter:blur(60px) saturate(200%);border:.5px solid var(--border-glass-strong);border-radius:24px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.5);max-height:calc(100dvh - 40px);overflow-y:auto}
+.icon-preview-ring{width:88px;height:88px;border-radius:26px;background:var(--bg-glass-input);border:2px solid var(--border-glass-strong);display:flex;align-items:center;justify-content:center;overflow:hidden;transition:border-color .3s}
+.icon-preview-ring.loaded{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-glow)}
+.icon-preview-ring img{width:100%;height:100%;object-fit:cover;border-radius:22px}
+.icon-file-label{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;border-radius:14px;border:.5px dashed var(--accent-border);background:var(--accent-soft);color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.icon-file-label:active{transform:scale(.97)}
+.icon-pin-input{width:100%;padding:12px 14px;background:var(--bg-glass-input);border:.5px solid var(--border-glass-strong);border-radius:14px;color:var(--text-primary);font-size:18px;font-family:'JetBrains Mono',monospace;text-align:center;letter-spacing:6px;outline:none;transition:border-color .25s}
+.icon-pin-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.icon-pin-input.error{border-color:var(--danger);box-shadow:0 0 0 3px var(--danger-soft);animation:pinShake .4s cubic-bezier(.36,.07,.19,.97)}
 
 /* ═══ CONTEXTUAL HELP ═══ */
 #helpSheet{position:fixed;inset:0;z-index:9800;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
@@ -474,7 +493,7 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
 </div>
 
 <div id="settingsOverlay" class="genie-backdrop hidden" style="z-index:9500;position:fixed" onclick="closeSettingsModal()">
-    <div id="settingsCard" class="genie-card" onclick="event.stopPropagation()" style="width:100%;max-width:320px;background:var(--dropdown-bg);backdrop-filter:blur(60px) saturate(200%);-webkit-backdrop-filter:blur(60px) saturate(200%);border:.5px solid var(--border-glass-strong);border-radius:22px;padding:20px;box-shadow:0 16px 48px rgba(0,0,0,.4);position:relative;overflow:hidden">
+    <div id="settingsCard" class="genie-card" onclick="event.stopPropagation()" style="width:100%;max-width:320px;background:var(--dropdown-bg);backdrop-filter:blur(60px) saturate(200%);-webkit-backdrop-filter:blur(60px) saturate(200%);border:.5px solid var(--border-glass-strong);border-radius:22px;padding:20px;box-shadow:0 16px 48px rgba(0,0,0,.4);position:relative;overflow-y:auto;max-height:calc(100dvh - 80px)">
         <div style="position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,255,0.05) 0%,transparent 100%);pointer-events:none"></div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;position:relative;z-index:1">
             <div>
@@ -523,6 +542,16 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
                     </span>
                 </span>
                 <span id="settingsRmBadge" style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:.5px solid var(--border-glass);color:var(--text-secondary)">ปิด</span>
+            </button>
+            <button onclick="openIconChanger()" class="glass-btn" type="button" aria-label="เปลี่ยนรูปไอคอนแอป" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px">
+                <span style="display:flex;align-items:center;gap:10px">
+                    <span style="width:30px;height:30px;border-radius:12px;background:rgba(129,140,248,0.12);border:.5px solid rgba(129,140,248,0.20);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-image" style="font-size:13px;color:var(--accent2)"></i></span>
+                    <span style="text-align:left">
+                        <span style="display:block;font-size:13px;font-weight:600;color:var(--text-primary)">เปลี่ยนรูปแอป</span>
+                        <span style="display:block;font-size:10px;color:var(--text-secondary);margin-top:2px">โลโก้ ไอคอน และรูปบนเบราว์เซอร์</span>
+                    </span>
+                </span>
+                <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-tertiary)"></i>
             </button>
             <button onclick="openPricingModalFromSettings()" class="glass-btn" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px;position:relative">
                 <span style="display:flex;align-items:center;gap:10px">
@@ -613,6 +642,53 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
     </div>
 </div>
 
+<!-- ICON CHANGER MODAL -->
+<div id="iconChangerOverlay" onclick="closeIconChanger()">
+    <div id="iconChangerCard" onclick="event.stopPropagation()">
+        <div style="position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,255,0.05) 0%,transparent 100%);pointer-events:none;border-radius:24px 24px 0 0"></div>
+        <!-- Header -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;position:relative;z-index:1">
+            <div>
+                <div style="font-size:15px;font-weight:700;letter-spacing:-.3px">เปลี่ยนรูปแอป</div>
+                <div style="font-size:11px;color:var(--text-secondary);margin-top:2px">โลโก้ ไอคอน และ Favicon</div>
+            </div>
+            <button onclick="closeIconChanger()" class="close-btn">×</button>
+        </div>
+        <!-- Preview + file pick -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:18px;position:relative;z-index:1">
+            <div id="iconPreviewRing" class="icon-preview-ring">
+                <img id="iconPreviewImg" src="" alt="" style="display:none" />
+                <i id="iconPreviewPlaceholder" class="fa-solid fa-image" style="font-size:28px;color:var(--text-tertiary)"></i>
+            </div>
+            <label class="icon-file-label" for="iconFileInput">
+                <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                <span>เลือกรูปภาพ</span>
+            </label>
+            <input id="iconFileInput" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" style="display:none" onchange="onIconFilePick(event)" />
+            <div style="font-size:10px;color:var(--text-tertiary);text-align:center;line-height:1.6">รองรับ PNG · JPG · WebP · SVG<br>แนะนำขนาด <strong style="color:var(--text-secondary)">512×512 px</strong> หรือสี่เหลี่ยมจัตุรัส</div>
+        </div>
+        <!-- PIN section (shown after image selected) -->
+        <div id="iconPinSection" style="display:none;position:relative;z-index:1">
+            <div style="height:.5px;background:var(--border-glass);margin-bottom:16px"></div>
+            <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:8px;text-align:center"><i class="fa-solid fa-lock" style="color:var(--accent);margin-right:5px"></i>ใส่ PIN เพื่อยืนยันการเปลี่ยน</div>
+            <input id="iconPinInput" class="icon-pin-input" type="password" inputmode="numeric" maxlength="5" placeholder="·····" autocomplete="off" oninput="onIconPinInput()" />
+            <div id="iconPinErr" style="display:none;font-size:11px;color:var(--danger);text-align:center;margin-top:8px"><i class="fa-solid fa-xmark-circle" style="margin-right:4px"></i>PIN ไม่ถูกต้อง</div>
+            <button id="iconConfirmBtn" onclick="confirmIconChange()" style="margin-top:12px;width:100%;padding:13px;border-radius:14px;border:none;background:var(--accent);color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px var(--accent-glow);-webkit-tap-highlight-color:transparent;opacity:.4;pointer-events:none;transition:opacity .2s">
+                <i class="fa-solid fa-check" style="margin-right:6px"></i>ยืนยันและบันทึก
+            </button>
+        </div>
+        <!-- Current icon info -->
+        <div id="iconCurrentInfo" style="margin-top:14px;padding:10px 12px;border-radius:12px;background:var(--bg-glass-input);border:.5px solid var(--border-glass);font-size:10px;color:var(--text-tertiary);display:flex;align-items:center;gap:8px;position:relative;z-index:1">
+            <i class="fa-solid fa-circle-info" style="color:var(--accent2);font-size:12px;flex-shrink:0"></i>
+            <span id="iconCurrentLabel">ไอคอนปัจจุบัน: ค่าเริ่มต้น</span>
+        </div>
+        <!-- Reset button -->
+        <button id="iconResetBtn" onclick="resetCustomIcon()" style="display:none;margin-top:10px;width:100%;padding:10px;border-radius:14px;border:.5px solid var(--border-glass);background:transparent;color:var(--danger);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;position:relative;z-index:1;-webkit-tap-highlight-color:transparent">
+            <i class="fa-solid fa-rotate-left" style="margin-right:5px"></i>รีเซ็ตเป็นค่าเดิม
+        </button>
+    </div>
+</div>
+
 <div id="stockPage" class="page"><div id="root" style="height:100%;display:flex;flex-direction:column"></div></div>
 
 <div id="salesPage" class="page hidden">
@@ -671,12 +747,20 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
             </div>
         </div>
         <div id="salesSummaryStrip" aria-hidden="true">
-            <div class="ss-item"><div class="ss-val mono" id="ssRev" style="color:var(--accent)">-</div><div class="ss-lbl">บาท</div></div>
+            <div class="ss-item">
+                <div class="ss-val" id="ssRev" style="color:var(--accent)">-</div>
+                <div class="ss-lbl">ยอดขาย (฿)</div>
+            </div>
             <div class="ss-div"></div>
-            <div class="ss-item"><div class="ss-val mono" id="ssQty" style="color:var(--accent2)">-</div><div class="ss-lbl">ชิ้น</div></div>
+            <div class="ss-item">
+                <div class="ss-val" id="ssQty" style="color:var(--accent2)">-</div>
+                <div class="ss-lbl">สินค้า</div>
+            </div>
             <div class="ss-div"></div>
-            <div class="ss-item"><div class="ss-val mono" id="ssTrans" style="color:var(--accent)">-</div><div class="ss-lbl">บิล</div></div>
-            <button onclick="showHelp()" style="background:none;border:none;color:var(--text-tertiary);cursor:pointer;padding:4px 8px;font-size:14px;-webkit-tap-highlight-color:transparent" aria-label="ความช่วยเหลือ"><i class="fa-solid fa-circle-question"></i></button>
+            <div class="ss-item">
+                <div class="ss-val" id="ssTrans" style="color:var(--yellow)">-</div>
+                <div class="ss-lbl">บิล</div>
+            </div>
         </div>
         <div style="display:flex;border-top:.5px solid var(--border-glass)">
             <button class="sales-tab active" id="tabDaily" onclick="salesSwitchTab('daily')"><i class="fa-regular fa-calendar-days" style="margin-right:5px"></i>รายวัน</button>
@@ -721,18 +805,11 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
                 <div id="platCards" style="display:flex;flex-direction:column;gap:6px"></div>
             </div>
             <div class="lg shine" style="overflow:hidden;display:flex;flex-direction:column;max-height:460px">
-                <div style="padding:10px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:.5px solid var(--border-glass);flex-shrink:0;gap:8px">
-                    <div style="display:flex;align-items:center;gap:8px">
-                        <div style="font-size:13px;font-weight:600"><i class="fa-solid fa-receipt" style="color:var(--accent);margin-right:6px"></i>รายการขาย</div>
-                        <button onclick="toggleSalesView()" id="viewToggleBtn" class="view-toggle"><i class="fa-solid fa-table-list" id="viewToggleIcon"></i><span id="viewToggleLabel">ตาราง</span></button>
-                    </div>
+                <div style="padding:10px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:.5px solid var(--border-glass);flex-shrink:0">
+                    <div style="font-size:13px;font-weight:600"><i class="fa-solid fa-receipt" style="color:var(--accent);margin-right:6px"></i>รายการขาย</div>
                     <div id="dateLabel" class="accent-badge">ยังไม่เลือก</div>
                 </div>
-                <div id="salesTableWrap" class="scroll-area" style="flex:1">
-                    <table class="s-table"><thead><tr><th>เวลา</th><th>สินค้า</th><th style="text-align:center;width:32px"><i class="fa-solid fa-store"></i></th><th style="text-align:right">จำนวน</th></tr></thead>
-                    <tbody id="salesTBody"><tr><td colspan="4"><div class="empty-state"><div class="empty-state-icon"><i class="fa-regular fa-calendar"></i></div><p>เลือกวันที่เพื่อดูรายการขาย<br><span style="font-size:11px;color:var(--text-tertiary)">กดที่ช่องวันที่ด้านบน</span></p></div></td></tr></tbody></table>
-                </div>
-                <div id="cardViewList" style="display:none" class="scroll-area"></div>
+                <div id="cardViewList" class="scroll-area"></div>
             </div>
         </div>
         <div id="compareContent" style="display:none;flex-direction:column;gap:12px">
@@ -1583,11 +1660,7 @@ function renderDaily(){
         hdr.addEventListener('click',()=>{const isOpen=detail.classList.contains('open');detail.classList.toggle('open');hdr.querySelector('.plat-chev').style.transform=isOpen?'':'rotate(180deg)'});
         pc.appendChild(wrap)});
     } else {pb.classList.add('hidden');pb.style.display='none'}
-    /* Table */
-    const tb=document.getElementById('salesTBody');clearNode(tb);
     const sortedItems=items.slice().sort((a,b)=>(b.sortTime||0)-(a.sortTime||0));
-    if(!sortedItems.length){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=4;td.innerHTML='<div class="empty-state"><div class="empty-state-icon"><i class="fa-regular fa-receipt"></i></div><p>ไม่พบรายการขายในช่วงนี้<br><span style="font-size:11px;color:var(--text-tertiary)">ลองเลือกช่วงวันที่อื่น</span></p></div>';tr.appendChild(td);tb.appendChild(tr);buildCardView([]);return}
-    sortedItems.forEach((it,i)=>{const tr=document.createElement('tr');tr.className='anim-item';tr.style.animationDelay=`${Math.min(i*.02,.8)}s`;tr.appendChild(makeCell(`${it.dateStr.split('-').reverse().slice(0,2).join('/')} ${it.timeStr}`,'font-size:11px;color:var(--text-secondary);white-space:nowrap','mono'));tr.appendChild(makeCell(it.productName,'font-size:12px;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'));const platTd=document.createElement('td');platTd.style.textAlign='center';platTd.appendChild(makePlatformIcon(it.platform));tr.appendChild(platTd);tr.appendChild(makeCell(String(it.quantity),'text-align:right;font-weight:700;color:var(--accent)','mono'));tb.appendChild(tr)});
     buildCardView(sortedItems);
 }
 
@@ -1755,27 +1828,8 @@ function animatePillValue(id,endVal,formatter){
 }
 
 /* ══════════════════════════════════════════════════
-   CARD VIEW TOGGLE (Sales Table)
+   CARD VIEW (Sales List)
 ══════════════════════════════════════════════════ */
-let salesViewMode=localStorage.getItem('ts_view_mode')||'table';
-window.toggleSalesView=()=>{
-    salesViewMode=salesViewMode==='table'?'card':'table';
-    localStorage.setItem('ts_view_mode',salesViewMode);
-    applyViewMode();
-    window.haptic('light');
-};
-function applyViewMode(){
-    const tw=document.getElementById('salesTableWrap'),cv=document.getElementById('cardViewList');
-    const btn=document.getElementById('viewToggleBtn'),lbl=document.getElementById('viewToggleLabel'),ico=document.getElementById('viewToggleIcon');
-    if(!tw||!cv)return;
-    if(salesViewMode==='card'){
-        tw.style.display='none';cv.style.display='flex';
-        if(lbl)lbl.textContent='การ์ด';if(ico)ico.className='fa-solid fa-grip';
-    }else{
-        tw.style.display='';cv.style.display='none';
-        if(lbl)lbl.textContent='ตาราง';if(ico)ico.className='fa-solid fa-table-list';
-    }
-}
 function buildCardView(items){
     const cv=document.getElementById('cardViewList');if(!cv)return;
     cv.innerHTML='';
@@ -1793,10 +1847,7 @@ function buildCardView(items){
         card.innerHTML=`<div class="sale-card-top"><div class="sale-card-name">${it.productName}</div><div class="sale-card-qty">${it.quantity} ชิ้น</div></div><div class="sale-card-meta"><span style="width:8px;height:8px;border-radius:50%;background:${pColor};flex-shrink:0"></span><span style="color:${pColor};font-weight:600">${pName}</span><span>·</span><span class="mono">${dateDisp}</span></div>`;
         cv.appendChild(card);
     });
-    applyViewMode();
 }
-// Apply saved view mode on load
-applyViewMode();
 
 /* ══════════════════════════════════════════════════
    ONBOARDING WALKTHROUGH
@@ -1880,6 +1931,147 @@ window.addEventListener('ts:barcode-scan',e=>{
     const searchInputs=document.querySelectorAll('input[placeholder*="ค้นหา"],input[type="search"]');
     searchInputs.forEach(inp=>{inp.value=e.detail.value;inp.dispatchEvent(new Event('input',{bubbles:true}))});
 });
+
+/* ══════════════════════════════════════════════════
+   APP ICON CHANGER
+══════════════════════════════════════════════════ */
+const ICON_KEY='ts_custom_icon';
+const DEFAULT_FAVICON='https://timesstock.infinityfree.me/logo_web512V2.png?v=1';
+const DEFAULT_TOUCH_ICON='https://timesstock.infinityfree.me/logo_web512.png?v=1';
+const DEFAULT_LOGO='https://timesstock.infinityfree.me/logo_web512V2.png';
+
+function applyCustomIcon(src){
+    // Favicon
+    let fav=document.querySelector('link[rel="icon"]');
+    if(fav)fav.href=src;
+    // Apple touch icon
+    let ati=document.querySelector('link[rel="apple-touch-icon"]');
+    if(ati)ati.href=src;
+    // All logo img tags
+    document.querySelectorAll('img[src*="logo_web512"]').forEach(img=>img.src=src);
+}
+
+// Apply saved icon on startup
+(()=>{
+    const saved=localStorage.getItem(ICON_KEY);
+    if(saved){applyCustomIcon(saved);updateIconCurrentLabel(true)}
+})();
+
+function updateIconCurrentLabel(hasCustom){
+    const lbl=document.getElementById('iconCurrentLabel');
+    const resetBtn=document.getElementById('iconResetBtn');
+    if(lbl)lbl.textContent=hasCustom?'ไอคอนปัจจุบัน: กำหนดเอง ✓':'ไอคอนปัจจุบัน: ค่าเริ่มต้น';
+    if(resetBtn)resetBtn.style.display=hasCustom?'block':'none';
+}
+
+let __pendingIconB64=null;
+
+window.openIconChanger=()=>{
+    const ov=document.getElementById('iconChangerOverlay');
+    // Reset state
+    __pendingIconB64=null;
+    const previewImg=document.getElementById('iconPreviewImg');
+    const placeholder=document.getElementById('iconPreviewPlaceholder');
+    const ring=document.getElementById('iconPreviewRing');
+    const pinSection=document.getElementById('iconPinSection');
+    const pinInput=document.getElementById('iconPinInput');
+    const pinErr=document.getElementById('iconPinErr');
+    const confirmBtn=document.getElementById('iconConfirmBtn');
+    const fileInput=document.getElementById('iconFileInput');
+    previewImg.style.display='none';previewImg.src='';
+    placeholder.style.display='block';
+    ring.classList.remove('loaded');
+    pinSection.style.display='none';
+    pinInput.value='';pinErr.style.display='none';
+    pinInput.classList.remove('error');
+    confirmBtn.style.opacity='.4';confirmBtn.style.pointerEvents='none';
+    fileInput.value='';
+    // Show current icon in preview if custom
+    const saved=localStorage.getItem(ICON_KEY);
+    if(saved){previewImg.src=saved;previewImg.style.display='block';placeholder.style.display='none';ring.classList.add('loaded')}
+    updateIconCurrentLabel(!!saved);
+    ov.classList.add('open');
+    window.haptic&&window.haptic('light');
+};
+
+window.closeIconChanger=()=>{
+    document.getElementById('iconChangerOverlay').classList.remove('open');
+};
+
+window.onIconFilePick=function(e){
+    const file=e.target.files&&e.target.files[0];
+    if(!file)return;
+    if(!file.type.startsWith('image/')){window.showNotif('รองรับเฉพาะไฟล์รูปภาพ','error');return}
+    if(file.size>2*1024*1024){window.showNotif('ไฟล์ใหญ่เกิน 2MB','error');return}
+    const reader=new FileReader();
+    reader.onload=ev=>{
+        const b64=ev.target.result;
+        __pendingIconB64=b64;
+        const previewImg=document.getElementById('iconPreviewImg');
+        const placeholder=document.getElementById('iconPreviewPlaceholder');
+        const ring=document.getElementById('iconPreviewRing');
+        previewImg.src=b64;previewImg.style.display='block';
+        placeholder.style.display='none';ring.classList.add('loaded');
+        // Show PIN section
+        const pinSection=document.getElementById('iconPinSection');
+        pinSection.style.display='block';
+        document.getElementById('iconPinInput').value='';
+        document.getElementById('iconPinErr').style.display='none';
+        document.getElementById('iconPinInput').classList.remove('error');
+    };
+    reader.readAsDataURL(file);
+};
+
+window.onIconPinInput=function(){
+    const val=document.getElementById('iconPinInput').value;
+    const confirmBtn=document.getElementById('iconConfirmBtn');
+    if(val.length===5){confirmBtn.style.opacity='1';confirmBtn.style.pointerEvents='auto'}
+    else{confirmBtn.style.opacity='.4';confirmBtn.style.pointerEvents='none'}
+    document.getElementById('iconPinErr').style.display='none';
+    document.getElementById('iconPinInput').classList.remove('error');
+};
+
+window.confirmIconChange=function(){
+    const pin=document.getElementById('iconPinInput').value;
+    if(pin!=='28933'){
+        const pinInput=document.getElementById('iconPinInput');
+        const pinErr=document.getElementById('iconPinErr');
+        pinInput.classList.add('error');
+        pinErr.style.display='block';
+        document.getElementById('iconPinInput').value='';
+        document.getElementById('iconConfirmBtn').style.opacity='.4';
+        document.getElementById('iconConfirmBtn').style.pointerEvents='none';
+        window.haptic&&window.haptic('error');
+        setTimeout(()=>{pinInput.classList.remove('error')},600);
+        return;
+    }
+    if(!__pendingIconB64)return;
+    // Save to localStorage (persists on this device)
+    localStorage.setItem(ICON_KEY,__pendingIconB64);
+    // Apply immediately to all icon targets
+    applyCustomIcon(__pendingIconB64);
+    // Cloud sync note: base64 icon is saved locally on this device.
+    // Cross-device sync would require a server-side API endpoint.
+    window.haptic&&window.haptic('success');
+    window.showNotif('เปลี่ยนรูปแอปสำเร็จ — บันทึกแล้ว');
+    updateIconCurrentLabel(true);
+    __pendingIconB64=null;
+    closeIconChanger();
+};
+
+window.resetCustomIcon=function(){
+    localStorage.removeItem(ICON_KEY);
+    applyCustomIcon(DEFAULT_LOGO);
+    // Restore specific URLs for favicon and touch icon
+    const fav=document.querySelector('link[rel="icon"]');
+    if(fav)fav.href=DEFAULT_FAVICON;
+    const ati=document.querySelector('link[rel="apple-touch-icon"]');
+    if(ati)ati.href=DEFAULT_TOUCH_ICON;
+    updateIconCurrentLabel(false);
+    window.showNotif('รีเซ็ตรูปแอปเรียบร้อย');
+    window.haptic&&window.haptic('light');
+    closeIconChanger();
+};
 </script>
 </body>
 </html>
