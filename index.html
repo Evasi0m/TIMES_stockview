@@ -308,8 +308,13 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
 .info-bar{display:flex;justify-content:space-between;padding:6px 10px;border-radius:10px;background:var(--bg-glass-input);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-tertiary);margin-bottom:8px}
 
 /* ═══ FONT SIZE CONTROL ═══ */
-html[data-fsize="small"] #root,html[data-fsize="small"] #salesPage>header,html[data-fsize="small"] #salesPage>main{zoom:.9}
-html[data-fsize="large"] #root,html[data-fsize="large"] #salesPage>header,html[data-fsize="large"] #salesPage>main{zoom:1.12}
+/* Only zoom content areas — headers are excluded to prevent overflow */
+html[data-fsize="small"] #root,html[data-fsize="small"] #salesPage>main{zoom:.9}
+html[data-fsize="large"] #root,html[data-fsize="large"] #salesPage>main{zoom:1.12}
+/* Counter-zoom stock page header inside #root so it stays at 1× */
+html[data-fsize="small"] #root header.hdr{zoom:1.1112}
+html[data-fsize="large"] #root header.hdr{zoom:.8929}
+/* Modals and calendar scale moderately */
 html[data-fsize="large"] .genie-card,html[data-fsize="large"] .cal-sheet{zoom:1.08}
 html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.93}
 
@@ -398,29 +403,19 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
 @keyframes pillCountUp{from{opacity:0;transform:translateY(6px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
 .pill-update{animation:pillCountUp .4s cubic-bezier(.2,.8,.2,1) forwards}
 
-/* ═══ STICKY SUMMARY STRIP ═══ */
-#salesSummaryStrip{
-  display:flex;align-items:center;padding:0 16px;gap:0;
-  background:var(--bg-glass);backdrop-filter:blur(40px) saturate(180%);-webkit-backdrop-filter:blur(40px) saturate(180%);
-  border-top:.5px solid var(--border-glass);
-  max-height:0;overflow:hidden;opacity:0;filter:blur(10px);pointer-events:none;
-  transition:max-height .45s cubic-bezier(.2,.8,.2,1),opacity .35s ease,filter .35s ease,padding .45s cubic-bezier(.2,.8,.2,1)
-}
-#salesSummaryStrip.show{max-height:72px;opacity:1;filter:blur(0);padding:10px 16px;pointer-events:auto}
-.ss-item{display:flex;flex-direction:column;align-items:center;flex:1;gap:2px}
-.ss-val{font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;line-height:1;letter-spacing:-.5px}
-.ss-lbl{font-size:9px;color:var(--text-secondary);font-weight:600;text-transform:uppercase;letter-spacing:.6px}
-.ss-div{width:.5px;height:30px;background:var(--border-glass-strong);flex-shrink:0;margin:0 4px}
 
 /* ═══ ICON CHANGER ═══ */
 #iconChangerOverlay{position:fixed;inset:0;z-index:9700;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:16px}
 #iconChangerOverlay.open{display:flex}
 #iconChangerCard{width:100%;max-width:340px;background:var(--dropdown-bg);backdrop-filter:blur(60px) saturate(200%);-webkit-backdrop-filter:blur(60px) saturate(200%);border:.5px solid var(--border-glass-strong);border-radius:24px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.5);max-height:calc(100dvh - 40px);overflow-y:auto}
-.icon-preview-ring{width:88px;height:88px;border-radius:26px;background:var(--bg-glass-input);border:2px solid var(--border-glass-strong);display:flex;align-items:center;justify-content:center;overflow:hidden;transition:border-color .3s}
-.icon-preview-ring.loaded{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-glow)}
-.icon-preview-ring img{width:100%;height:100%;object-fit:cover;border-radius:22px}
-.icon-file-label{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;border-radius:14px;border:.5px dashed var(--accent-border);background:var(--accent-soft);color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent}
-.icon-file-label:active{transform:scale(.97)}
+.ic-row{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:16px;background:var(--bg-glass-input);border:.5px solid var(--border-glass)}
+.ic-thumb{width:46px;height:46px;border-radius:14px;background:var(--bg-glass);border:.5px solid var(--border-glass-strong);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;transition:border-color .25s}
+.ic-thumb.loaded{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-glow)}
+.ic-thumb img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+.ic-label-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:10px;background:var(--accent-soft);border:.5px solid var(--accent-border);color:var(--accent);font-size:11px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .2s}
+.ic-label-btn:active{transform:scale(.95)}
+.ic-status{font-size:9px;color:var(--text-tertiary);margin-top:2px}
+.ic-status.ok{color:var(--accent)}
 .icon-pin-input{width:100%;padding:12px 14px;background:var(--bg-glass-input);border:.5px solid var(--border-glass-strong);border-radius:14px;color:var(--text-primary);font-size:18px;font-family:'JetBrains Mono',monospace;text-align:center;letter-spacing:6px;outline:none;transition:border-color .25s}
 .icon-pin-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
 .icon-pin-input.error{border-color:var(--danger);box-shadow:0 0 0 3px var(--danger-soft);animation:pinShake .4s cubic-bezier(.36,.07,.19,.97)}
@@ -521,7 +516,7 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
                         <span id="settingsFontMeta" style="display:block;font-size:10px;color:var(--text-secondary);margin-top:2px">กดเพื่อเปลี่ยน: เล็ก → ปกติ → ใหญ่</span>
                     </span>
                 </span>
-                <span id="settingsFontBadge" style="font-size:11px;font-weight:700;color:var(--accent);border:.5px solid var(--accent-border);padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0">ปกติ</span>
+                <span id="settingsFontBadge" style="font-size:11px;font-weight:700;color:var(--accent);border:.5px solid var(--accent-border);padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0">เล็ก</span>
             </button>
             <button onclick="toggleHighContrast()" class="glass-btn" type="button" aria-label="เปิด/ปิดโหมดคอนทราสต์สูง" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px">
                 <span style="display:flex;align-items:center;gap:10px">
@@ -645,46 +640,72 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
 <!-- ICON CHANGER MODAL -->
 <div id="iconChangerOverlay" onclick="closeIconChanger()">
     <div id="iconChangerCard" onclick="event.stopPropagation()">
-        <div style="position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,255,0.05) 0%,transparent 100%);pointer-events:none;border-radius:24px 24px 0 0"></div>
+        <div style="position:absolute;top:0;left:0;right:0;height:40%;background:linear-gradient(180deg,rgba(255,255,255,0.05) 0%,transparent 100%);pointer-events:none;border-radius:24px 24px 0 0"></div>
         <!-- Header -->
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;position:relative;z-index:1">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;position:relative;z-index:1">
             <div>
                 <div style="font-size:15px;font-weight:700;letter-spacing:-.3px">เปลี่ยนรูปแอป</div>
-                <div style="font-size:11px;color:var(--text-secondary);margin-top:2px">โลโก้ ไอคอน และ Favicon</div>
+                <div style="font-size:11px;color:var(--text-secondary);margin-top:2px">แต่ละส่วนเลือกรูปแยกกันได้</div>
             </div>
             <button onclick="closeIconChanger()" class="close-btn">×</button>
         </div>
-        <!-- Preview + file pick -->
-        <div style="display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:18px;position:relative;z-index:1">
-            <div id="iconPreviewRing" class="icon-preview-ring">
-                <img id="iconPreviewImg" src="" alt="" style="display:none" />
-                <i id="iconPreviewPlaceholder" class="fa-solid fa-image" style="font-size:28px;color:var(--text-tertiary)"></i>
+        <!-- 3 separate upload rows -->
+        <div style="display:flex;flex-direction:column;gap:8px;position:relative;z-index:1">
+            <!-- Row 1: Logo in app header -->
+            <div class="ic-row">
+                <div id="icThumbLogo" class="ic-thumb">
+                    <img id="icImgLogo" src="" alt="" style="display:none"/>
+                    <i class="fa-solid fa-image" style="font-size:16px;color:var(--text-tertiary)"></i>
+                </div>
+                <div style="flex:1;min-width:0">
+                    <div style="font-size:12px;font-weight:700;color:var(--text-primary)">โลโก้ในแอป</div>
+                    <div id="icStatusLogo" class="ic-status">รูปที่แสดงบน Header ของแต่ละหน้า</div>
+                </div>
+                <label class="ic-label-btn" for="icFileLogo"><i class="fa-solid fa-upload" style="font-size:10px"></i>เลือก</label>
+                <input id="icFileLogo" type="file" accept="image/*" style="display:none" onchange="onIconPick(event,'logo')"/>
             </div>
-            <label class="icon-file-label" for="iconFileInput">
-                <i class="fa-solid fa-arrow-up-from-bracket"></i>
-                <span>เลือกรูปภาพ</span>
-            </label>
-            <input id="iconFileInput" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" style="display:none" onchange="onIconFilePick(event)" />
-            <div style="font-size:10px;color:var(--text-tertiary);text-align:center;line-height:1.6">รองรับ PNG · JPG · WebP · SVG<br>แนะนำขนาด <strong style="color:var(--text-secondary)">512×512 px</strong> หรือสี่เหลี่ยมจัตุรัส</div>
+            <!-- Row 2: Favicon (browser tab) -->
+            <div class="ic-row">
+                <div id="icThumbFavicon" class="ic-thumb">
+                    <img id="icImgFavicon" src="" alt="" style="display:none"/>
+                    <i class="fa-solid fa-globe" style="font-size:16px;color:var(--text-tertiary)"></i>
+                </div>
+                <div style="flex:1;min-width:0">
+                    <div style="font-size:12px;font-weight:700;color:var(--text-primary)">Favicon</div>
+                    <div id="icStatusFavicon" class="ic-status">ไอคอนบน Tab เบราว์เซอร์ (แนะนำ 64×64)</div>
+                </div>
+                <label class="ic-label-btn" for="icFileFavicon"><i class="fa-solid fa-upload" style="font-size:10px"></i>เลือก</label>
+                <input id="icFileFavicon" type="file" accept="image/*" style="display:none" onchange="onIconPick(event,'favicon')"/>
+            </div>
+            <!-- Row 3: App icon (home screen / PWA) -->
+            <div class="ic-row">
+                <div id="icThumbApp" class="ic-thumb">
+                    <img id="icImgApp" src="" alt="" style="display:none"/>
+                    <i class="fa-solid fa-mobile-screen-button" style="font-size:16px;color:var(--text-tertiary)"></i>
+                </div>
+                <div style="flex:1;min-width:0">
+                    <div style="font-size:12px;font-weight:700;color:var(--text-primary)">App Icon</div>
+                    <div id="icStatusApp" class="ic-status">ไอคอนหน้า Home iOS/Android (แนะนำ 512×512)</div>
+                </div>
+                <label class="ic-label-btn" for="icFileApp"><i class="fa-solid fa-upload" style="font-size:10px"></i>เลือก</label>
+                <input id="icFileApp" type="file" accept="image/*" style="display:none" onchange="onIconPick(event,'app')"/>
+            </div>
         </div>
-        <!-- PIN section (shown after image selected) -->
-        <div id="iconPinSection" style="display:none;position:relative;z-index:1">
-            <div style="height:.5px;background:var(--border-glass);margin-bottom:16px"></div>
+        <!-- Format note -->
+        <div style="margin-top:10px;font-size:9px;color:var(--text-tertiary);line-height:1.6;position:relative;z-index:1">รองรับ PNG · JPG · WebP · SVG · แต่ละรูปขนาดไม่เกิน 2MB</div>
+        <!-- PIN section -->
+        <div id="iconPinSection" style="display:none;position:relative;z-index:1;margin-top:14px">
+            <div style="height:.5px;background:var(--border-glass);margin-bottom:14px"></div>
             <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:8px;text-align:center"><i class="fa-solid fa-lock" style="color:var(--accent);margin-right:5px"></i>ใส่ PIN เพื่อยืนยันการเปลี่ยน</div>
             <input id="iconPinInput" class="icon-pin-input" type="password" inputmode="numeric" maxlength="5" placeholder="·····" autocomplete="off" oninput="onIconPinInput()" />
             <div id="iconPinErr" style="display:none;font-size:11px;color:var(--danger);text-align:center;margin-top:8px"><i class="fa-solid fa-xmark-circle" style="margin-right:4px"></i>PIN ไม่ถูกต้อง</div>
-            <button id="iconConfirmBtn" onclick="confirmIconChange()" style="margin-top:12px;width:100%;padding:13px;border-radius:14px;border:none;background:var(--accent);color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px var(--accent-glow);-webkit-tap-highlight-color:transparent;opacity:.4;pointer-events:none;transition:opacity .2s">
+            <button id="iconConfirmBtn" onclick="confirmIconChange()" style="margin-top:10px;width:100%;padding:13px;border-radius:14px;border:none;background:var(--accent);color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px var(--accent-glow);-webkit-tap-highlight-color:transparent;opacity:.4;pointer-events:none;transition:opacity .2s">
                 <i class="fa-solid fa-check" style="margin-right:6px"></i>ยืนยันและบันทึก
             </button>
         </div>
-        <!-- Current icon info -->
-        <div id="iconCurrentInfo" style="margin-top:14px;padding:10px 12px;border-radius:12px;background:var(--bg-glass-input);border:.5px solid var(--border-glass);font-size:10px;color:var(--text-tertiary);display:flex;align-items:center;gap:8px;position:relative;z-index:1">
-            <i class="fa-solid fa-circle-info" style="color:var(--accent2);font-size:12px;flex-shrink:0"></i>
-            <span id="iconCurrentLabel">ไอคอนปัจจุบัน: ค่าเริ่มต้น</span>
-        </div>
-        <!-- Reset button -->
+        <!-- Reset -->
         <button id="iconResetBtn" onclick="resetCustomIcon()" style="display:none;margin-top:10px;width:100%;padding:10px;border-radius:14px;border:.5px solid var(--border-glass);background:transparent;color:var(--danger);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;position:relative;z-index:1;-webkit-tap-highlight-color:transparent">
-            <i class="fa-solid fa-rotate-left" style="margin-right:5px"></i>รีเซ็ตเป็นค่าเดิม
+            <i class="fa-solid fa-rotate-left" style="margin-right:5px"></i>รีเซ็ตทั้งหมดกลับค่าเดิม
         </button>
     </div>
 </div>
@@ -744,22 +765,6 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
                     <button onclick="openSettingsModal()" class="glass-btn" id="salesSettingsBtn" type="button" aria-label="เปิดการตั้งค่า" style="width:48px;height:48px;position:relative"><i class="fa-solid fa-gear settings-gear" aria-hidden="true" style="font-size:14px"></i><span id="salesSettingsDot" class="hidden" style="position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent-glow)"></span></button>
                     <button onclick="salesFetch()" class="glass-btn" type="button" aria-label="รีเฟรชข้อมูลยอดขาย" style="width:48px;height:48px"><i class="fa-solid fa-arrows-rotate" aria-hidden="true" style="font-size:14px"></i></button>
                 </div>
-            </div>
-        </div>
-        <div id="salesSummaryStrip" aria-hidden="true">
-            <div class="ss-item">
-                <div class="ss-val" id="ssRev" style="color:var(--accent)">-</div>
-                <div class="ss-lbl">ยอดขาย (฿)</div>
-            </div>
-            <div class="ss-div"></div>
-            <div class="ss-item">
-                <div class="ss-val" id="ssQty" style="color:var(--accent2)">-</div>
-                <div class="ss-lbl">สินค้า</div>
-            </div>
-            <div class="ss-div"></div>
-            <div class="ss-item">
-                <div class="ss-val" id="ssTrans" style="color:var(--yellow)">-</div>
-                <div class="ss-lbl">บิล</div>
             </div>
         </div>
         <div style="display:flex;border-top:.5px solid var(--border-glass)">
@@ -1009,9 +1014,9 @@ const FONT_SIZE_KEY='ts_font_size';
 const FONT_SIZES=['small','normal','large'];
 const FONT_LABELS={small:'เล็ก',normal:'ปกติ',large:'ใหญ่'};
 const applyFontSize=size=>{if(size==='normal')document.documentElement.removeAttribute('data-fsize');else document.documentElement.setAttribute('data-fsize',size)};
-(()=>{const saved=localStorage.getItem(FONT_SIZE_KEY)||'normal';applyFontSize(saved)})();
+(()=>{const saved=localStorage.getItem(FONT_SIZE_KEY)||'small';applyFontSize(saved)})();
 window.cycleTextSize=()=>{
-    const cur=localStorage.getItem(FONT_SIZE_KEY)||'normal';
+    const cur=localStorage.getItem(FONT_SIZE_KEY)||'small';
     const next=FONT_SIZES[(FONT_SIZES.indexOf(cur)+1)%FONT_SIZES.length];
     applyFontSize(next);
     localStorage.setItem(FONT_SIZE_KEY,next);
@@ -1019,7 +1024,7 @@ window.cycleTextSize=()=>{
     window.showNotif(`ขนาดตัวอักษร: ${FONT_LABELS[next]}`);
 };
 window.__updateSettingsFont=()=>{
-    const cur=localStorage.getItem(FONT_SIZE_KEY)||'normal';
+    const cur=localStorage.getItem(FONT_SIZE_KEY)||'small';
     const badge=document.getElementById('settingsFontBadge');
     const meta=document.getElementById('settingsFontMeta');
     if(badge)badge.textContent=FONT_LABELS[cur];
@@ -1697,34 +1702,6 @@ function renderPlatCmpChart(){
 }
 new MutationObserver(()=>{requestAnimationFrame(()=>{if(sCmpList.length)renderCmpChart();if(sPlatCmpList.length)renderPlatCmpChart()})}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 
-/* ══════════════════════════════════════════════════
-   STICKY SUMMARY STRIP
-══════════════════════════════════════════════════ */
-(()=>{
-    const strip=document.getElementById('salesSummaryStrip');
-    const pillsEl=document.querySelector('#dailyContent .s-pill');
-    if(!strip)return;
-    let lastRev='',lastQty='',lastTrans='';
-    // Sync strip values when pills update
-    const syncStrip=()=>{
-        const r=document.getElementById('totalRev')?.textContent;
-        const q=document.getElementById('totalQty')?.textContent;
-        const t=document.getElementById('totalTrans')?.textContent;
-        if(r)document.getElementById('ssRev').textContent=r;
-        if(q)document.getElementById('ssQty').textContent=q;
-        if(t)document.getElementById('ssTrans').textContent=t;
-    };
-    // Observe scroll to show/hide strip
-    const main=document.getElementById('salesMain');
-    if(main)main.addEventListener('scroll',()=>{
-        const pillGrid=document.querySelector('#dailyContent .s-pill');
-        if(!pillGrid){strip.classList.remove('show');return}
-        const rect=pillGrid.getBoundingClientRect();
-        const shouldShow=rect.bottom<0;
-        if(shouldShow){syncStrip();strip.classList.add('show');strip.setAttribute('aria-hidden','false')}
-        else{strip.classList.remove('show');strip.setAttribute('aria-hidden','true')}
-    },{passive:true});
-})();
 
 /* ══════════════════════════════════════════════════
    CONTEXTUAL HELP BOTTOM SHEET
@@ -1933,100 +1910,110 @@ window.addEventListener('ts:barcode-scan',e=>{
 });
 
 /* ══════════════════════════════════════════════════
-   APP ICON CHANGER
+   APP ICON CHANGER  (Logo · Favicon · App Icon)
 ══════════════════════════════════════════════════ */
-const ICON_KEY='ts_custom_icon';
+const IC_LOGO_KEY='ts_custom_logo';
+const IC_FAV_KEY='ts_custom_favicon';
+const IC_APP_KEY='ts_custom_appicon';
 const DEFAULT_FAVICON='https://timesstock.infinityfree.me/logo_web512V2.png?v=1';
 const DEFAULT_TOUCH_ICON='https://timesstock.infinityfree.me/logo_web512.png?v=1';
 const DEFAULT_LOGO='https://timesstock.infinityfree.me/logo_web512V2.png';
 
-function applyCustomIcon(src){
-    // Favicon
-    let fav=document.querySelector('link[rel="icon"]');
-    if(fav)fav.href=src;
-    // Apple touch icon
-    let ati=document.querySelector('link[rel="apple-touch-icon"]');
-    if(ati)ati.href=src;
-    // All logo img tags
-    document.querySelectorAll('img[src*="logo_web512"]').forEach(img=>img.src=src);
-}
+function applyIconLogo(src){document.querySelectorAll('img[src*="logo_web512"]').forEach(img=>img.src=src)}
+function applyIconFavicon(src){const el=document.querySelector('link[rel="icon"]');if(el)el.href=src}
+function applyIconApp(src){const el=document.querySelector('link[rel="apple-touch-icon"]');if(el)el.href=src}
 
-// Apply saved icon on startup
+// Apply saved icons on startup
 (()=>{
-    const saved=localStorage.getItem(ICON_KEY);
-    if(saved){applyCustomIcon(saved);updateIconCurrentLabel(true)}
+    const logo=localStorage.getItem(IC_LOGO_KEY);
+    const fav=localStorage.getItem(IC_FAV_KEY);
+    const app=localStorage.getItem(IC_APP_KEY);
+    if(logo)applyIconLogo(logo);
+    if(fav)applyIconFavicon(fav);
+    if(app)applyIconApp(app);
 })();
 
-function updateIconCurrentLabel(hasCustom){
-    const lbl=document.getElementById('iconCurrentLabel');
+// Pending changes map: key → base64
+let __icPending={};
+
+function icRefreshUI(){
+    // For each type, show saved or pending preview, and update status
+    const types=[
+        {key:'logo',storKey:IC_LOGO_KEY,thumbId:'icThumbLogo',imgId:'icImgLogo',statusId:'icStatusLogo',
+         defaultStatus:'รูปที่แสดงบน Header ของแต่ละหน้า'},
+        {key:'favicon',storKey:IC_FAV_KEY,thumbId:'icThumbFavicon',imgId:'icImgFavicon',statusId:'icStatusFavicon',
+         defaultStatus:'ไอคอนบน Tab เบราว์เซอร์ (แนะนำ 64×64)'},
+        {key:'app',storKey:IC_APP_KEY,thumbId:'icThumbApp',imgId:'icImgApp',statusId:'icStatusApp',
+         defaultStatus:'ไอคอนหน้า Home iOS/Android (แนะนำ 512×512)'}
+    ];
+    let anyPending=false;
+    types.forEach(t=>{
+        const src=__icPending[t.key]||localStorage.getItem(t.storKey);
+        const thumb=document.getElementById(t.thumbId);
+        const img=document.getElementById(t.imgId);
+        const status=document.getElementById(t.statusId);
+        if(src){
+            img.src=src;img.style.display='block';
+            thumb.classList.add('loaded');
+            // hide placeholder icon
+            const ico=thumb.querySelector('i');if(ico)ico.style.display='none';
+        }else{
+            img.style.display='none';
+            thumb.classList.remove('loaded');
+            const ico=thumb.querySelector('i');if(ico)ico.style.display='';
+        }
+        if(status){
+            if(__icPending[t.key]){status.textContent='รอยืนยัน PIN ✎';status.classList.add('ok')}
+            else if(localStorage.getItem(t.storKey)){status.textContent='กำหนดเอง ✓';status.classList.add('ok')}
+            else{status.textContent=t.defaultStatus;status.classList.remove('ok')}
+        }
+        if(__icPending[t.key])anyPending=true;
+    });
+    // Show/hide PIN section
+    const pinSec=document.getElementById('iconPinSection');
+    if(pinSec)pinSec.style.display=anyPending?'block':'none';
+    // Show/hide reset button
+    const hasAny=!!(localStorage.getItem(IC_LOGO_KEY)||localStorage.getItem(IC_FAV_KEY)||localStorage.getItem(IC_APP_KEY));
     const resetBtn=document.getElementById('iconResetBtn');
-    if(lbl)lbl.textContent=hasCustom?'ไอคอนปัจจุบัน: กำหนดเอง ✓':'ไอคอนปัจจุบัน: ค่าเริ่มต้น';
-    if(resetBtn)resetBtn.style.display=hasCustom?'block':'none';
+    if(resetBtn)resetBtn.style.display=hasAny?'block':'none';
+    // Reset PIN state if no pending
+    if(!anyPending){
+        const pi=document.getElementById('iconPinInput');
+        const cb=document.getElementById('iconConfirmBtn');
+        if(pi)pi.value='';
+        if(cb){cb.style.opacity='.4';cb.style.pointerEvents='none'}
+    }
 }
 
-let __pendingIconB64=null;
-
 window.openIconChanger=()=>{
-    const ov=document.getElementById('iconChangerOverlay');
-    // Reset state
-    __pendingIconB64=null;
-    const previewImg=document.getElementById('iconPreviewImg');
-    const placeholder=document.getElementById('iconPreviewPlaceholder');
-    const ring=document.getElementById('iconPreviewRing');
-    const pinSection=document.getElementById('iconPinSection');
-    const pinInput=document.getElementById('iconPinInput');
-    const pinErr=document.getElementById('iconPinErr');
-    const confirmBtn=document.getElementById('iconConfirmBtn');
-    const fileInput=document.getElementById('iconFileInput');
-    previewImg.style.display='none';previewImg.src='';
-    placeholder.style.display='block';
-    ring.classList.remove('loaded');
-    pinSection.style.display='none';
-    pinInput.value='';pinErr.style.display='none';
-    pinInput.classList.remove('error');
-    confirmBtn.style.opacity='.4';confirmBtn.style.pointerEvents='none';
-    fileInput.value='';
-    // Show current icon in preview if custom
-    const saved=localStorage.getItem(ICON_KEY);
-    if(saved){previewImg.src=saved;previewImg.style.display='block';placeholder.style.display='none';ring.classList.add('loaded')}
-    updateIconCurrentLabel(!!saved);
-    ov.classList.add('open');
+    __icPending={};
+    document.getElementById('iconChangerOverlay').classList.add('open');
+    document.getElementById('iconPinErr').style.display='none';
+    icRefreshUI();
     window.haptic&&window.haptic('light');
 };
 
 window.closeIconChanger=()=>{
+    __icPending={};
     document.getElementById('iconChangerOverlay').classList.remove('open');
 };
 
-window.onIconFilePick=function(e){
+window.onIconPick=function(e,type){
     const file=e.target.files&&e.target.files[0];
     if(!file)return;
     if(!file.type.startsWith('image/')){window.showNotif('รองรับเฉพาะไฟล์รูปภาพ','error');return}
     if(file.size>2*1024*1024){window.showNotif('ไฟล์ใหญ่เกิน 2MB','error');return}
     const reader=new FileReader();
-    reader.onload=ev=>{
-        const b64=ev.target.result;
-        __pendingIconB64=b64;
-        const previewImg=document.getElementById('iconPreviewImg');
-        const placeholder=document.getElementById('iconPreviewPlaceholder');
-        const ring=document.getElementById('iconPreviewRing');
-        previewImg.src=b64;previewImg.style.display='block';
-        placeholder.style.display='none';ring.classList.add('loaded');
-        // Show PIN section
-        const pinSection=document.getElementById('iconPinSection');
-        pinSection.style.display='block';
-        document.getElementById('iconPinInput').value='';
-        document.getElementById('iconPinErr').style.display='none';
-        document.getElementById('iconPinInput').classList.remove('error');
-    };
+    reader.onload=ev=>{__icPending[type]=ev.target.result;icRefreshUI()};
     reader.readAsDataURL(file);
+    e.target.value='';
 };
 
 window.onIconPinInput=function(){
     const val=document.getElementById('iconPinInput').value;
-    const confirmBtn=document.getElementById('iconConfirmBtn');
-    if(val.length===5){confirmBtn.style.opacity='1';confirmBtn.style.pointerEvents='auto'}
-    else{confirmBtn.style.opacity='.4';confirmBtn.style.pointerEvents='none'}
+    const btn=document.getElementById('iconConfirmBtn');
+    if(val.length===5){btn.style.opacity='1';btn.style.pointerEvents='auto'}
+    else{btn.style.opacity='.4';btn.style.pointerEvents='none'}
     document.getElementById('iconPinErr').style.display='none';
     document.getElementById('iconPinInput').classList.remove('error');
 };
@@ -2034,43 +2021,39 @@ window.onIconPinInput=function(){
 window.confirmIconChange=function(){
     const pin=document.getElementById('iconPinInput').value;
     if(pin!=='28933'){
-        const pinInput=document.getElementById('iconPinInput');
-        const pinErr=document.getElementById('iconPinErr');
-        pinInput.classList.add('error');
-        pinErr.style.display='block';
-        document.getElementById('iconPinInput').value='';
+        const pi=document.getElementById('iconPinInput');
+        pi.classList.add('error');
+        document.getElementById('iconPinErr').style.display='block';
+        pi.value='';
         document.getElementById('iconConfirmBtn').style.opacity='.4';
         document.getElementById('iconConfirmBtn').style.pointerEvents='none';
         window.haptic&&window.haptic('error');
-        setTimeout(()=>{pinInput.classList.remove('error')},600);
+        setTimeout(()=>pi.classList.remove('error'),600);
         return;
     }
-    if(!__pendingIconB64)return;
-    // Save to localStorage (persists on this device)
-    localStorage.setItem(ICON_KEY,__pendingIconB64);
-    // Apply immediately to all icon targets
-    applyCustomIcon(__pendingIconB64);
-    // Cloud sync note: base64 icon is saved locally on this device.
-    // Cross-device sync would require a server-side API endpoint.
+    let count=0;
+    if(__icPending.logo){localStorage.setItem(IC_LOGO_KEY,__icPending.logo);applyIconLogo(__icPending.logo);count++}
+    if(__icPending.favicon){localStorage.setItem(IC_FAV_KEY,__icPending.favicon);applyIconFavicon(__icPending.favicon);count++}
+    if(__icPending.app){localStorage.setItem(IC_APP_KEY,__icPending.app);applyIconApp(__icPending.app);count++}
+    __icPending={};
     window.haptic&&window.haptic('success');
-    window.showNotif('เปลี่ยนรูปแอปสำเร็จ — บันทึกแล้ว');
-    updateIconCurrentLabel(true);
-    __pendingIconB64=null;
-    closeIconChanger();
+    window.showNotif(`บันทึก ${count} รูปสำเร็จ`);
+    icRefreshUI();
+    setTimeout(closeIconChanger,600);
 };
 
 window.resetCustomIcon=function(){
-    localStorage.removeItem(ICON_KEY);
-    applyCustomIcon(DEFAULT_LOGO);
-    // Restore specific URLs for favicon and touch icon
-    const fav=document.querySelector('link[rel="icon"]');
-    if(fav)fav.href=DEFAULT_FAVICON;
-    const ati=document.querySelector('link[rel="apple-touch-icon"]');
-    if(ati)ati.href=DEFAULT_TOUCH_ICON;
-    updateIconCurrentLabel(false);
+    localStorage.removeItem(IC_LOGO_KEY);
+    localStorage.removeItem(IC_FAV_KEY);
+    localStorage.removeItem(IC_APP_KEY);
+    applyIconLogo(DEFAULT_LOGO);
+    applyIconFavicon(DEFAULT_FAVICON);
+    applyIconApp(DEFAULT_TOUCH_ICON);
+    __icPending={};
     window.showNotif('รีเซ็ตรูปแอปเรียบร้อย');
     window.haptic&&window.haptic('light');
-    closeIconChanger();
+    icRefreshUI();
+    setTimeout(closeIconChanger,400);
 };
 </script>
 </body>
