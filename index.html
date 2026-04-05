@@ -733,21 +733,17 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
         </div>
     </div>
     <header class="hdr" style="padding-top:max(12px,var(--safe-top))">
-        <div style="padding:0 16px">
-            <div style="display:flex;justify-content:space-between;align-items:center;height:48px">
+        <div style="padding:0 16px 8px">
+            <div style="display:flex;justify-content:space-between;align-items:center;min-height:48px">
                 <div style="display:flex;align-items:center;gap:10px">
                     <img src="https://timesstock.infinityfree.me/logo_web512V2.png" style="width:32px;height:32px;object-fit:contain" />
                     <div>
                         <div style="font-size:17px;font-weight:700;letter-spacing:-.3px">ยอดขาย</div>
-                        <div id="salesUpdateLabel" class="hidden" style="align-items:center;gap:4px;font-size:10px;color:var(--text-secondary)">
-                            <span class="dot-glow" style="width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block;--glow-c:var(--accent-glow)"></span>
-                            <span class="mono" id="salesUpdateTime">--/--/---- --:--</span>
-                        </div>
                     </div>
                 </div>
                 <div style="display:flex;gap:6px">
-                    <button onclick="openSettingsModal()" class="glass-btn" id="salesSettingsBtn" type="button" aria-label="เปิดการตั้งค่า" style="width:48px;height:48px;position:relative"><i class="fa-solid fa-gear settings-gear" aria-hidden="true" style="font-size:14px"></i><span id="salesSettingsDot" class="hidden" style="position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent-glow)"></span></button>
-                    <button onclick="salesFetch()" class="glass-btn" type="button" aria-label="รีเฟรชข้อมูลยอดขาย" style="width:48px;height:48px"><i class="fa-solid fa-arrows-rotate" aria-hidden="true" style="font-size:14px"></i></button>
+                    <button onclick="openSettingsModal()" class="glass-btn" id="salesSettingsBtn" type="button" aria-label="เปิดการตั้งค่า" style="width:40px;height:40px;position:relative"><i class="fa-solid fa-gear settings-gear" aria-hidden="true" style="font-size:13px"></i><span id="salesSettingsDot" class="hidden" style="position:absolute;top:5px;right:5px;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent-glow)"></span></button>
+                    <button onclick="salesFetch()" class="glass-btn" type="button" aria-label="รีเฟรชข้อมูลยอดขาย" style="width:40px;height:40px"><i class="fa-solid fa-arrows-rotate" aria-hidden="true" style="font-size:13px"></i></button>
                 </div>
             </div>
         </div>
@@ -1303,8 +1299,7 @@ const App=()=>{
                     <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',height:48}}>
                         <div style={{display:'flex',alignItems:'center',gap:10}}>
                             <img src={LOGO} style={{width:32,height:32,objectFit:'contain'}}/>
-                            <div><div style={{fontSize:17,fontWeight:700,letterSpacing:'-0.3px'}}>สต็อก</div>
-                            <div style={{display:'flex',alignItems:'center',gap:4,fontSize:10,color:'var(--text-secondary)'}}><span className="dot-glow" style={{width:5,height:5,borderRadius:'50%',background:loading?'#fbbf24':'var(--accent)',display:'inline-block','--glow-c':loading?'rgba(251,191,36,0.5)':'var(--accent-glow)'}}></span><span className="mono">{updated?fmt24(updated):'...'}</span></div></div>
+                            <div><div style={{fontSize:17,fontWeight:700,letterSpacing:'-0.3px'}}>สต็อก</div></div>
                         </div>
                         <div style={{display:'flex',gap:6}}>
                             <button onClick={()=>setCopyMode(!copyMode)} className="glass-btn" style={{width:40,height:40,position:'relative',borderColor:copyMode?'rgba(99,102,241,.5)':'var(--border-glass)',boxShadow:copyMode?'0 0 12px rgba(99,102,241,.4), inset 0 0 8px rgba(99,102,241,.15)':'none'}}><i className="fa-solid fa-copy" style={{fontSize:14,color:copyMode?'#818cf8':'var(--text-secondary)'}}></i></button>
@@ -1452,8 +1447,6 @@ async function legacySalesFetch_doNotUse(){
         if(hT.startsWith("Error")||dT.startsWith("Error"))throw new Error(hT);
         processData(hT,dT);
         const now=new Date();
-        document.getElementById('salesUpdateTime').textContent=`${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-        const lbl=document.getElementById('salesUpdateLabel');lbl.classList.remove('hidden');lbl.style.display='flex';
         salesReady=true;badge.className='badge badge-ready';navBtn.disabled=false;setSalesSyncState('live',now.toISOString(),false);
         if(!hasCachedData){ov.classList.add('fade-out');setTimeout(()=>ov.classList.add('hidden'),500);}
         window.showNotif('ซิงค์ยอดขายสำเร็จ');
@@ -1487,10 +1480,6 @@ salesFetch=async function(){
         if(hT.startsWith("Error")||dT.startsWith("Error"))throw new Error(hT);
         processData(hT,dT);
         const updatedAt=getLatestSalesUpdatedAt(sData)||new Date().toISOString();
-        document.getElementById('salesUpdateTime').textContent=salesFmt24(updatedAt);
-        const lbl=document.getElementById('salesUpdateLabel');
-        lbl.classList.remove('hidden');
-        lbl.style.display='flex';
         salesReady=true;
         badge.className='badge badge-ready';
         navBtn.disabled=false;
@@ -1552,7 +1541,7 @@ function processData(hCSV,dCSV){
     if(sData.length>0){const latest=sData.reduce((a,b)=>a.sortTime>b.sortTime?a:b);calSel.start=latest.dateStr;calSel.end=latest.dateStr;calDate=new Date(latest.sortTime);updDateDisp();renderDaily()}
     salesWriteCache(salesCacheKey,{sData,sBills,updatedAt,cachedAt:new Date().toISOString()});
 }
-function hydrateSalesCache(){const cached=salesReadCache(salesCacheKey);if(!cached?.sData?.length)return false;sData=cached.sData;sBills=cached.sBills||[];const yrs=Array.from(new Set(sData.map(d=>d.yearStr))).sort().reverse();buildYearMenu(yrs);buildMonthMenu();buildPlatMenus(yrs);const latest=sData.reduce((a,b)=>a.sortTime>b.sortTime?a:b);calSel.start=latest.dateStr;calSel.end=latest.dateStr;calDate=new Date(latest.sortTime);updDateDisp();renderDaily();const badge=document.getElementById('salesBadge'),navBtn=document.getElementById('navSales'),ov=document.getElementById('salesOverlay');const updatedAt=getCachedSalesUpdatedAt(cached);document.getElementById('salesUpdateTime').textContent=salesFmt24(updatedAt);const lbl=document.getElementById('salesUpdateLabel');lbl.classList.remove('hidden');lbl.style.display='flex';salesReady=true;badge.className='badge badge-ready';navBtn.disabled=false;ov.classList.add('hidden');ov.classList.remove('fade-out');setSalesSyncState('cached',updatedAt,false);return true}
+function hydrateSalesCache(){const cached=salesReadCache(salesCacheKey);if(!cached?.sData?.length)return false;sData=cached.sData;sBills=cached.sBills||[];const yrs=Array.from(new Set(sData.map(d=>d.yearStr))).sort().reverse();buildYearMenu(yrs);buildMonthMenu();buildPlatMenus(yrs);const latest=sData.reduce((a,b)=>a.sortTime>b.sortTime?a:b);calSel.start=latest.dateStr;calSel.end=latest.dateStr;calDate=new Date(latest.sortTime);updDateDisp();renderDaily();const badge=document.getElementById('salesBadge'),navBtn=document.getElementById('navSales'),ov=document.getElementById('salesOverlay');const updatedAt=getCachedSalesUpdatedAt(cached);salesReady=true;badge.className='badge badge-ready';navBtn.disabled=false;ov.classList.add('hidden');ov.classList.remove('fade-out');setSalesSyncState('cached',updatedAt,false);return true}
 hydrateSalesCache();window.__salesFetch&&window.__salesFetch();
 
 function buildYearMenu(yrs){const m=document.getElementById('cmpYearMenu');m.innerHTML='';const a=document.createElement('button');a.className='cs-opt';a.textContent='ปี';a.type='button';a.dataset.val='';a.onclick=function(){selectDD('cmpYearSelect','','ปี')};m.appendChild(a);yrs.forEach(y=>{const b=document.createElement('button');b.className='cs-opt';b.textContent=y;b.type='button';b.dataset.val=y;b.onclick=function(){selectDD('cmpYearSelect',y,y)};m.appendChild(b)})}
