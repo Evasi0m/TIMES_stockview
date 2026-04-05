@@ -342,13 +342,28 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
 .close-btn:active{background:var(--bg-glass-heavy)}
 
 /* ═══ HIGH CONTRAST MODE ═══ */
-[data-theme="hc"]{--bg-primary:#000;--bg-secondary:#000;--bg-glass:rgba(255,255,255,0.08);--bg-glass-heavy:rgba(255,255,255,0.14);--bg-glass-input:rgba(255,255,255,0.07);--border-glass:rgba(255,255,255,0.30);--border-glass-strong:rgba(255,255,255,0.55);--text-primary:#ffffff;--text-secondary:rgba(255,255,255,0.82);--text-tertiary:rgba(255,255,255,0.50);--accent:#00ff88;--accent-glow:rgba(0,255,136,0.30);--accent-soft:rgba(0,255,136,0.12);--accent-border:rgba(0,255,136,0.40);--accent2:#55aaff;--accent2-glow:rgba(85,170,255,0.25);--danger:#ff5555;--danger-soft:rgba(255,85,85,0.12);--nav-bg:rgba(0,0,0,0.97);--thead-bg:rgba(0,0,0,0.99);--dropdown-bg:rgba(8,8,8,0.99);--dropdown-border:rgba(255,255,255,0.20);--mesh-1:#00aa55;--mesh-2:#0055ff;--mesh-3:#00aaff}
-[data-theme="hc"] .lg,[data-theme="hc"] .lg-heavy,[data-theme="hc"] .stock-card{backdrop-filter:none;-webkit-backdrop-filter:none}
-[data-theme="hc"] .mesh-orb{opacity:.04}
 
 /* ═══ REDUCED MOTION ═══ */
-[data-rm="1"] *,[data-rm="1"] *::before,[data-rm="1"] *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.05ms!important}
-[data-rm="1"] .mesh-orb{animation:none!important}
+[data-rm="1"] *,[data-rm="1"] *::before,[data-rm="1"] *::after{animation:none!important;transition:none!important}
+/* Solid background — no mesh gradient */
+[data-rm="1"] .mesh-orb{display:none!important}
+[data-rm="1"] body{background:var(--bg-primary)!important}
+/* Glass → solid: remove all backdrop-filter & translucent bg */
+[data-rm="1"] .lg,[data-rm="1"] .lg-heavy{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:var(--bg-secondary)!important;border-color:var(--border-glass-strong)!important}
+[data-rm="1"] .stock-card,[data-rm="1"] .sale-card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:var(--bg-secondary)!important;border:.5px solid var(--border-glass-strong)!important}
+[data-rm="1"] .glass-btn{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:var(--bg-secondary)!important;border-color:var(--border-glass-strong)!important}
+[data-rm="1"] .hdr{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:var(--bg-secondary)!important;border-bottom-color:var(--border-glass-strong)!important}
+[data-rm="1"] .lg-input{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:var(--bg-secondary)!important}
+[data-rm="1"] .s-pill{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:var(--bg-secondary)!important;border-color:var(--border-glass-strong)!important}
+[data-rm="1"] .genie-backdrop{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+[data-rm="1"] .genie-card,[data-rm="1"] #settingsCard,[data-rm="1"] #iconChangerCard{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border-color:var(--border-glass-strong)!important}
+/* Nav bar — solid, no glow */
+[data-rm="1"] .nav-pill{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:var(--bg-secondary)!important;border-color:var(--border-glass-strong)!important;box-shadow:none!important}
+[data-rm="1"] .nav-btn.active{box-shadow:none!important}
+[data-rm="1"] #bottomNav::before{display:none!important}
+/* Kill all glows/shadows */
+[data-rm="1"] *{box-shadow:none!important;text-shadow:none!important;filter:none!important}
+[data-rm="1"] .dot-glow,[data-rm="1"] .settings-gear,[data-rm="1"] .date-glow,[data-rm="1"] .search-glow,[data-rm="1"] .s-pill .val{animation:none!important}
 
 /* ═══ OFFLINE BANNER ═══ */
 #offlineBanner{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(251,191,36,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:#000;padding:max(8px,var(--safe-top)) 16px 8px;text-align:center;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px;transform:translateY(-100%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
@@ -505,16 +520,6 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
                     </span>
                 </span>
                 <span id="settingsFontBadge" style="font-size:11px;font-weight:700;color:var(--accent);border:.5px solid var(--accent-border);padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0">เล็ก</span>
-            </button>
-            <button onclick="toggleHighContrast()" class="glass-btn" type="button" aria-label="เปิด/ปิดโหมดคอนทราสต์สูง" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px">
-                <span style="display:flex;align-items:center;gap:10px">
-                    <span style="width:30px;height:30px;border-radius:12px;background:rgba(255,255,255,0.10);border:.5px solid rgba(255,255,255,0.20);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-circle-half-stroke" style="font-size:13px;color:var(--text-primary)"></i></span>
-                    <span style="text-align:left">
-                        <span style="display:block;font-size:13px;font-weight:600;color:var(--text-primary)">High Contrast</span>
-                        <span id="settingsHcMeta" style="display:block;font-size:10px;color:var(--text-secondary);margin-top:2px">คอนทราสต์สูง เหมาะกับแสงจ้า</span>
-                    </span>
-                </span>
-                <span id="settingsHcBadge" style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:.5px solid var(--border-glass);color:var(--text-secondary)">ปิด</span>
             </button>
             <button onclick="toggleReducedMotion()" class="glass-btn" type="button" aria-label="เปิด/ปิดลดการเคลื่อนไหว" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px">
                 <span style="display:flex;align-items:center;gap:10px">
@@ -770,16 +775,16 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
             </div>
         </div>
         <div id="dailyContent" style="display:flex;flex-direction:column;gap:12px">
-            <div class="lg shine" style="padding:14px">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-                    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary)">ช่วงวันที่</div>
-                    <button id="exportBtn" class="export-btn" onclick="exportExcel()" disabled><i class="fa-solid fa-file-excel"></i><span>Export</span></button>
+            <div class="lg shine" style="padding:10px 12px">
+                <div style="display:flex;gap:8px;align-items:center">
+                    <button id="exportBtn" onclick="exportExcel()" disabled aria-label="Export Excel" style="width:46px;height:46px;flex-shrink:0;border:none;border-radius:12px;background:var(--accent);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px var(--accent-glow);transition:opacity .2s;opacity:.35;pointer-events:none">
+                        <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="13" height="18" rx="2" fill="rgba(255,255,255,.22)" stroke="rgba(255,255,255,.9)" stroke-width="1.3"/><path d="M6.5 8.5L9.5 12L6.5 15.5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><line x1="13.5" y1="8" x2="22" y2="8" stroke="white" stroke-width="1.5" stroke-linecap="round"/><line x1="13.5" y1="12" x2="22" y2="12" stroke="white" stroke-width="1.5" stroke-linecap="round"/><line x1="13.5" y1="16" x2="22" y2="16" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </button>
+                    <button id="dateInputBtn" onclick="openCal()" class="date-glow" style="flex:1;min-width:0;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:inherit;font-size:14px;text-align:left;background:var(--bg-glass-input);backdrop-filter:blur(20px);border:.5px solid var(--border-glass);border-radius:14px;color:var(--text-primary);transition:all .25s">
+                        <span id="dateText" style="color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">เลือกวันที่...</span>
+                        <i class="fa-regular fa-calendar" style="color:var(--accent);font-size:14px;flex-shrink:0;margin-left:8px"></i>
+                    </button>
                 </div>
-                <button id="dateInputBtn" onclick="openCal()" class="date-glow" style="width:100%;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:inherit;font-size:14px;text-align:left;background:var(--bg-glass-input);backdrop-filter:blur(20px);border:.5px solid var(--border-glass);border-radius:14px;color:var(--text-primary);transition:all .25s">
-                    <span id="dateText" style="color:var(--text-secondary)">เลือกวันที่...</span>
-                    <i class="fa-regular fa-calendar" style="color:var(--accent);font-size:14px"></i>
-                </button>
-                <div style="font-size:10px;color:var(--text-tertiary);margin-top:6px;padding-left:2px">กด 1 ครั้ง = วันเริ่ม → กดอีกครั้ง = วันสิ้นสุด</div>
             </div>
             <!-- INSIGHT CHIP -->
             <div id="insightChip" class="insight-chip hidden"><i class="fa-solid fa-lightbulb"></i><span id="insightText"></span></div>
@@ -1567,7 +1572,7 @@ function closeCal(){document.getElementById('calOverlay').classList.remove('open
 function calToday(){const t=new Date();calDate=new Date(t);const ds=salesFormatLocalDateKey(t);calSel.start=ds;calSel.end=ds;calStep=2;updDateDisp();renderDaily();renderCal()}
 function calMonth(d){calDate.setMonth(calDate.getMonth()+d);renderCal()}
 function renderCal(){const y=calDate.getFullYear(),m=calDate.getMonth();const mns=["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"];document.getElementById('calTitle').textContent=`${mns[m]} ${y}`;const fd=new Date(y,m,1).getDay(),dim=new Date(y,m+1,0).getDate(),todayStr=salesFormatLocalDateKey(new Date()),c=document.getElementById('calDays');c.innerHTML='';for(let i=0;i<fd;i++){const e=document.createElement('div');e.style.cssText='width:40px;height:40px';c.appendChild(e)}for(let dd=1;dd<=dim;dd++){const mm=salesPad2(m+1),dds=salesPad2(dd),ds=`${y}-${mm}-${dds}`;const b=document.createElement('button');b.textContent=dd;b.className='day-btn';b.type='button';if(ds===todayStr)b.classList.add('today');if(calSel.start===ds)b.classList.add('sel-start');if(calSel.end===ds&&calSel.start!==ds)b.classList.add('sel-end');if(calSel.start&&calSel.end&&ds>calSel.start&&ds<calSel.end)b.classList.add('in-range');b.addEventListener('click',function(ev){ev.stopPropagation();if(calStep===0||calStep===2){calSel.start=ds;calSel.end=null;calStep=1}else{if(ds<calSel.start){calSel.end=calSel.start;calSel.start=ds}else calSel.end=ds;calStep=2;updDateDisp();renderDaily()}renderCal()});c.appendChild(b)}}
-function updDateDisp(){if(!calSel.start)return;const f=s=>s.split('-').reverse().join('/');const r=(calSel.end&&calSel.start!==calSel.end)?`${f(calSel.start)} - ${f(calSel.end)}`:f(calSel.start);document.getElementById('dateText').textContent=r;document.getElementById('dateText').style.color='var(--text-primary)';document.getElementById('dateText').style.fontWeight='500';document.getElementById('dateLabel').textContent=r;document.getElementById('dateInputBtn').classList.remove('date-glow');document.getElementById('exportBtn').disabled=false}
+function updDateDisp(){if(!calSel.start)return;const f=s=>s.split('-').reverse().join('/');const r=(calSel.end&&calSel.start!==calSel.end)?`${f(calSel.start)} - ${f(calSel.end)}`:f(calSel.start);document.getElementById('dateText').textContent=r;document.getElementById('dateText').style.color='var(--text-primary)';document.getElementById('dateText').style.fontWeight='500';document.getElementById('dateLabel').textContent=r;document.getElementById('dateInputBtn').classList.remove('date-glow');const eb=document.getElementById('exportBtn');eb.disabled=false;eb.style.opacity='1';eb.style.pointerEvents='auto'}
 function renderPlatformDetailRows(inner,platBills,platItems,cl){const detailWrap=document.createElement('div');detailWrap.style.cssText='padding:0 14px 12px';const divider=document.createElement('div');divider.style.cssText='height:.5px;background:var(--border-glass);margin-bottom:8px';detailWrap.appendChild(divider);const billMap=new Map();platBills.forEach(b=>billMap.set(b.id,b));const grouped=new Map();platItems.forEach(it=>{if(!grouped.has(it.id))grouped.set(it.id,[]);grouped.get(it.id).push(it)});let rowIdx=0;grouped.forEach((gItems,billId)=>{const bill=billMap.get(billId);const billVal=bill?bill.totalValue:0;gItems.forEach(gi=>{const dateDisp=gi.dateStr.split('-').reverse().slice(0,2).join('/')+' '+gi.timeStr;const copyTxt=`สินค้า "${gi.productName}" รายได้ในราคา "${billVal.toLocaleString('th-TH',{minimumFractionDigits:2})}" เวลาขาย ${dateDisp}`;const row=document.createElement('div');row.style.cssText=`display:flex;align-items:center;gap:8px;padding:6px 0;${rowIdx>0?'border-top:.5px solid var(--border-glass)':''}`;const info=document.createElement('div');info.style.cssText='flex:1;min-width:0';const title=document.createElement('div');title.style.cssText='font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis';title.textContent=gi.productName;const meta=document.createElement('div');meta.style.cssText='display:flex;gap:8px;font-size:10px;color:var(--text-secondary);margin-top:2px';const dateSpan=document.createElement('span');dateSpan.className='mono';dateSpan.textContent=dateDisp;const billSpan=document.createElement('span');billSpan.className='mono';billSpan.style.cssText=`color:${cl};font-weight:600`;billSpan.textContent=`฿${billVal.toLocaleString('th-TH',{minimumFractionDigits:0})}`;meta.appendChild(dateSpan);meta.appendChild(billSpan);info.appendChild(title);info.appendChild(meta);const copyBtn=document.createElement('button');copyBtn.type='button';copyBtn.style.cssText='flex-shrink:0;width:28px;height:28px;border-radius:8px;border:.5px solid var(--border-glass);background:var(--bg-glass);color:var(--text-tertiary);cursor:pointer;display:flex;align-items:center;justify-content:center';const copyIcon=document.createElement('i');copyIcon.className='fa-regular fa-copy';copyIcon.style.fontSize='10px';copyBtn.appendChild(copyIcon);copyBtn.addEventListener('click',ev=>{ev.stopPropagation();navigator.clipboard.writeText(copyTxt).then(()=>window.showNotif('คัดลอกแล้ว')).catch(()=>window.showNotif('ไม่สำเร็จ','error'))});row.appendChild(info);row.appendChild(copyBtn);detailWrap.appendChild(row);rowIdx++})});inner.replaceChildren(detailWrap)}
 
 function renderDaily(){
@@ -1683,16 +1688,13 @@ window.closeHelp=()=>{const s=document.getElementById('helpSheet');s.classList.r
 /* ══════════════════════════════════════════════════
    HIGH CONTRAST & REDUCED MOTION
 ══════════════════════════════════════════════════ */
-const HC_KEY='ts_hc',RM_KEY='ts_rm';
-const applyHC=on=>{if(on)document.documentElement.setAttribute('data-theme','hc');else{const isDark=localStorage.getItem('ts_dark')!=='false';document.documentElement.setAttribute('data-theme',isDark?'dark':'light');if(isDark)applyAccentTheme(getAccentTheme())}};
+const RM_KEY='ts_rm';
 const applyRM=on=>{if(on)document.documentElement.setAttribute('data-rm','1');else document.documentElement.removeAttribute('data-rm')};
-(()=>{if(localStorage.getItem(HC_KEY)==='1')applyHC(true);if(localStorage.getItem(RM_KEY)==='1')applyRM(true)})();
-window.toggleHighContrast=()=>{const on=localStorage.getItem(HC_KEY)!=='1';localStorage.setItem(HC_KEY,on?'1':'0');applyHC(on);window.__updateSettingsAccessibility&&window.__updateSettingsAccessibility();window.showNotif(on?'High Contrast เปิดแล้ว':'กลับธีมปกติ')};
+(()=>{if(localStorage.getItem(RM_KEY)==='1')applyRM(true)})();
 window.toggleReducedMotion=()=>{const on=localStorage.getItem(RM_KEY)!=='1';localStorage.setItem(RM_KEY,on?'1':'0');applyRM(on);window.__updateSettingsAccessibility&&window.__updateSettingsAccessibility();window.showNotif(on?'ลดการเคลื่อนไหว: เปิด':'ลดการเคลื่อนไหว: ปิด')};
 window.__updateSettingsAccessibility=()=>{
-    const hcOn=localStorage.getItem(HC_KEY)==='1',rmOn=localStorage.getItem(RM_KEY)==='1';
-    const hcB=document.getElementById('settingsHcBadge'),rmB=document.getElementById('settingsRmBadge');
-    if(hcB){hcB.textContent=hcOn?'เปิด':'ปิด';hcB.style.color=hcOn?'var(--accent)':'var(--text-secondary)';hcB.style.borderColor=hcOn?'var(--accent-border)':'var(--border-glass)'}
+    const rmOn=localStorage.getItem(RM_KEY)==='1';
+    const rmB=document.getElementById('settingsRmBadge');
     if(rmB){rmB.textContent=rmOn?'เปิด':'ปิด';rmB.style.color=rmOn?'var(--accent2)':'var(--text-secondary)';rmB.style.borderColor=rmOn?'rgba(129,140,248,.35)':'var(--border-glass)'}
 };
 // Update openSettingsModal to also call accessibility update
