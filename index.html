@@ -361,8 +361,10 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
 [data-rm="1"] .nav-pill{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:var(--bg-secondary)!important;border-color:var(--border-glass-strong)!important;box-shadow:none!important}
 [data-rm="1"] .nav-btn.active{box-shadow:none!important}
 [data-rm="1"] #bottomNav::before{display:none!important}
-/* Kill all glows/shadows */
-[data-rm="1"] *{box-shadow:none!important;text-shadow:none!important;filter:none!important}
+/* Kill all glows/shadows — no filter:none on * (breaks stacking contexts & child rendering) */
+[data-rm="1"] *{box-shadow:none!important;text-shadow:none!important}
+/* Elements that start opacity:0 and rely on fadeUp animation must show immediately */
+[data-rm="1"] .anim-item,[data-rm="1"] .sale-card{opacity:1!important;transform:none!important}
 [data-rm="1"] .dot-glow,[data-rm="1"] .settings-gear,[data-rm="1"] .date-glow,[data-rm="1"] .search-glow,[data-rm="1"] .s-pill .val{animation:none!important}
 
 /* ═══ OFFLINE BANNER ═══ */
