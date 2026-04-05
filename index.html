@@ -371,22 +371,6 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
 .swipe-dot{width:5px;height:5px;border-radius:50%;background:var(--text-tertiary);transition:all .3s}
 .swipe-dot.active{background:var(--accent);width:14px;border-radius:3px;box-shadow:0 0 8px var(--accent-glow)}
 
-/* ═══ ONBOARDING ═══ */
-#onboarding{position:fixed;inset:0;z-index:99999;display:none;pointer-events:none}
-#onboarding.active{pointer-events:auto}
-.ob-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.70)}
-.ob-tooltip{position:absolute;max-width:270px;background:var(--dropdown-bg);backdrop-filter:blur(50px);-webkit-backdrop-filter:blur(50px);border:.5px solid var(--border-glass-strong);border-radius:20px;padding:18px;box-shadow:0 12px 40px rgba(0,0,0,.5);z-index:2}
-.ob-tooltip h4{font-size:14px;font-weight:700;margin-bottom:6px;color:var(--text-primary)}
-.ob-tooltip p{font-size:12px;color:var(--text-secondary);line-height:1.6;margin-bottom:14px}
-.ob-row{display:flex;gap:8px;align-items:center}
-.ob-btn{flex:1;padding:11px;border-radius:13px;border:none;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .15s}
-.ob-btn:active{transform:scale(.95)}
-.ob-btn.primary{background:var(--accent);color:#fff;box-shadow:0 4px 16px var(--accent-glow)}
-.ob-btn.skip{background:transparent;border:.5px solid var(--border-glass);color:var(--text-tertiary);font-size:11px;flex:0;padding:11px 14px}
-.ob-dots{display:flex;gap:5px;justify-content:center;margin-bottom:12px}
-.ob-dot{width:6px;height:6px;border-radius:50%;background:var(--border-glass-strong);transition:background .25s}
-.ob-dot.active{background:var(--accent)}
-
 /* ═══ EMPTY STATE ═══ */
 .empty-state{display:flex;flex-direction:column;align-items:center;padding:36px 16px;gap:10px}
 .empty-state-icon{width:56px;height:56px;border-radius:18px;background:var(--bg-glass-input);border:.5px solid var(--border-glass);display:flex;align-items:center;justify-content:center;color:var(--text-tertiary);font-size:22px}
@@ -903,20 +887,6 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
             </div>
         </div>
         <button onclick="closeHelp()" style="width:100%;margin-top:16px;padding:13px;border-radius:16px;border:none;background:var(--accent);color:#fff;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px var(--accent-glow)">ปิด</button>
-    </div>
-</div>
-
-<!-- ONBOARDING OVERLAY -->
-<div id="onboarding">
-    <div class="ob-backdrop"></div>
-    <div class="ob-tooltip" id="obTooltip">
-        <div class="ob-dots" id="obDots"></div>
-        <h4 id="obTitle"></h4>
-        <p id="obDesc"></p>
-        <div class="ob-row">
-            <button class="ob-btn skip" onclick="endOnboarding()">ข้าม</button>
-            <button class="ob-btn primary" id="obNext" onclick="nextOnboarding()">ถัดไป</button>
-        </div>
     </div>
 </div>
 
@@ -1826,53 +1796,6 @@ function buildCardView(items){
     });
 }
 
-/* ══════════════════════════════════════════════════
-   ONBOARDING WALKTHROUGH
-══════════════════════════════════════════════════ */
-const OB_KEY='ts_ob_done';
-const OB_STEPS=[
-    {title:'ยินดีต้อนรับสู่ Times Stock 👋',desc:'แอปจัดการสต็อกและดูยอดขายจาก TikTok Shop, Lazada และช่องทางอื่นๆ ในที่เดียว',target:null},
-    {title:'เมนูหลัก',desc:'กดปุ่มด้านล่างเพื่อสลับระหว่างหน้า สต็อก และ ยอดขาย หรือ Swipe ซ้าย/ขวาได้เลย',target:'bottomNav'},
-    {title:'ดูยอดขายรายวัน',desc:'เลือกวันที่แล้วดูรายการขายสินค้า พร้อมสรุปยอดและแยกตาม Platform',target:'tabDaily'},
-    {title:'ปรับตั้งค่า',desc:'เปลี่ยนธีม ปรับขนาดตัวอักษร หรือเปิด High Contrast สำหรับแสงจ้า',target:'salesSettingsBtn'},
-    {title:'พร้อมใช้งานแล้ว! 🎉',desc:'หากต้องการดูคำแนะนำนี้อีกครั้ง ให้กดปุ่ม ? ในหน้าสต็อก',target:null}
-];
-let obStep=0;
-window.startOnboarding=()=>{
-    if(localStorage.getItem(OB_KEY)==='1')return;
-    const el=document.getElementById('onboarding');el.style.display='block';el.classList.add('active');
-    obStep=0;renderObStep();
-};
-window.nextOnboarding=()=>{
-    obStep++;
-    if(obStep>=OB_STEPS.length){endOnboarding();return}
-    renderObStep();window.haptic('light');
-};
-window.endOnboarding=()=>{
-    localStorage.setItem(OB_KEY,'1');
-    const el=document.getElementById('onboarding');el.style.display='none';el.classList.remove('active');
-};
-function renderObStep(){
-    const step=OB_STEPS[obStep];
-    document.getElementById('obTitle').textContent=step.title;
-    document.getElementById('obDesc').textContent=step.desc;
-    document.getElementById('obNext').textContent=obStep===OB_STEPS.length-1?'เริ่มใช้งาน':'ถัดไป';
-    // dots
-    const dots=document.getElementById('obDots');dots.innerHTML='';
-    OB_STEPS.forEach((_,i)=>{const d=document.createElement('div');d.className='ob-dot'+(i===obStep?' active':'');dots.appendChild(d)});
-    // position tooltip
-    const tip=document.getElementById('obTooltip');
-    if(step.target){
-        const tEl=document.getElementById(step.target);
-        if(tEl){const r=tEl.getBoundingClientRect();const vh=window.innerHeight;
-            if(r.top>vh/2){tip.style.bottom=(vh-r.top+12)+'px';tip.style.top='auto'}
-            else{tip.style.top=(r.bottom+12)+'px';tip.style.bottom='auto'}
-            tip.style.left='16px';tip.style.right='16px';
-        }
-    }else{tip.style.top='50%';tip.style.bottom='auto';tip.style.left='16px';tip.style.right='16px';tip.style.transform='translateY(-50%)'}
-}
-// Show onboarding on first visit (after a short delay)
-setTimeout(()=>window.startOnboarding(),1200);
 
 /* ══════════════════════════════════════════════════
    BARCODE SCANNER
