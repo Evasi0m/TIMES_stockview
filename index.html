@@ -254,7 +254,7 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
 .s-pill{border-radius:14px;padding:10px 12px;position:relative;background:var(--bg-glass);backdrop-filter:blur(40px) saturate(180%);-webkit-backdrop-filter:blur(40px) saturate(180%);border:.5px solid var(--border-glass);overflow:hidden;transition:all .3s}
 .s-pill::before{content:'';position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,255,0.04),transparent);pointer-events:none}
 [data-theme="light"] .s-pill::before{background:linear-gradient(180deg,rgba(255,255,255,0.3),transparent)}
-.s-pill .val{font-size:14px;font-weight:700;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:relative;animation:pillGlow 3s ease-in-out infinite}
+.s-pill .val{font-size:14px;font-weight:700;line-height:1.2;white-space:nowrap;overflow:visible;position:relative;animation:pillGlow 3s ease-in-out infinite;padding:3px 0}
 @keyframes pillGlow{0%,100%{text-shadow:0 0 8px currentColor}50%{text-shadow:0 0 28px currentColor,0 0 48px currentColor}}
 .s-pill .lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-bottom:3px;position:relative}
 .s-pill .unit{font-size:8px;color:var(--text-tertiary);margin-top:2px;position:relative}
@@ -736,9 +736,9 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
     <header class="hdr" style="padding-top:max(12px,var(--safe-top))">
         <div style="padding:0 16px">
             <div style="display:flex;justify-content:space-between;align-items:center;height:48px">
-                <div style="display:flex;align-items:center;gap:10px">
-                    <img src="https://timesstock.infinityfree.me/logo_web512V2.png" style="width:32px;height:32px;object-fit:contain" />
-                    <div>
+                <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1">
+                    <img src="https://timesstock.infinityfree.me/logo_web512V2.png" style="width:32px;height:32px;object-fit:contain;flex-shrink:0" />
+                    <div style="min-width:0">
                         <div style="font-size:17px;font-weight:700;letter-spacing:-.3px">ยอดขาย</div>
                         <div id="salesUpdateLabel" class="hidden" style="align-items:center;gap:4px;font-size:10px;color:var(--text-secondary)">
                             <span class="dot-glow" style="width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block;--glow-c:var(--accent-glow)"></span>
@@ -746,7 +746,7 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
                         </div>
                     </div>
                 </div>
-                <div style="display:flex;gap:6px">
+                <div style="display:flex;gap:6px;flex-shrink:0;padding-left:8px">
                     <button onclick="openSettingsModal()" class="glass-btn" id="salesSettingsBtn" type="button" aria-label="เปิดการตั้งค่า" style="width:48px;height:48px;position:relative"><i class="fa-solid fa-gear settings-gear" aria-hidden="true" style="font-size:14px"></i><span id="salesSettingsDot" class="hidden" style="position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent-glow)"></span></button>
                     <button onclick="salesFetch()" class="glass-btn" type="button" aria-label="รีเฟรชข้อมูลยอดขาย" style="width:48px;height:48px"><i class="fa-solid fa-arrows-rotate" aria-hidden="true" style="font-size:14px"></i></button>
                 </div>
@@ -1601,7 +1601,7 @@ function renderDaily(){
     const platKeys=Object.keys(platStats).sort((a,b)=>platStats[b].rev-platStats[a].rev);
     if(platKeys.length>0&&!(platKeys.length===1&&platKeys[0]==='-')){
         pb.classList.remove('hidden');pb.style.display='block';clearNode(pc);
-        platKeys.forEach((k,idx)=>{const st=platStats[k];const p=PLAT_MAP[k];const nm=p?p.name:(k==='-'?'ไม่ระบุ':k);const cl=p?p.color:'var(--text-tertiary)';const isLight=document.documentElement.getAttribute('data-theme')==='light';const icon=p?((isLight&&p.svg_light)?p.svg_light:p.svg):'<i class="fa-solid fa-question" style="font-size:12px"></i>';const pctRev=rev>0?((st.rev/rev)*100).toFixed(1):0;const isHero=idx===0&&platKeys.length>=3;const nmSize=isHero?12:11;const revSize=isHero?14:12;
+        platKeys.forEach((k,idx)=>{const st=platStats[k];const p=PLAT_MAP[k];const nm=p?p.name:(k==='-'?'ไม่ระบุ':k);const cl=p?p.color:'var(--text-tertiary)';const isLight=document.documentElement.getAttribute('data-theme')==='light';const icon=p?((isLight&&p.svg_light)?p.svg_light:p.svg):'<i class="fa-solid fa-question" style="font-size:12px"></i>';const pctRev=rev>0?((st.rev/rev)*100).toFixed(1):0;const isHero=idx===0&&platKeys.length%2===1&&platKeys.length>=3;const nmSize=isHero?12:11;const revSize=isHero?14:12;
         const platItems=items.filter(it=>it.platform===k);
         const platBills=bills.filter(b=>b.platform===k);
         const wrap=document.createElement('div');wrap.className='lg anim-item'+(isHero?' plat-card-hero':'');wrap.style.cssText='border-radius:14px;overflow:hidden;cursor:pointer;min-width:0';
@@ -1640,7 +1640,7 @@ function renderDaily(){
         detailHTML+='</div>';
         */renderPlatformDetailRows(inner,platBills,platItems,cl);
         detail.appendChild(inner);wrap.appendChild(detail);
-        hdr.addEventListener('click',()=>{const isOpen=detail.classList.contains('open');detail.classList.toggle('open');hdr.querySelector('.plat-chev').style.transform=isOpen?'':'rotate(180deg)'});
+        hdr.addEventListener('click',()=>{const isOpen=detail.classList.contains('open');detail.classList.toggle('open');hdr.querySelector('.plat-chev').style.transform=isOpen?'':'rotate(180deg)';if(!isHero){wrap.classList.toggle('plat-card-hero',!isOpen)}});
         pc.appendChild(wrap)});
     } else {pb.classList.add('hidden');pb.style.display='none'}
     const sortedItems=items.slice().sort((a,b)=>(b.sortTime||0)-(a.sortTime||0));
