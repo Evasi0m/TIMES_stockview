@@ -150,6 +150,9 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
 @keyframes dateGlow{0%,100%{border-color:var(--border-glass)}50%{border-color:var(--accent);box-shadow:0 0 16px var(--accent-glow)}}
 .search-glow{animation:inputGlow 3s ease-in-out infinite}
 .search-glow:focus{animation:none}
+.search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:10px;border:.5px solid var(--border-glass-strong);background:var(--bg-glass-heavy);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:var(--text-secondary);font-size:11px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s ease;-webkit-tap-highlight-color:transparent}
+.search-clear.visible{opacity:1;pointer-events:auto}
+.search-clear:active{transform:translateY(-50%) scale(.88)}
 .date-glow{animation:dateGlow 3s ease-in-out infinite}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulseGlow{0%,100%{box-shadow:0 0 4px var(--glow-c);transform:scale(1)}50%{box-shadow:0 0 12px 2px var(--glow-c);transform:scale(1.2)}}
@@ -1321,8 +1324,9 @@ const App=()=>{
                         </div>
                     </div>
                     <div style={{position:'relative',margin:'8px 0 10px'}}>
-                        <input disabled={loading} type="text" placeholder="ค้นหาสินค้า..." value={q} onChange={e=>setQ(e.target.value)} className={`lg-input ${!q?'search-glow':''}`} style={{width:'100%',padding:'12px 12px 12px 40px',fontSize:15,fontFamily:'inherit'}}/>
+                        <input disabled={loading} type="text" placeholder="ค้นหาสินค้า..." value={q} onChange={e=>setQ(e.target.value)} className={`lg-input ${!q?'search-glow':''}`} style={{width:'100%',padding:'12px 46px 12px 40px',fontSize:15,fontFamily:'inherit'}}/>
                         <i className="fa-solid fa-magnifying-glass" style={{position:'absolute',left:14,top:'50%',transform:'translateY(-50%)',fontSize:14,color:'var(--text-tertiary)'}}></i>
+                        <button className={`search-clear${q?' visible':''}`} onClick={()=>setQ('')} type="button" aria-label="ล้างคำค้นหา" tabIndex={q?0:-1}><i className="fa-solid fa-xmark"></i></button>
                     </div>
                     <div className="info-bar"><span>{items.length} รายการ</span><span>เรียง: {sort==='stockMax'?'สต็อก (มาก→น้อย)':sort==='updated'?'แก้ไขล่าสุด':'สร้างล่าสุด'}</span></div>
                 </div>
