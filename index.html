@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="th" data-theme="dark" data-accent-theme="emerald">
 <head>
     <meta charset="UTF-8">
@@ -96,7 +96,27 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
 .settings-gear{animation:gearSpin 8s linear infinite;transform-origin:center}
 @keyframes gearSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.settings-gear{animation:none}}
-.settings-tone-wrap{display:flex;flex-direction:column;gap:10px;padding:12px 14px;border-radius:18px;background:var(--bg-glass-input);border:.5px solid var(--border-glass)}
+.settings-stack{display:flex;flex-direction:column;gap:10px}
+.settings-section{border-radius:18px;background:var(--bg-glass-input);border:.5px solid var(--border-glass);overflow:hidden;transition:border-color .2s ease,box-shadow .2s ease,background .2s ease}
+.settings-section[data-open="true"]{border-color:var(--accent-border);box-shadow:0 0 0 1px var(--accent-border),0 12px 28px rgba(0,0,0,.14)}
+.settings-section-header{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;background:transparent;border:none;color:inherit;font:inherit;cursor:pointer;text-align:left}
+.settings-section-header:active{transform:scale(.985)}
+.settings-section-pricing[data-open="false"]{background:linear-gradient(180deg,rgba(158,123,34,.28),rgba(108,84,23,.2));border-color:rgba(198,157,63,.28);box-shadow:0 10px 24px rgba(112,85,22,.14),inset 0 1px 0 rgba(255,255,255,.05)}
+.settings-section-pricing[data-open="false"] .settings-section-header{background:linear-gradient(180deg,rgba(255,226,148,.12),rgba(148,111,28,.08))}
+.settings-section-pricing[data-open="false"] .settings-section-chevron{color:#f1cf76}
+.settings-section-pricing[data-open="false"] #settingsPricingMeta{color:color-mix(in srgb,var(--text-secondary) 82%,#f6df9c)}
+.settings-section-pricing[data-open="false"] .settings-section-header [style*="color:#fbbf24"]{color:#f1cf76!important;background:rgba(241,207,118,.12)!important;border:.5px solid rgba(241,207,118,.18)}
+.settings-section-meta{display:flex;align-items:center;gap:10px;min-width:0}
+.settings-section-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:.5px solid var(--border-glass);color:var(--text-secondary);white-space:nowrap;flex-shrink:0}
+.settings-section-chevron{font-size:11px;color:var(--text-tertiary);transition:transform .2s ease,color .2s ease}
+.settings-section[data-open="true"] .settings-section-chevron{transform:rotate(90deg);color:var(--accent)}
+.settings-section-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .26s ease,opacity .2s ease;opacity:0}
+.settings-section[data-open="true"] .settings-section-body{grid-template-rows:1fr;opacity:1}
+.settings-section-body-inner{overflow:hidden;padding:0 14px 14px}
+.settings-panel{display:flex;flex-direction:column;gap:10px;padding:12px 14px;border-radius:18px;background:var(--bg-glass-input);border:.5px solid var(--border-glass)}
+.settings-note{font-size:10px;color:var(--text-secondary);line-height:1.55}
+.settings-inline-actions{display:flex;gap:8px}
+.settings-tone-wrap{display:flex;flex-direction:column;gap:10px}
 .settings-tone-wrap.hidden{display:none}
 .settings-tone-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .settings-tone-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -106,7 +126,7 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
 .settings-tone-swatch{display:flex;align-items:center;gap:3px;flex-shrink:0}
 .settings-tone-swatch i{display:block;width:8px;height:18px;border-radius:999px}
 .settings-tone-chip small{display:block;font-size:10px;color:var(--text-secondary);margin-top:2px}
-.settings-search-wrap{display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:18px;background:var(--bg-glass-input);border:.5px solid var(--border-glass)}
+.settings-search-wrap{display:flex;flex-direction:column;gap:10px}
 .settings-search-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .settings-search-grid{display:grid;grid-template-columns:1fr;gap:8px}
 .settings-search-card{width:100%;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;padding:11px 12px;border-radius:16px;border:.5px solid var(--border-glass);background:var(--bg-glass);color:var(--text-primary);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
@@ -120,6 +140,11 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
 .settings-delay-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:14px;border:.5px solid var(--border-glass);background:var(--bg-glass)}
 .settings-delay-select{min-width:92px;padding:9px 12px;border-radius:12px;border:.5px solid var(--border-glass-strong);background:var(--bg-glass-heavy);color:var(--text-primary);font:inherit;outline:none}
 .settings-delay-select:focus{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-glow)}
+.settings-scrollbar{scrollbar-width:thin;scrollbar-color:var(--accent-border) transparent}
+.settings-scrollbar::-webkit-scrollbar{width:9px}
+.settings-scrollbar::-webkit-scrollbar-track{background:transparent}
+.settings-scrollbar::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent-border),rgba(255,255,255,.12));border-radius:999px;border:2px solid transparent;background-clip:padding-box}
+[data-theme="light"] .settings-scrollbar::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgba(0,0,0,.12),rgba(255,255,255,.58));border:2px solid transparent;background-clip:padding-box}
 .compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .compare-card{background:var(--bg-glass);border:.5px solid var(--border-glass);border-radius:18px;padding:14px;min-width:0}
 .compare-card.hero{grid-column:1 / -1;padding:16px}
@@ -217,6 +242,10 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
 #pinOverlay.pin-exiting{animation:pinFadeOut .2s ease forwards;pointer-events:none}
 #pinCard.pin-entering{animation:pinCardIn .25s cubic-bezier(.2,.8,.2,1) forwards}
 #pinCard.pin-exiting{animation:pinCardOut .2s ease forwards}
+#settingsOverlay.settings-entering{animation:pinFadeIn .25s ease forwards}
+#settingsOverlay.settings-exiting{animation:pinFadeOut .2s ease forwards;pointer-events:none}
+#settingsCard.settings-entering{animation:pinCardIn .25s cubic-bezier(.2,.8,.2,1) forwards}
+#settingsCard.settings-exiting{animation:pinCardOut .2s ease forwards}
 
 /* ═══ DYNAMIC ISLAND NOTIFICATION ═══ */
 .notif-wrap{position:fixed;top:max(8px,var(--safe-top));left:0;right:0;z-index:10000;display:flex;justify-content:center;pointer-events:none}
@@ -511,26 +540,79 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
 </div>
 
 <div id="settingsOverlay" class="genie-backdrop hidden" style="z-index:9500;position:fixed" onclick="closeSettingsModal()">
-    <div id="settingsCard" class="genie-card" onclick="event.stopPropagation()" style="width:100%;max-width:320px;background:var(--dropdown-bg);backdrop-filter:blur(60px) saturate(200%);-webkit-backdrop-filter:blur(60px) saturate(200%);border:.5px solid var(--border-glass-strong);border-radius:22px;padding:20px;box-shadow:0 16px 48px rgba(0,0,0,.4);position:relative;overflow-y:auto;max-height:calc(100dvh - 80px)">
+    <div id="settingsCard" onclick="event.stopPropagation()" class="settings-scrollbar" style="width:100%;max-width:320px;background:var(--dropdown-bg);backdrop-filter:blur(60px) saturate(200%);-webkit-backdrop-filter:blur(60px) saturate(200%);border:.5px solid var(--border-glass-strong);border-radius:22px;padding:20px;box-shadow:0 16px 48px rgba(0,0,0,.4);position:relative;overflow-y:auto;max-height:calc(100dvh - 80px)">
         <div style="position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,255,0.05) 0%,transparent 100%);pointer-events:none"></div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;position:relative;z-index:1">
             <div>
                 <div style="font-size:15px;font-weight:700;letter-spacing:-.3px">ตั้งค่า</div>
-                <div style="font-size:11px;color:var(--text-secondary);margin-top:2px">จัดการธีมและโครงสร้างราคา</div>
+                <div style="font-size:11px;color:var(--text-secondary);margin-top:2px">จัดการธีม การค้นหา และการแสดงผลของแอป</div>
             </div>
             <button onclick="closeSettingsModal()" class="close-btn">×</button>
         </div>
-        <div style="display:flex;flex-direction:column;gap:10px;position:relative;z-index:1">
-            <button onclick="toggleSettingsTheme()" class="glass-btn" type="button" aria-label="สลับโหมดมืดและสว่าง" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px">
-                <span style="display:flex;align-items:center;gap:10px">
-                    <span id="settingsThemeIcon" style="width:30px;height:30px;border-radius:12px;background:var(--bg-glass-input);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-moon" style="font-size:14px"></i></span>
-                    <span style="text-align:left">
-                        <span style="display:block;font-size:13px;font-weight:600;color:var(--text-primary)">Dark / Light Mode</span>
-                        <span id="settingsThemeMeta" style="display:block;font-size:10px;color:var(--text-secondary);margin-top:2px">สลับธีมของทั้งแอป</span>
+        <div class="settings-stack" style="position:relative;z-index:1">
+            <div id="settingsThemeSection" class="settings-section" data-open="false">
+                <button onclick="toggleSettingsSection('theme')" class="settings-section-header" type="button" aria-label="เปิดหรือปิดรายละเอียด Dark / Light Mode">
+                    <span class="settings-section-meta">
+                        <span id="settingsThemeIcon" style="width:30px;height:30px;border-radius:12px;background:var(--bg-glass-input);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-moon" style="font-size:14px"></i></span>
+                        <span style="text-align:left">
+                            <span style="display:block;font-size:13px;font-weight:600;color:var(--text-primary)">Dark / Light Mode</span>
+                            <span id="settingsThemeMeta" style="display:block;font-size:10px;color:var(--text-secondary);margin-top:2px">สลับธีมของทั้งแอป</span>
+                        </span>
                     </span>
-                </span>
-                <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-tertiary)"></i>
-            </button>
+                    <i class="fa-solid fa-chevron-right settings-section-chevron"></i>
+                </button>
+                <div class="settings-section-body">
+                    <div class="settings-section-body-inner">
+                        <div class="settings-panel">
+                            <button onclick="toggleSettingsTheme()" class="glass-btn" type="button" aria-label="สลับโหมดมืดและสว่าง" style="width:100%;justify-content:space-between;padding:13px 14px;border-radius:16px">
+                                <span style="display:flex;align-items:center;gap:10px">
+                                    <span style="width:30px;height:30px;border-radius:12px;background:var(--bg-glass-input);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-circle-half-stroke" style="font-size:13px"></i></span>
+                                    <span style="text-align:left">
+                                        <span style="display:block;font-size:12px;font-weight:700;color:var(--text-primary)">สลับธีมทันที</span>
+                                        <span id="settingsThemeActionMeta" style="display:block;font-size:10px;color:var(--text-secondary);margin-top:2px">แตะเพื่อเปลี่ยนระหว่าง Dark และ Light</span>
+                                    </span>
+                                </span>
+                                <span id="settingsThemeBadge" class="settings-section-badge">Dark</span>
+                            </button>
+                            <div id="settingsToneWrap" class="settings-tone-wrap hidden" aria-live="polite">
+                                <div class="settings-tone-header">
+                                    <div>
+                                        <div style="font-size:12px;font-weight:700;color:var(--text-primary)">โทนสีใน Dark Mode</div>
+                                        <div id="settingsToneMeta" style="font-size:10px;color:var(--text-secondary);margin-top:3px">เลือกสีเน้นสำหรับค่าบวกและองค์ประกอบหลัก</div>
+                                    </div>
+                                    <div style="font-size:10px;color:var(--text-tertiary);text-align:right;line-height:1.5">ค่า 0 หรือค่าติดลบจะยังใช้สีแยกเพื่อให้อ่านง่ายบนมือถือ</div>
+                                </div>
+                                <div class="settings-tone-grid" id="settingsToneGrid">
+                                    <button type="button" class="settings-tone-chip" data-tone="emerald" onclick="selectAccentTheme('emerald')" aria-label="เลือกโทนเขียวเดิม">
+                                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#10b981"></i><i style="background:#34d399"></i></span>
+                                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Emerald</span><small>โทนเดิม</small></span>
+                                    </button>
+                                    <button type="button" class="settings-tone-chip" data-tone="pink" onclick="selectAccentTheme('pink')" aria-label="เลือกโทนชมพู">
+                                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#F13E93"></i><i style="background:#FE81D4"></i></span>
+                                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Pink</span><small>#F13E93 / #FE81D4</small></span>
+                                    </button>
+                                    <button type="button" class="settings-tone-chip" data-tone="blue" onclick="selectAccentTheme('blue')" aria-label="เลือกโทนฟ้า">
+                                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#03AED2"></i><i style="background:#5478FF"></i><i style="background:#0AC4E0"></i></span>
+                                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Blue</span><small>#03AED2 / #5478FF</small></span>
+                                    </button>
+                                    <button type="button" class="settings-tone-chip" data-tone="pistachio" onclick="selectAccentTheme('pistachio')" aria-label="เลือกโทนพิสตาชิโอ">
+                                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#9AB17A"></i><i style="background:#7FB77E"></i></span>
+                                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Pistachio</span><small>#9AB17A / #7FB77E</small></span>
+                                    </button>
+                                    <button type="button" class="settings-tone-chip" data-tone="peach" onclick="selectAccentTheme('peach')" aria-label="เลือกโทนพีช">
+                                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#EB4C4C"></i><i style="background:#FF7070"></i><i style="background:#FFA6A6"></i></span>
+                                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Peach</span><small>#EB4C4C / #FF7070</small></span>
+                                    </button>
+                                    <button type="button" class="settings-tone-chip" data-tone="violet" onclick="selectAccentTheme('violet')" aria-label="เลือกโทนม่วง">
+                                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#450693"></i><i style="background:#8C00FF"></i><i style="background:#FF3F7F"></i><i style="background:#FFC400"></i></span>
+                                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Violet</span><small>#8C00FF / #FF3F7F</small></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <button onclick="cycleTextSize()" class="glass-btn" type="button" aria-label="ปรับขนาดตัวอักษร" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px">
                 <span style="display:flex;align-items:center;gap:10px">
                     <span style="width:30px;height:30px;border-radius:12px;background:var(--bg-glass-input);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-text-height" style="font-size:13px"></i></span>
@@ -541,7 +623,7 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
                 </span>
                 <span id="settingsFontBadge" style="font-size:11px;font-weight:700;color:var(--accent);border:.5px solid var(--accent-border);padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0">เล็ก</span>
             </button>
-            <button onclick="toggleReducedMotion()" class="glass-btn" type="button" aria-label="เปิด/ปิดลดการเคลื่อนไหว" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px">
+            <button onclick="toggleReducedMotion()" class="glass-btn" type="button" aria-label="เปิดหรือปิดลดการเคลื่อนไหว" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px">
                 <span style="display:flex;align-items:center;gap:10px">
                     <span style="width:30px;height:30px;border-radius:12px;background:rgba(129,140,248,0.12);border:.5px solid rgba(129,140,248,0.20);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-hand" style="font-size:13px;color:var(--accent2)"></i></span>
                     <span style="text-align:left">
@@ -551,257 +633,216 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
                 </span>
                 <span id="settingsRmBadge" style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:.5px solid var(--border-glass);color:var(--text-secondary)">ปิด</span>
             </button>
-            <button onclick="openIconChanger()" class="glass-btn" type="button" aria-label="เปลี่ยนรูปไอคอนแอป" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px">
-                <span style="display:flex;align-items:center;gap:10px">
-                    <span style="width:30px;height:30px;border-radius:12px;background:rgba(129,140,248,0.12);border:.5px solid rgba(129,140,248,0.20);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-image" style="font-size:13px;color:var(--accent2)"></i></span>
-                    <span style="text-align:left">
-                        <span style="display:block;font-size:13px;font-weight:600;color:var(--text-primary)">เปลี่ยนรูปแอป</span>
-                        <span style="display:block;font-size:10px;color:var(--text-secondary);margin-top:2px">โลโก้ ไอคอน และรูปบนเบราว์เซอร์</span>
+            <div id="settingsIconSection" class="settings-section" data-open="false">
+                <button onclick="toggleSettingsSection('icon')" class="settings-section-header" type="button" aria-label="เปิดหรือปิดรายละเอียดเปลี่ยนรูปแอป">
+                    <span class="settings-section-meta">
+                        <span style="width:30px;height:30px;border-radius:12px;background:rgba(129,140,248,0.12);border:.5px solid rgba(129,140,248,0.20);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-image" style="font-size:13px;color:var(--accent2)"></i></span>
+                        <span style="text-align:left">
+                            <span style="display:block;font-size:13px;font-weight:600;color:var(--text-primary)">เปลี่ยนรูปแอป</span>
+                            <span id="settingsIconMeta" style="display:block;font-size:10px;color:var(--text-secondary);margin-top:2px">โลโก้ ไอคอน และรูปบนเบราว์เซอร์</span>
+                        </span>
                     </span>
-                </span>
-                <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-tertiary)"></i>
-            </button>
-            <button onclick="openPricingModalFromSettings()" class="glass-btn" style="width:100%;justify-content:space-between;padding:14px 16px;border-radius:16px;position:relative">
-                <span style="display:flex;align-items:center;gap:10px">
-                    <span style="width:30px;height:30px;border-radius:12px;background:rgba(251,191,36,.12);display:flex;align-items:center;justify-content:center;color:#fbbf24"><i class="fa-solid fa-percent" style="font-size:13px"></i></span>
-                    <span style="text-align:left">
-                        <span style="display:block;font-size:13px;font-weight:600;color:var(--text-primary)">โครงสร้างราคา</span>
-                        <span id="settingsPricingMeta" style="display:block;font-size:10px;color:var(--text-secondary);margin-top:2px">ส่วนลด 58% / หน้าร้าน 25% / ออนไลน์ 35%</span>
+                    <i class="fa-solid fa-chevron-right settings-section-chevron"></i>
+                </button>
+                <div class="settings-section-body">
+                    <div class="settings-section-body-inner">
+                        <div class="settings-panel">
+                            <div class="settings-note">แตะหัวข้อนี้เพื่อย่อหรือขยายได้ทุกเมื่อ โดยยังใช้งานเปลี่ยนรูปแต่ละส่วนแยกกันเหมือนเดิม</div>
+                            <div style="display:flex;flex-direction:column;gap:8px">
+                                <div class="ic-row">
+                                    <div id="icThumbLogo" class="ic-thumb">
+                                        <img id="icImgLogo" src="" alt="" style="display:none"/>
+                                        <i class="fa-solid fa-image" style="font-size:16px;color:var(--text-tertiary)"></i>
+                                    </div>
+                                    <div style="flex:1;min-width:0">
+                                        <div style="font-size:12px;font-weight:700;color:var(--text-primary)">โลโก้ในแอป</div>
+                                        <div id="icStatusLogo" class="ic-status">รูปที่แสดงบน Header ของแต่ละหน้า</div>
+                                    </div>
+                                    <label class="ic-label-btn" for="icFileLogo"><i class="fa-solid fa-upload" style="font-size:10px"></i>เลือก</label>
+                                    <input id="icFileLogo" type="file" accept="image/*" style="display:none" onchange="onIconPick(event,'logo')"/>
+                                </div>
+                                <div class="ic-row">
+                                    <div id="icThumbFavicon" class="ic-thumb">
+                                        <img id="icImgFavicon" src="" alt="" style="display:none"/>
+                                        <i class="fa-solid fa-globe" style="font-size:16px;color:var(--text-tertiary)"></i>
+                                    </div>
+                                    <div style="flex:1;min-width:0">
+                                        <div style="font-size:12px;font-weight:700;color:var(--text-primary)">Favicon</div>
+                                        <div id="icStatusFavicon" class="ic-status">ไอคอนบน Tab เบราว์เซอร์ (แนะนำ 64×64)</div>
+                                    </div>
+                                    <label class="ic-label-btn" for="icFileFavicon"><i class="fa-solid fa-upload" style="font-size:10px"></i>เลือก</label>
+                                    <input id="icFileFavicon" type="file" accept="image/*" style="display:none" onchange="onIconPick(event,'favicon')"/>
+                                </div>
+                                <div class="ic-row">
+                                    <div id="icThumbApp" class="ic-thumb">
+                                        <img id="icImgApp" src="" alt="" style="display:none"/>
+                                        <i class="fa-solid fa-mobile-screen-button" style="font-size:16px;color:var(--text-tertiary)"></i>
+                                    </div>
+                                    <div style="flex:1;min-width:0">
+                                        <div style="font-size:12px;font-weight:700;color:var(--text-primary)">App Icon</div>
+                                        <div id="icStatusApp" class="ic-status">ไอคอนหน้า Home iOS/Android (แนะนำ 512×512)</div>
+                                    </div>
+                                    <label class="ic-label-btn" for="icFileApp"><i class="fa-solid fa-upload" style="font-size:10px"></i>เลือก</label>
+                                    <input id="icFileApp" type="file" accept="image/*" style="display:none" onchange="onIconPick(event,'app')"/>
+                                </div>
+                            </div>
+                            <div id="iconPinSection" style="display:none;flex-direction:column;gap:10px">
+                                <div style="height:.5px;background:var(--border-glass);margin-top:2px"></div>
+                                <div style="font-size:12px;font-weight:600;color:var(--text-secondary);text-align:center"><i class="fa-solid fa-lock" style="color:var(--accent);margin-right:5px"></i>ใส่ PIN เพื่อยืนยันการเปลี่ยน</div>
+                                <input id="iconPinInput" class="icon-pin-input" type="password" inputmode="numeric" maxlength="5" placeholder="·····" autocomplete="off" oninput="onIconPinInput()" />
+                                <div id="iconPinErr" style="display:none;font-size:11px;color:var(--danger);text-align:center"><i class="fa-solid fa-xmark-circle" style="margin-right:4px"></i>PIN ไม่ถูกต้อง</div>
+                                <button id="iconConfirmBtn" onclick="confirmIconChange()" style="width:100%;padding:13px;border-radius:14px;border:none;background:var(--accent);color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px var(--accent-glow);-webkit-tap-highlight-color:transparent;opacity:.4;pointer-events:none;transition:opacity .2s">
+                                    <i class="fa-solid fa-check" style="margin-right:6px"></i>ยืนยันและบันทึก
+                                </button>
+                            </div>
+                            <button id="iconResetBtn" onclick="resetCustomIcon()" style="display:none;width:100%;padding:10px;border-radius:14px;border:.5px solid var(--border-glass);background:transparent;color:var(--danger);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent">
+                                <i class="fa-solid fa-rotate-left" style="margin-right:5px"></i>รีเซ็ตทั้งหมดกลับค่าเดิม
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="settingsPricingSection" class="settings-section settings-section-pricing" data-open="false">
+                <button onclick="toggleSettingsSection('pricing')" class="settings-section-header" type="button" aria-label="เปิดหรือปิดรายละเอียดโครงสร้างราคา" style="position:relative">
+                    <span class="settings-section-meta">
+                        <span style="width:30px;height:30px;border-radius:12px;background:rgba(251,191,36,.12);display:flex;align-items:center;justify-content:center;color:#fbbf24"><i class="fa-solid fa-percent" style="font-size:13px"></i></span>
+                        <span style="text-align:left">
+                            <span style="display:block;font-size:13px;font-weight:600;color:var(--text-primary)">โครงสร้างราคา</span>
+                            <span id="settingsPricingMeta" style="display:block;font-size:10px;color:var(--text-secondary);margin-top:2px">ส่วนลด 58% / หน้าร้าน 25% / ออนไลน์ 35%</span>
+                        </span>
                     </span>
-                </span>
-                <span id="settingsPricingDot" class="hidden" style="position:absolute;top:10px;right:34px;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent-glow)"></span>
-                <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-tertiary)"></i>
-            </button>
-            <div id="settingsSearchWrap" class="settings-search-wrap" aria-live="polite">
-                <div class="settings-search-header">
-                    <div>
-                        <div style="font-size:12px;font-weight:700;color:var(--text-primary)">ระบบค้นหา</div>
-                        <div id="settingsSearchMeta" style="font-size:10px;color:var(--text-secondary);margin-top:3px">พิมพ์แล้วค้นหาทันทีเหมือนเดิม</div>
+                    <span id="settingsPricingDot" class="hidden" style="position:absolute;top:10px;right:34px;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent-glow)"></span>
+                    <i class="fa-solid fa-chevron-right settings-section-chevron"></i>
+                </button>
+                <div class="settings-section-body">
+                    <div class="settings-section-body-inner">
+                        <div class="settings-panel">
+                            <div class="settings-note">กำหนดส่วนลดต้นทุน และ % กำไรสำหรับหน้าร้านกับช่องทางออนไลน์ โดยเปลี่ยนเฉพาะค่าที่ต้องการได้เลย</div>
+                            <div style="display:flex;flex-direction:column;gap:14px">
+                                <div>
+                                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:12px">🏷️</span><span style="font-size:10px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px">ส่วนลดจากราคาขาย</span></div>
+                                    <div style="position:relative">
+                                        <input id="pricingDiscInput" type="number" min="0" max="99" value="58" class="lg-input" style="width:100%;padding:10px 36px 10px 14px;font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;text-align:center" />
+                                        <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:700;color:var(--text-tertiary)">%</span>
+                                    </div>
+                                </div>
+                                <div style="height:.5px;background:var(--border-glass)"></div>
+                                <div>
+                                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:12px">🏪</span><span style="font-size:10px;font-weight:700;color:var(--text-secondary);letter-spacing:.5px">กำไรหน้าร้าน / เพจ</span></div>
+                                    <div style="position:relative">
+                                        <input id="pricingShopInput" type="number" min="0" max="999" value="25" class="lg-input" style="width:100%;padding:10px 36px 10px 14px;font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;text-align:center" />
+                                        <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:700;color:var(--text-tertiary)">%</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:12px">🛒</span><span style="font-size:10px;font-weight:700;color:var(--text-secondary);letter-spacing:.5px">กำไร TikTok / Shopee</span></div>
+                                    <div style="position:relative">
+                                        <input id="pricingOnlineInput" type="number" min="0" max="999" value="35" class="lg-input" style="width:100%;padding:10px 36px 10px 14px;font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;text-align:center" />
+                                        <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:700;color:var(--text-tertiary)">%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="settings-inline-actions">
+                                <button onclick="resetGlobalPricingSettings()" style="flex:1;padding:11px 0;border-radius:14px;border:.5px solid var(--border-glass);background:var(--bg-glass);color:var(--text-secondary);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer">รีเซ็ต</button>
+                                <button onclick="saveGlobalPricingSettings()" style="flex:1;padding:11px 0;border-radius:14px;border:none;background:var(--accent);color:#fff;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px var(--accent-glow)">ตกลง</button>
+                            </div>
+                        </div>
                     </div>
-                    <span id="settingsSearchBadge" style="font-size:11px;font-weight:700;color:var(--accent);border:.5px solid var(--accent-border);padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0">ทันที</span>
                 </div>
-                <div class="settings-search-grid" id="settingsSearchGrid">
-                    <button type="button" class="settings-search-card" data-mode="instant" onclick="selectSearchMode('instant')" aria-label="ใช้การค้นหาแบบทันที">
-                        <span class="settings-search-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="11" cy="11" r="6"></circle>
-                                <path d="m20 20-4.2-4.2"></path>
-                                <path d="M11 8v6"></path>
-                                <path d="M8 11h6"></path>
-                            </svg>
-                        </span>
+            </div>
+            <div id="settingsSearchSection" class="settings-section" data-open="true">
+                <button onclick="toggleSettingsSection('search')" class="settings-section-header" type="button" aria-label="เปิดหรือปิดรายละเอียดระบบค้นหา">
+                    <span class="settings-section-meta">
+                        <span style="width:30px;height:30px;border-radius:12px;background:var(--bg-glass-input);display:flex;align-items:center;justify-content:center;color:var(--accent)"><i class="fa-solid fa-magnifying-glass" style="font-size:13px"></i></span>
                         <span style="text-align:left">
-                            <span style="display:block;font-size:12px;font-weight:700">ค้นหาทันที</span>
-                            <small>พิมพ์ตัวอักษรแล้วเริ่มค้นหาทันทีเหมือนระบบปัจจุบัน</small>
+                            <span style="display:block;font-size:13px;font-weight:600;color:var(--text-primary)">ระบบค้นหา</span>
+                            <span id="settingsSearchMeta" style="display:block;font-size:10px;color:var(--text-secondary);margin-top:2px">พิมพ์แล้วค้นหาทันทีเหมือนเดิม</span>
                         </span>
-                        <span class="settings-search-check" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="m5 12 4.2 4.2L19 6.5"></path>
-                            </svg>
-                        </span>
-                    </button>
-                    <button type="button" class="settings-search-card" data-mode="delayed" onclick="selectSearchMode('delayed')" aria-label="ใช้การค้นหาแบบหน่วงเวลา">
-                        <span class="settings-search-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="8"></circle>
-                                <path d="M12 7.5v5l3 1.8"></path>
-                            </svg>
-                        </span>
-                        <span style="text-align:left">
-                            <span style="display:block;font-size:12px;font-weight:700">ค้นหาแบบหน่วงเวลา</span>
-                            <small>รออีกเล็กน้อยก่อนค่อยค้นหา เพื่อลดการโหลดข้อมูลระหว่างพิมพ์</small>
-                        </span>
-                        <span class="settings-search-check" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="m5 12 4.2 4.2L19 6.5"></path>
-                            </svg>
-                        </span>
-                    </button>
-                    <button type="button" class="settings-search-card" data-mode="submit" onclick="selectSearchMode('submit')" aria-label="ใช้การค้นหาแบบกดยืนยันก่อน">
-                        <span class="settings-search-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="4" y="5" width="16" height="14" rx="4"></rect>
-                                <path d="m8.5 12 2.2 2.2 4.8-4.9"></path>
-                            </svg>
-                        </span>
-                        <span style="text-align:left">
-                            <span style="display:block;font-size:12px;font-weight:700">กดยืนยันก่อนค้นหา</span>
-                            <small>เริ่มค้นหาเมื่อกดปุ่ม Done บนคีย์บอร์ด หรือกดปุ่มติ๊กในช่องค้นหา</small>
-                        </span>
-                        <span class="settings-search-check" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="m5 12 4.2 4.2L19 6.5"></path>
-                            </svg>
-                        </span>
-                    </button>
-                </div>
-                <div id="settingsSearchDelayRow" class="settings-delay-row hidden">
-                    <div>
-                        <div style="font-size:11px;font-weight:700;color:var(--text-primary)">Delay ก่อนค้นหา</div>
-                        <div id="settingsSearchDelayMeta" style="font-size:10px;color:var(--text-secondary);margin-top:3px">เลือกเวลาหน่วง 1-10 วินาที</div>
+                    </span>
+                    <span id="settingsSearchBadge" class="settings-section-badge" style="color:var(--accent);border-color:var(--accent-border)">ทันที</span>
+                    <i class="fa-solid fa-chevron-right settings-section-chevron"></i>
+                </button>
+                <div class="settings-section-body">
+                    <div class="settings-section-body-inner">
+                        <div id="settingsSearchWrap" class="settings-panel" aria-live="polite">
+                            <div class="settings-search-grid" id="settingsSearchGrid">
+                                <button type="button" class="settings-search-card" data-mode="instant" onclick="selectSearchMode('instant')" aria-label="ใช้การค้นหาแบบทันที">
+                                    <span class="settings-search-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="11" cy="11" r="6"></circle>
+                                            <path d="m20 20-4.2-4.2"></path>
+                                            <path d="M11 8v6"></path>
+                                            <path d="M8 11h6"></path>
+                                        </svg>
+                                    </span>
+                                    <span style="text-align:left">
+                                        <span style="display:block;font-size:12px;font-weight:700">ค้นหาทันที</span>
+                                        <small>พิมพ์ตัวอักษรแล้วเริ่มค้นหาทันทีเหมือนระบบปัจจุบัน</small>
+                                    </span>
+                                    <span class="settings-search-check" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="m5 12 4.2 4.2L19 6.5"></path>
+                                        </svg>
+                                    </span>
+                                </button>
+                                <button type="button" class="settings-search-card" data-mode="delayed" onclick="selectSearchMode('delayed')" aria-label="ใช้การค้นหาแบบหน่วงเวลา">
+                                    <span class="settings-search-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="8"></circle>
+                                            <path d="M12 7.5v5l3 1.8"></path>
+                                        </svg>
+                                    </span>
+                                    <span style="text-align:left">
+                                        <span style="display:block;font-size:12px;font-weight:700">ค้นหาแบบหน่วงเวลา</span>
+                                        <small>รออีกเล็กน้อยก่อนค่อยค้นหา เพื่อลดการโหลดข้อมูลระหว่างพิมพ์</small>
+                                    </span>
+                                    <span class="settings-search-check" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="m5 12 4.2 4.2L19 6.5"></path>
+                                        </svg>
+                                    </span>
+                                </button>
+                                <button type="button" class="settings-search-card" data-mode="submit" onclick="selectSearchMode('submit')" aria-label="ใช้การค้นหาแบบกดยืนยันก่อน">
+                                    <span class="settings-search-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="4" y="5" width="16" height="14" rx="4"></rect>
+                                            <path d="m8.5 12 2.2 2.2 4.8-4.9"></path>
+                                        </svg>
+                                    </span>
+                                    <span style="text-align:left">
+                                        <span style="display:block;font-size:12px;font-weight:700">กดยืนยันก่อนค้นหา</span>
+                                        <small>เริ่มค้นหาเมื่อกดปุ่ม Done บนคีย์บอร์ด หรือกดปุ่มติ๊กในช่องค้นหา</small>
+                                    </span>
+                                    <span class="settings-search-check" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="m5 12 4.2 4.2L19 6.5"></path>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                            <div id="settingsSearchDelayRow" class="settings-delay-row hidden">
+                                <div>
+                                    <div style="font-size:11px;font-weight:700;color:var(--text-primary)">Delay ก่อนค้นหา</div>
+                                    <div id="settingsSearchDelayMeta" style="font-size:10px;color:var(--text-secondary);margin-top:3px">เลือกเวลาหน่วง 1-10 วินาที</div>
+                                </div>
+                                <select id="settingsSearchDelaySelect" class="settings-delay-select" onchange="setSearchDelay(this.value)" aria-label="เลือกเวลาหน่วงก่อนค้นหา">
+                                    <option value="1">1 วิ</option>
+                                    <option value="2">2 วิ</option>
+                                    <option value="3">3 วิ</option>
+                                    <option value="4">4 วิ</option>
+                                    <option value="5">5 วิ</option>
+                                    <option value="6">6 วิ</option>
+                                    <option value="7">7 วิ</option>
+                                    <option value="8">8 วิ</option>
+                                    <option value="9">9 วิ</option>
+                                    <option value="10">10 วิ</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <select id="settingsSearchDelaySelect" class="settings-delay-select" onchange="setSearchDelay(this.value)" aria-label="เลือกเวลาหน่วงก่อนค้นหา">
-                        <option value="1">1 วิ</option>
-                        <option value="2">2 วิ</option>
-                        <option value="3">3 วิ</option>
-                        <option value="4">4 วิ</option>
-                        <option value="5">5 วิ</option>
-                        <option value="6">6 วิ</option>
-                        <option value="7">7 วิ</option>
-                        <option value="8">8 วิ</option>
-                        <option value="9">9 วิ</option>
-                        <option value="10">10 วิ</option>
-                    </select>
-                </div>
-            </div>
-            <div id="settingsToneWrap" class="settings-tone-wrap hidden" aria-live="polite">
-                <div class="settings-tone-header">
-                    <div>
-                        <div style="font-size:12px;font-weight:700;color:var(--text-primary)">โทนสี Dark Mode</div>
-                        <div id="settingsToneMeta" style="font-size:10px;color:var(--text-secondary);margin-top:3px">เลือกสีเน้นสำหรับค่าบวกและองค์ประกอบหลัก</div>
-                    </div>
-                    <div style="font-size:10px;color:var(--text-tertiary);text-align:right;line-height:1.5">ค่า 0 หรือค่าติดลบจะยังใช้สีแยกเพื่อให้อ่านง่ายบนมือถือ</div>
-                </div>
-                <div class="settings-tone-grid" id="settingsToneGrid">
-                    <button type="button" class="settings-tone-chip" data-tone="emerald" onclick="selectAccentTheme('emerald')" aria-label="เลือกโทนเขียวเดิม">
-                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#10b981"></i><i style="background:#34d399"></i></span>
-                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Emerald</span><small>โทนเดิม</small></span>
-                    </button>
-                    <button type="button" class="settings-tone-chip" data-tone="pink" onclick="selectAccentTheme('pink')" aria-label="เลือกโทนชมพู">
-                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#F13E93"></i><i style="background:#FE81D4"></i></span>
-                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Pink</span><small>#F13E93 / #FE81D4</small></span>
-                    </button>
-                    <button type="button" class="settings-tone-chip" data-tone="blue" onclick="selectAccentTheme('blue')" aria-label="เลือกโทนฟ้า">
-                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#03AED2"></i><i style="background:#5478FF"></i><i style="background:#0AC4E0"></i></span>
-                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Blue</span><small>#03AED2 / #5478FF</small></span>
-                    </button>
-                    <button type="button" class="settings-tone-chip" data-tone="pistachio" onclick="selectAccentTheme('pistachio')" aria-label="เลือกโทนพิสตาชิโอ">
-                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#9AB17A"></i><i style="background:#7FB77E"></i></span>
-                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Pistachio</span><small>#9AB17A / #7FB77E</small></span>
-                    </button>
-                    <button type="button" class="settings-tone-chip" data-tone="peach" onclick="selectAccentTheme('peach')" aria-label="เลือกโทนพีช">
-                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#EB4C4C"></i><i style="background:#FF7070"></i><i style="background:#FFA6A6"></i></span>
-                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Peach</span><small>#EB4C4C / #FF7070</small></span>
-                    </button>
-                    <button type="button" class="settings-tone-chip" data-tone="violet" onclick="selectAccentTheme('violet')" aria-label="เลือกโทนม่วง">
-                        <span class="settings-tone-swatch" aria-hidden="true"><i style="background:#450693"></i><i style="background:#8C00FF"></i><i style="background:#FF3F7F"></i><i style="background:#FFC400"></i></span>
-                        <span style="text-align:left"><span style="display:block;font-size:11px;font-weight:700">Violet</span><small>#8C00FF / #FF3F7F</small></span>
-                    </button>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<div id="pricingOverlay" class="genie-backdrop hidden" style="z-index:9600;position:fixed" onclick="closePricingModal()">
-    <div id="pricingCard" class="genie-card" onclick="event.stopPropagation()" style="width:100%;max-width:360px;background:var(--dropdown-bg);backdrop-filter:blur(60px) saturate(200%);-webkit-backdrop-filter:blur(60px) saturate(200%);border:.5px solid var(--border-glass-strong);border-radius:22px;padding:24px;box-shadow:0 16px 48px rgba(0,0,0,.4);position:relative;overflow:hidden">
-        <div style="position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,255,0.05) 0%,transparent 100%);pointer-events:none"></div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;position:relative;z-index:1">
-            <div style="font-size:15px;font-weight:700">โครงสร้างราคา</div>
-            <button onclick="closePricingModal()" class="close-btn">×</button>
-        </div>
-        <div style="font-size:11px;color:var(--text-secondary);margin-bottom:16px;line-height:1.5;position:relative;z-index:1">กำหนดส่วนลดต้นทุน และ % กำไรสำหรับหน้าร้านกับช่องทางออนไลน์</div>
-        <div style="display:flex;flex-direction:column;gap:14px;position:relative;z-index:1">
-            <div>
-                <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:12px">🏷️</span><span style="font-size:10px;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.5px">ส่วนลดจากราคาขาย</span></div>
-                <div style="position:relative">
-                    <input id="pricingDiscInput" type="number" min="0" max="99" class="lg-input" style="width:100%;padding:10px 36px 10px 14px;font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;text-align:center" />
-                    <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:700;color:var(--text-tertiary)">%</span>
-                </div>
-            </div>
-            <div style="height:.5px;background:var(--border-glass)"></div>
-            <div>
-                <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:12px">🏪</span><span style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.5px">กำไรหน้าร้าน / เพจ</span></div>
-                <div style="position:relative">
-                    <input id="pricingShopInput" type="number" min="0" max="999" class="lg-input" style="width:100%;padding:10px 36px 10px 14px;font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;text-align:center;border-color:rgba(52,211,153,.2)" />
-                    <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:700;color:var(--accent)">%</span>
-                </div>
-            </div>
-            <div>
-                <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:12px">🛒</span><span style="font-size:10px;font-weight:700;color:var(--accent2);letter-spacing:.5px">กำไร TikTok / Shopee</span></div>
-                <div style="position:relative">
-                    <input id="pricingOnlineInput" type="number" min="0" max="999" class="lg-input" style="width:100%;padding:10px 36px 10px 14px;font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;text-align:center;border-color:rgba(129,140,248,.2)" />
-                    <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:700;color:var(--accent2)">%</span>
-                </div>
-            </div>
-        </div>
-        <div style="display:flex;gap:8px;margin-top:18px;position:relative;z-index:1">
-            <button onclick="resetGlobalPricingSettings()" style="flex:1;padding:11px 0;border-radius:14px;border:.5px solid var(--border-glass);background:var(--bg-glass);backdrop-filter:blur(20px);color:var(--text-secondary);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer">รีเซ็ต</button>
-            <button onclick="saveGlobalPricingSettings()" style="flex:1;padding:11px 0;border-radius:14px;border:none;background:var(--accent);color:#fff;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px var(--accent-glow)">ตกลง</button>
-        </div>
-    </div>
-</div>
-
-<!-- ICON CHANGER MODAL -->
-<div id="iconChangerOverlay" onclick="closeIconChanger()">
-    <div id="iconChangerCard" onclick="event.stopPropagation()">
-        <div style="position:absolute;top:0;left:0;right:0;height:40%;background:linear-gradient(180deg,rgba(255,255,255,0.05) 0%,transparent 100%);pointer-events:none;border-radius:24px 24px 0 0"></div>
-        <!-- Header -->
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;position:relative;z-index:1">
-            <div>
-                <div style="font-size:15px;font-weight:700;letter-spacing:-.3px">เปลี่ยนรูปแอป</div>
-                <div style="font-size:11px;color:var(--text-secondary);margin-top:2px">แต่ละส่วนเลือกรูปแยกกันได้</div>
-            </div>
-            <button onclick="closeIconChanger()" class="close-btn">×</button>
-        </div>
-        <!-- 3 separate upload rows -->
-        <div style="display:flex;flex-direction:column;gap:8px;position:relative;z-index:1">
-            <!-- Row 1: Logo in app header -->
-            <div class="ic-row">
-                <div id="icThumbLogo" class="ic-thumb">
-                    <img id="icImgLogo" src="" alt="" style="display:none"/>
-                    <i class="fa-solid fa-image" style="font-size:16px;color:var(--text-tertiary)"></i>
-                </div>
-                <div style="flex:1;min-width:0">
-                    <div style="font-size:12px;font-weight:700;color:var(--text-primary)">โลโก้ในแอป</div>
-                    <div id="icStatusLogo" class="ic-status">รูปที่แสดงบน Header ของแต่ละหน้า</div>
-                </div>
-                <label class="ic-label-btn" for="icFileLogo"><i class="fa-solid fa-upload" style="font-size:10px"></i>เลือก</label>
-                <input id="icFileLogo" type="file" accept="image/*" style="display:none" onchange="onIconPick(event,'logo')"/>
-            </div>
-            <!-- Row 2: Favicon (browser tab) -->
-            <div class="ic-row">
-                <div id="icThumbFavicon" class="ic-thumb">
-                    <img id="icImgFavicon" src="" alt="" style="display:none"/>
-                    <i class="fa-solid fa-globe" style="font-size:16px;color:var(--text-tertiary)"></i>
-                </div>
-                <div style="flex:1;min-width:0">
-                    <div style="font-size:12px;font-weight:700;color:var(--text-primary)">Favicon</div>
-                    <div id="icStatusFavicon" class="ic-status">ไอคอนบน Tab เบราว์เซอร์ (แนะนำ 64×64)</div>
-                </div>
-                <label class="ic-label-btn" for="icFileFavicon"><i class="fa-solid fa-upload" style="font-size:10px"></i>เลือก</label>
-                <input id="icFileFavicon" type="file" accept="image/*" style="display:none" onchange="onIconPick(event,'favicon')"/>
-            </div>
-            <!-- Row 3: App icon (home screen / PWA) -->
-            <div class="ic-row">
-                <div id="icThumbApp" class="ic-thumb">
-                    <img id="icImgApp" src="" alt="" style="display:none"/>
-                    <i class="fa-solid fa-mobile-screen-button" style="font-size:16px;color:var(--text-tertiary)"></i>
-                </div>
-                <div style="flex:1;min-width:0">
-                    <div style="font-size:12px;font-weight:700;color:var(--text-primary)">App Icon</div>
-                    <div id="icStatusApp" class="ic-status">ไอคอนหน้า Home iOS/Android (แนะนำ 512×512)</div>
-                </div>
-                <label class="ic-label-btn" for="icFileApp"><i class="fa-solid fa-upload" style="font-size:10px"></i>เลือก</label>
-                <input id="icFileApp" type="file" accept="image/*" style="display:none" onchange="onIconPick(event,'app')"/>
-            </div>
-        </div>
-        <!-- Format note -->
-        <div style="margin-top:10px;font-size:9px;color:var(--text-tertiary);line-height:1.6;position:relative;z-index:1">รองรับ PNG · JPG · WebP · SVG · แต่ละรูปขนาดไม่เกิน 2MB</div>
-        <!-- PIN section -->
-        <div id="iconPinSection" style="display:none;position:relative;z-index:1;margin-top:14px">
-            <div style="height:.5px;background:var(--border-glass);margin-bottom:14px"></div>
-            <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:8px;text-align:center"><i class="fa-solid fa-lock" style="color:var(--accent);margin-right:5px"></i>ใส่ PIN เพื่อยืนยันการเปลี่ยน</div>
-            <input id="iconPinInput" class="icon-pin-input" type="password" inputmode="numeric" maxlength="5" placeholder="·····" autocomplete="off" oninput="onIconPinInput()" />
-            <div id="iconPinErr" style="display:none;font-size:11px;color:var(--danger);text-align:center;margin-top:8px"><i class="fa-solid fa-xmark-circle" style="margin-right:4px"></i>PIN ไม่ถูกต้อง</div>
-            <button id="iconConfirmBtn" onclick="confirmIconChange()" style="margin-top:10px;width:100%;padding:13px;border-radius:14px;border:none;background:var(--accent);color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px var(--accent-glow);-webkit-tap-highlight-color:transparent;opacity:.4;pointer-events:none;transition:opacity .2s">
-                <i class="fa-solid fa-check" style="margin-right:6px"></i>ยืนยันและบันทึก
-            </button>
-        </div>
-        <!-- Reset -->
-        <button id="iconResetBtn" onclick="resetCustomIcon()" style="display:none;margin-top:10px;width:100%;padding:10px;border-radius:14px;border:.5px solid var(--border-glass);background:transparent;color:var(--danger);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;position:relative;z-index:1;-webkit-tap-highlight-color:transparent">
-            <i class="fa-solid fa-rotate-left" style="margin-right:5px"></i>รีเซ็ตทั้งหมดกลับค่าเดิม
-        </button>
     </div>
 </div>
 
@@ -1092,21 +1133,21 @@ const getStockCompareDiff=state=>{if(!state?.previous||!state?.current)return{co
 
 window.toggleGlobalTheme=()=>{const c=document.documentElement.getAttribute('data-theme');const n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('ts_dark',JSON.stringify(n==='dark'));if(n==='dark')applyAccentTheme(getAccentTheme());window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions()};
 window.selectAccentTheme=theme=>{const resolved=applyAccentTheme(theme);localStorage.setItem(ACCENT_THEME_KEY,resolved);window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions();if(document.documentElement.getAttribute('data-theme')==='dark')window.showNotif(`เปลี่ยนโทนสีเป็น ${DARK_ACCENT_THEMES[resolved].label}`)};
-window.__updateSalesThemeBtn=isDk=>{const icon=document.getElementById('settingsThemeIcon');const meta=document.getElementById('settingsThemeMeta');const toneMeta=document.getElementById('settingsToneMeta');const tone=getAccentTheme();if(icon)icon.innerHTML=isDk?'<i class="fa-solid fa-moon" style="font-size:14px"></i>':'<i class="fa-solid fa-sun" style="font-size:14px"></i>';if(meta)meta.textContent=isDk?'ตอนนี้เป็น Dark Mode':'ตอนนี้เป็น Light Mode';if(toneMeta)toneMeta.textContent=isDk?`โทนปัจจุบัน: ${DARK_ACCENT_THEMES[tone].label} • เลือกสีเน้นสำหรับค่าบวกและองค์ประกอบหลัก`:'รายการโทนสีจะเปิดให้เลือกเมื่อใช้ Dark Mode'};
+window.__updateSalesThemeBtn=isDk=>{const icon=document.getElementById('settingsThemeIcon');const meta=document.getElementById('settingsThemeMeta');const toneMeta=document.getElementById('settingsToneMeta');const themeBadge=document.getElementById('settingsThemeBadge');const actionMeta=document.getElementById('settingsThemeActionMeta');const tone=getAccentTheme();if(icon)icon.innerHTML=isDk?'<i class="fa-solid fa-moon" style="font-size:14px"></i>':'<i class="fa-solid fa-sun" style="font-size:14px"></i>';if(meta)meta.textContent=isDk?'ตอนนี้เป็น Dark Mode':'ตอนนี้เป็น Light Mode';if(themeBadge)themeBadge.textContent=isDk?'Dark':'Light';if(actionMeta)actionMeta.textContent=isDk?'แตะเพื่อเปลี่ยนกลับเป็น Light Mode':'แตะเพื่อเปลี่ยนกลับเป็น Dark Mode';if(toneMeta)toneMeta.textContent=isDk?`โทนปัจจุบัน: ${DARK_ACCENT_THEMES[tone].label} • เลือกสีเน้นสำหรับค่าบวกและองค์ประกอบหลัก`:'รายการโทนสีจะเปิดให้เลือกเมื่อใช้ Dark Mode'};
 window.__updateSettingsThemeOptions=()=>{const isDark=document.documentElement.getAttribute('data-theme')==='dark';const tone=getAccentTheme();const wrap=document.getElementById('settingsToneWrap');if(wrap)wrap.classList.toggle('hidden',!isDark);document.querySelectorAll('#settingsToneGrid .settings-tone-chip').forEach(btn=>btn.setAttribute('data-active',String(btn.dataset.tone===tone)));window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(isDark)};
-window.__updateSettingsPricing=()=>{const s=getPricingSettings();const meta=document.getElementById('settingsPricingMeta');const dot=document.getElementById('settingsPricingDot');const salesDot=document.getElementById('salesSettingsDot');if(meta)meta.textContent=`ส่วนลด ${s.discPct}% / หน้าร้าน ${s.shopMkup}% / ออนไลน์ ${s.onlineMkup}%`;[dot,salesDot].forEach(el=>{if(!el)return;el.classList.toggle('hidden',!pricingIsCustom(s))})};
+window.__updateSettingsPricing=()=>{const s=getPricingSettings();const meta=document.getElementById('settingsPricingMeta');const dot=document.getElementById('settingsPricingDot');const salesDot=document.getElementById('salesSettingsDot');const discInput=document.getElementById('pricingDiscInput');const shopInput=document.getElementById('pricingShopInput');const onlineInput=document.getElementById('pricingOnlineInput');if(meta)meta.textContent=`ส่วนลด ${s.discPct}% / หน้าร้าน ${s.shopMkup}% / ออนไลน์ ${s.onlineMkup}%`;if(discInput)discInput.value=String(s.discPct);if(shopInput)shopInput.value=String(s.shopMkup);if(onlineInput)onlineInput.value=String(s.onlineMkup);[dot,salesDot].forEach(el=>{if(!el)return;el.classList.toggle('hidden',!pricingIsCustom(s))})};
 window.__updateSettingsSearch=()=>{const settings=getSearchSettings();const meta=document.getElementById('settingsSearchMeta');const badge=document.getElementById('settingsSearchBadge');const delayRow=document.getElementById('settingsSearchDelayRow');const delayMeta=document.getElementById('settingsSearchDelayMeta');const delaySelect=document.getElementById('settingsSearchDelaySelect');if(meta)meta.textContent=describeSearchMode(settings);if(badge)badge.textContent=SEARCH_MODES[settings.mode].label;if(delayRow)delayRow.classList.toggle('hidden',settings.mode!=='delayed');if(delayMeta)delayMeta.textContent=`หน่วงก่อนค้นหา ${settings.delay} วินาที เพื่อลดการโหลดระหว่างพิมพ์`;if(delaySelect)delaySelect.value=String(settings.delay);document.querySelectorAll('#settingsSearchGrid .settings-search-card').forEach(btn=>{const active=btn.dataset.mode===settings.mode;btn.setAttribute('data-active',String(active));btn.setAttribute('aria-pressed',String(active))})};
 window.selectSearchMode=mode=>{const current=getSearchSettings();const settings=saveSearchSettings({mode,delay:current.delay});window.haptic&&window.haptic('light');window.showNotif(settings.mode==='instant'?'โหมดค้นหา: ทันที':settings.mode==='delayed'?`โหมดค้นหา: หน่วง ${settings.delay} วินาที`:'โหมดค้นหา: กดยืนยันก่อนค้นหา')};
 window.setSearchDelay=value=>{const current=getSearchSettings();const settings=saveSearchSettings({mode:current.mode,delay:value});window.haptic&&window.haptic('light');if(settings.mode==='delayed')window.showNotif(`Delay ก่อนค้นหา ${settings.delay} วินาที`)};
-window.openSettingsModal=()=>{const ov=document.getElementById('settingsOverlay'),card=document.getElementById('settingsCard');window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(document.documentElement.getAttribute('data-theme')==='dark');window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions();window.__updateSettingsPricing&&window.__updateSettingsPricing();window.__updateSettingsFont&&window.__updateSettingsFont();window.__updateSettingsSearch&&window.__updateSettingsSearch();ov.classList.remove('hidden','exiting');card.classList.remove('exiting');void ov.offsetWidth;ov.classList.add('entering');card.classList.add('entering')};
-window.closeSettingsModal=()=>{const ov=document.getElementById('settingsOverlay'),card=document.getElementById('settingsCard');ov.classList.remove('entering');card.classList.remove('entering');ov.classList.add('exiting');card.classList.add('exiting');setTimeout(()=>{ov.classList.add('hidden');ov.classList.remove('exiting');card.classList.remove('exiting')},220)};
+window.toggleSettingsSection=section=>{const map={theme:'settingsThemeSection',icon:'settingsIconSection',pricing:'settingsPricingSection',search:'settingsSearchSection'};const targetId=map[section];if(!targetId)return;const el=document.getElementById(targetId);if(!el)return;const next=el.getAttribute('data-open')!=='true';el.setAttribute('data-open',String(next));if(next&&section==='icon')icRefreshUI();window.haptic&&window.haptic('light')};
+window.openSettingsModal=()=>{const ov=document.getElementById('settingsOverlay'),card=document.getElementById('settingsCard');window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(document.documentElement.getAttribute('data-theme')==='dark');window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions();window.__updateSettingsPricing&&window.__updateSettingsPricing();window.__updateSettingsFont&&window.__updateSettingsFont();window.__updateSettingsSearch&&window.__updateSettingsSearch();ov.classList.remove('hidden','settings-exiting');card.classList.remove('settings-exiting');void ov.offsetWidth;ov.classList.add('settings-entering');card.classList.add('settings-entering')};
+window.closeSettingsModal=()=>{const ov=document.getElementById('settingsOverlay'),card=document.getElementById('settingsCard');ov.classList.remove('settings-entering');card.classList.remove('settings-entering');ov.classList.add('settings-exiting');card.classList.add('settings-exiting');setTimeout(()=>{ov.classList.add('hidden');ov.classList.remove('settings-exiting');card.classList.remove('settings-exiting')},220)};
 window.toggleSettingsTheme=()=>{window.toggleGlobalTheme();window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions()};
-window.openPricingModalFromSettings=()=>{closeSettingsModal();openPricingModal()};
-window.openPricingModal=()=>{const s=getPricingSettings();document.getElementById('pricingDiscInput').value=String(s.discPct);document.getElementById('pricingShopInput').value=String(s.shopMkup);document.getElementById('pricingOnlineInput').value=String(s.onlineMkup);const ov=document.getElementById('pricingOverlay'),card=document.getElementById('pricingCard');ov.classList.remove('hidden','exiting');card.classList.remove('exiting');void ov.offsetWidth;ov.classList.add('entering');card.classList.add('entering')};
-window.closePricingModal=()=>{const ov=document.getElementById('pricingOverlay'),card=document.getElementById('pricingCard');ov.classList.remove('entering');card.classList.remove('entering');ov.classList.add('exiting');card.classList.add('exiting');setTimeout(()=>{ov.classList.add('hidden');ov.classList.remove('exiting');card.classList.remove('exiting')},220)};
-window.saveGlobalPricingSettings=()=>{const vd=parseFloat(document.getElementById('pricingDiscInput').value),vs=parseFloat(document.getElementById('pricingShopInput').value),vo=parseFloat(document.getElementById('pricingOnlineInput').value);if(isNaN(vd)||vd<0||vd>99){window.showNotif('ส่วนลด: ใส่ 0-99','error');return}if(isNaN(vs)||vs<0||vs>999){window.showNotif('หน้าร้าน: ใส่ 0-999','error');return}if(isNaN(vo)||vo<0||vo>999){window.showNotif('TikTok/Shopee: ใส่ 0-999','error');return}localStorage.setItem('ts_disc',String(vd));localStorage.setItem('ts_mk_shop',String(vs));localStorage.setItem('ts_mk_online',String(vo));window.dispatchEvent(new CustomEvent('ts:pricing-updated',{detail:{discPct:vd,shopMkup:vs,onlineMkup:vo}}));window.__updateSettingsPricing&&window.__updateSettingsPricing();closePricingModal();window.haptic&&window.haptic('success');window.showNotif('บันทึกโครงสร้างราคาแล้ว')};
-window.resetGlobalPricingSettings=()=>{document.getElementById('pricingDiscInput').value='58';document.getElementById('pricingShopInput').value='25';document.getElementById('pricingOnlineInput').value='35';localStorage.setItem('ts_disc','58');localStorage.setItem('ts_mk_shop','25');localStorage.setItem('ts_mk_online','35');window.dispatchEvent(new CustomEvent('ts:pricing-updated',{detail:{discPct:58,shopMkup:25,onlineMkup:35}}));window.__updateSettingsPricing&&window.__updateSettingsPricing();closePricingModal();window.showNotif('รีเซ็ตค่าทั้งหมด')};
-window.showNotif=(msg,type='success')=>{const a=document.getElementById('notifArea');const w=document.createElement('div');w.className='notif-wrap';const n=document.createElement('div');n.className='notif';const clr=type==='success'?'var(--accent)':type==='error'?'var(--danger)':'#fbbf24';const dot=document.createElement('div');dot.className='notif-dot';dot.style.background=clr;dot.style.boxShadow=`0 0 8px ${clr}`;const text=document.createElement('div');text.className='notif-text';text.textContent=String(msg??'');n.appendChild(dot);n.appendChild(text);w.appendChild(n);a.appendChild(w);setTimeout(()=>{n.classList.add('exit');setTimeout(()=>w.remove(),300)},3000)};
+window.openPricingModalFromSettings=()=>{window.toggleSettingsSection&&window.toggleSettingsSection('pricing')};
+window.openPricingModal=()=>{window.toggleSettingsSection&&window.toggleSettingsSection('pricing')};
+window.closePricingModal=()=>{};
+window.saveGlobalPricingSettings=()=>{const vd=parseFloat(document.getElementById('pricingDiscInput').value),vs=parseFloat(document.getElementById('pricingShopInput').value),vo=parseFloat(document.getElementById('pricingOnlineInput').value);if(isNaN(vd)||vd<0||vd>99){window.showNotif('ส่วนลด: ใส่ 0-99','error');return}if(isNaN(vs)||vs<0||vs>999){window.showNotif('หน้าร้าน: ใส่ 0-999','error');return}if(isNaN(vo)||vo<0||vo>999){window.showNotif('TikTok/Shopee: ใส่ 0-999','error');return}localStorage.setItem('ts_disc',String(vd));localStorage.setItem('ts_mk_shop',String(vs));localStorage.setItem('ts_mk_online',String(vo));window.dispatchEvent(new CustomEvent('ts:pricing-updated',{detail:{discPct:vd,shopMkup:vs,onlineMkup:vo}}));window.__updateSettingsPricing&&window.__updateSettingsPricing();window.haptic&&window.haptic('success');window.showNotif('บันทึกโครงสร้างราคาแล้ว')};
+window.resetGlobalPricingSettings=()=>{document.getElementById('pricingDiscInput').value='58';document.getElementById('pricingShopInput').value='25';document.getElementById('pricingOnlineInput').value='35';localStorage.setItem('ts_disc','58');localStorage.setItem('ts_mk_shop','25');localStorage.setItem('ts_mk_online','35');window.dispatchEvent(new CustomEvent('ts:pricing-updated',{detail:{discPct:58,shopMkup:25,onlineMkup:35}}));window.__updateSettingsPricing&&window.__updateSettingsPricing();window.showNotif('รีเซ็ตค่าทั้งหมด')};window.showNotif=(msg,type='success')=>{const a=document.getElementById('notifArea');const w=document.createElement('div');w.className='notif-wrap';const n=document.createElement('div');n.className='notif';const clr=type==='success'?'var(--accent)':type==='error'?'var(--danger)':'#fbbf24';const dot=document.createElement('div');dot.className='notif-dot';dot.style.background=clr;dot.style.boxShadow=`0 0 8px ${clr}`;const text=document.createElement('div');text.className='notif-text';text.textContent=String(msg??'');n.appendChild(dot);n.appendChild(text);w.appendChild(n);a.appendChild(w);setTimeout(()=>{n.classList.add('exit');setTimeout(()=>w.remove(),300)},3000)};
 applyAccentTheme(getAccentTheme());
 
 /* ── FONT SIZE CONTROL ── */
@@ -2041,7 +2082,7 @@ function icRefreshUI(){
     });
     // Show/hide PIN section
     const pinSec=document.getElementById('iconPinSection');
-    if(pinSec)pinSec.style.display=anyPending?'block':'none';
+    if(pinSec)pinSec.style.display=anyPending?'flex':'none';
     // Show/hide reset button
     const hasAny=!!(localStorage.getItem(IC_LOGO_KEY)||localStorage.getItem(IC_FAV_KEY)||localStorage.getItem(IC_APP_KEY));
     const resetBtn=document.getElementById('iconResetBtn');
@@ -2057,17 +2098,18 @@ function icRefreshUI(){
 
 window.openIconChanger=()=>{
     __icPending={};
-    document.getElementById('iconChangerOverlay').classList.add('open');
     document.getElementById('iconPinErr').style.display='none';
     icRefreshUI();
+    const section=document.getElementById('settingsIconSection');
+    if(section)section.setAttribute('data-open','true');
     window.haptic&&window.haptic('light');
 };
 
 window.closeIconChanger=()=>{
     __icPending={};
-    document.getElementById('iconChangerOverlay').classList.remove('open');
+    const section=document.getElementById('settingsIconSection');
+    if(section)section.setAttribute('data-open','false');
 };
-
 window.onIconPick=function(e,type){
     const file=e.target.files&&e.target.files[0];
     if(!file)return;
@@ -2109,7 +2151,7 @@ window.confirmIconChange=function(){
     window.haptic&&window.haptic('success');
     window.showNotif(`บันทึก ${count} รูปสำเร็จ`);
     icRefreshUI();
-    setTimeout(closeIconChanger,600);
+    icRefreshUI();
 };
 
 window.resetCustomIcon=function(){
@@ -2123,8 +2165,13 @@ window.resetCustomIcon=function(){
     window.showNotif('รีเซ็ตรูปแอปเรียบร้อย');
     window.haptic&&window.haptic('light');
     icRefreshUI();
-    setTimeout(closeIconChanger,400);
+    icRefreshUI();
 };
 </script>
 </body>
 </html>
+
+
+
+
+
