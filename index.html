@@ -106,6 +106,20 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
 .settings-tone-swatch{display:flex;align-items:center;gap:3px;flex-shrink:0}
 .settings-tone-swatch i{display:block;width:8px;height:18px;border-radius:999px}
 .settings-tone-chip small{display:block;font-size:10px;color:var(--text-secondary);margin-top:2px}
+.settings-search-wrap{display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:18px;background:var(--bg-glass-input);border:.5px solid var(--border-glass)}
+.settings-search-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.settings-search-grid{display:grid;grid-template-columns:1fr;gap:8px}
+.settings-search-card{width:100%;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;padding:11px 12px;border-radius:16px;border:.5px solid var(--border-glass);background:var(--bg-glass);color:var(--text-primary);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.settings-search-card:active{transform:scale(.98)}
+.settings-search-card[data-active="true"]{border-color:var(--accent-border);box-shadow:0 0 0 1px var(--accent-border),0 8px 20px rgba(0,0,0,.12)}
+.settings-search-icon{width:32px;height:32px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--bg-glass-input);color:var(--accent);flex-shrink:0}
+.settings-search-icon svg{width:18px;height:18px;display:block}
+.settings-search-card small{display:block;font-size:10px;color:var(--text-secondary);margin-top:2px;line-height:1.45}
+.settings-search-check{color:var(--accent);opacity:0;transition:opacity .2s ease}
+.settings-search-card[data-active="true"] .settings-search-check{opacity:1}
+.settings-delay-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:14px;border:.5px solid var(--border-glass);background:var(--bg-glass)}
+.settings-delay-select{min-width:92px;padding:9px 12px;border-radius:12px;border:.5px solid var(--border-glass-strong);background:var(--bg-glass-heavy);color:var(--text-primary);font:inherit;outline:none}
+.settings-delay-select:focus{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-glow)}
 .compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .compare-card{background:var(--bg-glass);border:.5px solid var(--border-glass);border-radius:18px;padding:14px;min-width:0}
 .compare-card.hero{grid-column:1 / -1;padding:16px}
@@ -153,6 +167,10 @@ body{height:100%;overflow:hidden;font-family:'Noto Sans Thai','DM Sans',-apple-s
 .search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:10px;border:.5px solid var(--border-glass-strong);background:var(--bg-glass-heavy);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:var(--text-secondary);font-size:11px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s ease;-webkit-tap-highlight-color:transparent}
 .search-clear.visible{opacity:1;pointer-events:auto}
 .search-clear:active{transform:translateY(-50%) scale(.88)}
+.search-submit{position:absolute;right:44px;top:50%;transform:translateY(-50%);width:38px;height:28px;border-radius:9px;border:.5px solid var(--accent-border);background:var(--bg-glass-heavy);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s ease;-webkit-tap-highlight-color:transparent}
+.search-submit.visible{opacity:1;pointer-events:auto}
+.search-submit:active{transform:translateY(-50%) scale(.92)}
+.search-submit svg{width:14px;height:14px;display:block}
 .date-glow{animation:dateGlow 3s ease-in-out infinite}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulseGlow{0%,100%{box-shadow:0 0 4px var(--glow-c);transform:scale(1)}50%{box-shadow:0 0 12px 2px var(--glow-c);transform:scale(1.2)}}
@@ -554,6 +572,88 @@ html[data-fsize="small"] .genie-card,html[data-fsize="small"] .cal-sheet{zoom:.9
                 <span id="settingsPricingDot" class="hidden" style="position:absolute;top:10px;right:34px;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent-glow)"></span>
                 <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-tertiary)"></i>
             </button>
+            <div id="settingsSearchWrap" class="settings-search-wrap" aria-live="polite">
+                <div class="settings-search-header">
+                    <div>
+                        <div style="font-size:12px;font-weight:700;color:var(--text-primary)">ระบบค้นหา</div>
+                        <div id="settingsSearchMeta" style="font-size:10px;color:var(--text-secondary);margin-top:3px">พิมพ์แล้วค้นหาทันทีเหมือนเดิม</div>
+                    </div>
+                    <span id="settingsSearchBadge" style="font-size:11px;font-weight:700;color:var(--accent);border:.5px solid var(--accent-border);padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0">ทันที</span>
+                </div>
+                <div class="settings-search-grid" id="settingsSearchGrid">
+                    <button type="button" class="settings-search-card" data-mode="instant" onclick="selectSearchMode('instant')" aria-label="ใช้การค้นหาแบบทันที">
+                        <span class="settings-search-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="6"></circle>
+                                <path d="m20 20-4.2-4.2"></path>
+                                <path d="M11 8v6"></path>
+                                <path d="M8 11h6"></path>
+                            </svg>
+                        </span>
+                        <span style="text-align:left">
+                            <span style="display:block;font-size:12px;font-weight:700">ค้นหาทันที</span>
+                            <small>พิมพ์ตัวอักษรแล้วเริ่มค้นหาทันทีเหมือนระบบปัจจุบัน</small>
+                        </span>
+                        <span class="settings-search-check" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m5 12 4.2 4.2L19 6.5"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <button type="button" class="settings-search-card" data-mode="delayed" onclick="selectSearchMode('delayed')" aria-label="ใช้การค้นหาแบบหน่วงเวลา">
+                        <span class="settings-search-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="8"></circle>
+                                <path d="M12 7.5v5l3 1.8"></path>
+                            </svg>
+                        </span>
+                        <span style="text-align:left">
+                            <span style="display:block;font-size:12px;font-weight:700">ค้นหาแบบหน่วงเวลา</span>
+                            <small>รออีกเล็กน้อยก่อนค่อยค้นหา เพื่อลดการโหลดข้อมูลระหว่างพิมพ์</small>
+                        </span>
+                        <span class="settings-search-check" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m5 12 4.2 4.2L19 6.5"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <button type="button" class="settings-search-card" data-mode="submit" onclick="selectSearchMode('submit')" aria-label="ใช้การค้นหาแบบกดยืนยันก่อน">
+                        <span class="settings-search-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="4" y="5" width="16" height="14" rx="4"></rect>
+                                <path d="m8.5 12 2.2 2.2 4.8-4.9"></path>
+                            </svg>
+                        </span>
+                        <span style="text-align:left">
+                            <span style="display:block;font-size:12px;font-weight:700">กดยืนยันก่อนค้นหา</span>
+                            <small>เริ่มค้นหาเมื่อกดปุ่ม Done บนคีย์บอร์ด หรือกดปุ่มติ๊กในช่องค้นหา</small>
+                        </span>
+                        <span class="settings-search-check" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m5 12 4.2 4.2L19 6.5"></path>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+                <div id="settingsSearchDelayRow" class="settings-delay-row hidden">
+                    <div>
+                        <div style="font-size:11px;font-weight:700;color:var(--text-primary)">Delay ก่อนค้นหา</div>
+                        <div id="settingsSearchDelayMeta" style="font-size:10px;color:var(--text-secondary);margin-top:3px">เลือกเวลาหน่วง 1-10 วินาที</div>
+                    </div>
+                    <select id="settingsSearchDelaySelect" class="settings-delay-select" onchange="setSearchDelay(this.value)" aria-label="เลือกเวลาหน่วงก่อนค้นหา">
+                        <option value="1">1 วิ</option>
+                        <option value="2">2 วิ</option>
+                        <option value="3">3 วิ</option>
+                        <option value="4">4 วิ</option>
+                        <option value="5">5 วิ</option>
+                        <option value="6">6 วิ</option>
+                        <option value="7">7 วิ</option>
+                        <option value="8">8 วิ</option>
+                        <option value="9">9 วิ</option>
+                        <option value="10">10 วิ</option>
+                    </select>
+                </div>
+            </div>
             <div id="settingsToneWrap" class="settings-tone-wrap hidden" aria-live="polite">
                 <div class="settings-tone-header">
                     <div>
@@ -931,6 +1031,26 @@ const sameJson=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const normalizeStockRows=data=>data.map((r,i)=>({id:r['P_SystemID']||`ID-${i}`,name:r['P_Name']||'Unknown',cost:r['P_EstimateCost']||0,price:r['P_RetailPrice1_1']||0,in:r['P_ReceiveOrder_In']||0,out:r['P_SaleOrder_Out']||0,createTime:r['P_CreateTime']||'-',updateTime:r['P_UpdateTime']||'-'})).filter(x=>x.name!=='Unknown');
 const getPricingSettings=()=>({discPct:Number(localStorage.getItem('ts_disc')??58),shopMkup:Number(localStorage.getItem('ts_mk_shop')??25),onlineMkup:Number(localStorage.getItem('ts_mk_online')??35)});
 const pricingIsCustom=({discPct,shopMkup,onlineMkup})=>discPct!==58||shopMkup!==25||onlineMkup!==35;
+const SEARCH_MODE_KEY='ts_search_mode_v1';
+const SEARCH_DELAY_KEY='ts_search_delay_v1';
+const SEARCH_MODES={
+    instant:{label:'ทันที',title:'ค้นหาทันที'},
+    delayed:{label:'หน่วงเวลา',title:'ค้นหาแบบหน่วงเวลา'},
+    submit:{label:'กดยืนยัน',title:'กดยืนยันก่อนค้นหา'}
+};
+const clampSearchDelay=value=>{const next=Math.round(Number(value)||2);return Math.min(10,Math.max(1,next))};
+const normalizeSearchMode=mode=>SEARCH_MODES[mode]?mode:'instant';
+const getSearchSettings=()=>({mode:normalizeSearchMode(localStorage.getItem(SEARCH_MODE_KEY)||'instant'),delay:clampSearchDelay(localStorage.getItem(SEARCH_DELAY_KEY)??2)});
+const describeSearchMode=settings=>settings.mode==='instant'?'พิมพ์แล้วค้นหาทันทีเหมือนเดิม':settings.mode==='delayed'?`พิมพ์แล้วรอ ${settings.delay} วินาทีก่อนเริ่มค้นหา`:'รอจนกด Done บนคีย์บอร์ดหรือปุ่มติ๊กก่อนค้นหา';
+const saveSearchSettings=next=>{
+    const current=getSearchSettings();
+    const settings={mode:normalizeSearchMode(next?.mode??current.mode),delay:clampSearchDelay(next?.delay??current.delay)};
+    localStorage.setItem(SEARCH_MODE_KEY,settings.mode);
+    localStorage.setItem(SEARCH_DELAY_KEY,String(settings.delay));
+    window.dispatchEvent(new CustomEvent('ts:search-settings-updated',{detail:settings}));
+    window.__updateSettingsSearch&&window.__updateSettingsSearch();
+    return settings
+};
 const ACCENT_THEME_KEY='ts_dark_accent_theme';
 const DARK_ACCENT_THEMES={
     emerald:{label:'Emerald',meta:'โทนเขียวเดิม'},
@@ -975,7 +1095,10 @@ window.selectAccentTheme=theme=>{const resolved=applyAccentTheme(theme);localSto
 window.__updateSalesThemeBtn=isDk=>{const icon=document.getElementById('settingsThemeIcon');const meta=document.getElementById('settingsThemeMeta');const toneMeta=document.getElementById('settingsToneMeta');const tone=getAccentTheme();if(icon)icon.innerHTML=isDk?'<i class="fa-solid fa-moon" style="font-size:14px"></i>':'<i class="fa-solid fa-sun" style="font-size:14px"></i>';if(meta)meta.textContent=isDk?'ตอนนี้เป็น Dark Mode':'ตอนนี้เป็น Light Mode';if(toneMeta)toneMeta.textContent=isDk?`โทนปัจจุบัน: ${DARK_ACCENT_THEMES[tone].label} • เลือกสีเน้นสำหรับค่าบวกและองค์ประกอบหลัก`:'รายการโทนสีจะเปิดให้เลือกเมื่อใช้ Dark Mode'};
 window.__updateSettingsThemeOptions=()=>{const isDark=document.documentElement.getAttribute('data-theme')==='dark';const tone=getAccentTheme();const wrap=document.getElementById('settingsToneWrap');if(wrap)wrap.classList.toggle('hidden',!isDark);document.querySelectorAll('#settingsToneGrid .settings-tone-chip').forEach(btn=>btn.setAttribute('data-active',String(btn.dataset.tone===tone)));window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(isDark)};
 window.__updateSettingsPricing=()=>{const s=getPricingSettings();const meta=document.getElementById('settingsPricingMeta');const dot=document.getElementById('settingsPricingDot');const salesDot=document.getElementById('salesSettingsDot');if(meta)meta.textContent=`ส่วนลด ${s.discPct}% / หน้าร้าน ${s.shopMkup}% / ออนไลน์ ${s.onlineMkup}%`;[dot,salesDot].forEach(el=>{if(!el)return;el.classList.toggle('hidden',!pricingIsCustom(s))})};
-window.openSettingsModal=()=>{const ov=document.getElementById('settingsOverlay'),card=document.getElementById('settingsCard');window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(document.documentElement.getAttribute('data-theme')==='dark');window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions();window.__updateSettingsPricing&&window.__updateSettingsPricing();window.__updateSettingsFont&&window.__updateSettingsFont();ov.classList.remove('hidden','exiting');card.classList.remove('exiting');void ov.offsetWidth;ov.classList.add('entering');card.classList.add('entering')};
+window.__updateSettingsSearch=()=>{const settings=getSearchSettings();const meta=document.getElementById('settingsSearchMeta');const badge=document.getElementById('settingsSearchBadge');const delayRow=document.getElementById('settingsSearchDelayRow');const delayMeta=document.getElementById('settingsSearchDelayMeta');const delaySelect=document.getElementById('settingsSearchDelaySelect');if(meta)meta.textContent=describeSearchMode(settings);if(badge)badge.textContent=SEARCH_MODES[settings.mode].label;if(delayRow)delayRow.classList.toggle('hidden',settings.mode!=='delayed');if(delayMeta)delayMeta.textContent=`หน่วงก่อนค้นหา ${settings.delay} วินาที เพื่อลดการโหลดระหว่างพิมพ์`;if(delaySelect)delaySelect.value=String(settings.delay);document.querySelectorAll('#settingsSearchGrid .settings-search-card').forEach(btn=>{const active=btn.dataset.mode===settings.mode;btn.setAttribute('data-active',String(active));btn.setAttribute('aria-pressed',String(active))})};
+window.selectSearchMode=mode=>{const current=getSearchSettings();const settings=saveSearchSettings({mode,delay:current.delay});window.haptic&&window.haptic('light');window.showNotif(settings.mode==='instant'?'โหมดค้นหา: ทันที':settings.mode==='delayed'?`โหมดค้นหา: หน่วง ${settings.delay} วินาที`:'โหมดค้นหา: กดยืนยันก่อนค้นหา')};
+window.setSearchDelay=value=>{const current=getSearchSettings();const settings=saveSearchSettings({mode:current.mode,delay:value});window.haptic&&window.haptic('light');if(settings.mode==='delayed')window.showNotif(`Delay ก่อนค้นหา ${settings.delay} วินาที`)};
+window.openSettingsModal=()=>{const ov=document.getElementById('settingsOverlay'),card=document.getElementById('settingsCard');window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(document.documentElement.getAttribute('data-theme')==='dark');window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions();window.__updateSettingsPricing&&window.__updateSettingsPricing();window.__updateSettingsFont&&window.__updateSettingsFont();window.__updateSettingsSearch&&window.__updateSettingsSearch();ov.classList.remove('hidden','exiting');card.classList.remove('exiting');void ov.offsetWidth;ov.classList.add('entering');card.classList.add('entering')};
 window.closeSettingsModal=()=>{const ov=document.getElementById('settingsOverlay'),card=document.getElementById('settingsCard');ov.classList.remove('entering');card.classList.remove('entering');ov.classList.add('exiting');card.classList.add('exiting');setTimeout(()=>{ov.classList.add('hidden');ov.classList.remove('exiting');card.classList.remove('exiting')},220)};
 window.toggleSettingsTheme=()=>{window.toggleGlobalTheme();window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions()};
 window.openPricingModalFromSettings=()=>{closeSettingsModal();openPricingModal()};
@@ -1062,9 +1185,11 @@ const PriceRow=({icon,label,result,color,price,base,markup,pid,ch,disc,factor})=
 };
 
 const App=()=>{
-    const[items,setItems]=useState([]);const[q,setQ]=useState('');const[expanded,setExpanded]=useState(null);
+    const[items,setItems]=useState([]);const[q,setQ]=useState('');const[searchQuery,setSearchQuery]=useState('');const[expanded,setExpanded]=useState(null);
     const[loading,setLoading]=useState(true);const[err,setErr]=useState(null);const[updated,setUpdated]=useState(null);
     const[sort,setSort]=useState('stockMax');
+    const[searchMode,setSearchMode]=useState(()=>getSearchSettings().mode);
+    const[searchDelay,setSearchDelay]=useState(()=>getSearchSettings().delay);
     const[dark,setDark]=useState(()=>{const s=localStorage.getItem('ts_dark');return s!==null?JSON.parse(s):true});
     const[copyMode,setCopyMode]=useState(false);
     const[stockSync,setStockSync]=useState({mode:'network',cachedAt:null,refreshing:false});
@@ -1075,6 +1200,12 @@ const App=()=>{
     const stockCompareTriggerRef=useRef(null);
     const stockCompareCloseRef=useRef(null);
     const stockCompareCloseTimerRef=useRef(null);
+    const searchDelayTimerRef=useRef(null);
+    const clearSearchDelayTimer=()=>{if(searchDelayTimerRef.current){clearTimeout(searchDelayTimerRef.current);searchDelayTimerRef.current=null}};
+    const applySearchText=nextValue=>{clearSearchDelayTimer();setSearchQuery(String(nextValue??''))};
+    const handleSearchChange=e=>setQ(e.target.value);
+    const handleClearSearch=()=>{clearSearchDelayTimer();setQ('');setSearchQuery('')};
+    const handleSearchKeyDown=e=>{if(e.key==='Enter'&&searchMode==='submit'){e.preventDefault();applySearchText(e.currentTarget.value)}};
     /* Cost & markup settings */
     const[discPct,setDiscPct]=useState(()=>{const s=localStorage.getItem('ts_disc');return s!==null?Number(s):58});
     const[shopMkup,setShopMkup]=useState(()=>{const s=localStorage.getItem('ts_mk_shop');return s!==null?Number(s):25});
@@ -1150,10 +1281,13 @@ const App=()=>{
     useEffect(()=>{document.documentElement.setAttribute('data-theme',dark?'dark':'light');localStorage.setItem('ts_dark',JSON.stringify(dark));window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(dark);window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions()},[dark]);
     useEffect(()=>{const obs=new MutationObserver(()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';setDark(d);window.__updateSalesThemeBtn&&window.__updateSalesThemeBtn(d);window.__updateSettingsThemeOptions&&window.__updateSettingsThemeOptions()});obs.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme','data-accent-theme']});return()=>obs.disconnect()},[]);
     useEffect(()=>{const syncPricing=e=>{const detail=e.detail||{};if(typeof detail.discPct==='number')setDiscPct(detail.discPct);if(typeof detail.shopMkup==='number')setShopMkup(detail.shopMkup);if(typeof detail.onlineMkup==='number')setOnlineMkup(detail.onlineMkup);window.__updateSettingsPricing&&window.__updateSettingsPricing()};window.addEventListener('ts:pricing-updated',syncPricing);window.__updateSettingsPricing&&window.__updateSettingsPricing();return()=>window.removeEventListener('ts:pricing-updated',syncPricing)},[]);
+    useEffect(()=>{const syncSearchSettings=e=>{const detail=e.detail&&typeof e.detail==='object'?e.detail:getSearchSettings();setSearchMode(normalizeSearchMode(detail.mode));setSearchDelay(clampSearchDelay(detail.delay));window.__updateSettingsSearch&&window.__updateSettingsSearch()};window.addEventListener('ts:search-settings-updated',syncSearchSettings);window.__stockSearchApi={setText:(value,options={})=>{const next=String(value??'');clearSearchDelayTimer();setQ(next);if(options.apply)setSearchQuery(next)}};window.__updateSettingsSearch&&window.__updateSettingsSearch();return()=>{window.removeEventListener('ts:search-settings-updated',syncSearchSettings);delete window.__stockSearchApi}},[]);
+    useEffect(()=>{if(searchMode==='submit'){clearSearchDelayTimer();return}clearSearchDelayTimer();if(searchMode==='instant'){setSearchQuery(q);return}searchDelayTimerRef.current=setTimeout(()=>{setSearchQuery(q);searchDelayTimerRef.current=null},clampSearchDelay(searchDelay)*1000);return clearSearchDelayTimer},[q,searchMode,searchDelay]);
     useEffect(()=>{let cancelled=false;(async()=>{await loadStockCompareState();if(cancelled)return;const cached=readCache(STOCK_CACHE_KEY);if(cached?.items?.length){setItems(cached.items);setUpdated(cached.updatedAt?new Date(cached.updatedAt):null);setLoading(false);setStockSync({mode:'cached',cachedAt:cached.updatedAt||cached.cachedAt||null,refreshing:true});await syncStockCompareFromCache(cached.items,cached.updatedAt||cached.cachedAt||null);if(cancelled)return}refreshStock(Boolean(cached?.items?.length));window.__salesFetch&&window.__salesFetch()})().catch(async()=>{const cached=readCache(STOCK_CACHE_KEY);if(cached?.items?.length){setItems(cached.items);setUpdated(cached.updatedAt?new Date(cached.updatedAt):null);setLoading(false);setStockSync({mode:'cached',cachedAt:cached.updatedAt||cached.cachedAt||null,refreshing:true});await syncStockCompareFromCache(cached.items,cached.updatedAt||cached.cachedAt||null)}refreshStock(Boolean(cached?.items?.length));window.__salesFetch&&window.__salesFetch()});return()=>{cancelled=true}},[]);
     useEffect(()=>{if(stockCompareModal==='hidden')return;const tid=setTimeout(()=>{if(stockCompareCloseRef.current)stockCompareCloseRef.current.focus()},20);return()=>clearTimeout(tid)},[stockCompareModal]);
     useEffect(()=>{if(stockCompareModal==='hidden')return;const onKey=e=>{if(e.key==='Escape')closeStockCompareModal()};document.addEventListener('keydown',onKey);return()=>document.removeEventListener('keydown',onKey)},[stockCompareModal]);
     useEffect(()=>()=>{if(stockCompareCloseTimerRef.current)clearTimeout(stockCompareCloseTimerRef.current)},[]);
+    useEffect(()=>()=>{if(searchDelayTimerRef.current)clearTimeout(searchDelayTimerRef.current)},[]);
     useEffect(()=>{window.__stockCompareApi={commit:commitStockCompareSnapshot,sync:syncStockCompareFromCache,getState:()=>stockCompareStateRef.current,open:openStockCompareModal,close:closeStockCompareModal};return()=>{delete window.__stockCompareApi}});
 
     const fetchData=async(hasCachedData=items.length>0)=>{
@@ -1185,7 +1319,7 @@ const App=()=>{
         }finally{clearTimeout(tid)}
     };
     const stock=p=>(parseInt(p.in)||0)-(parseInt(p.out)||0);
-    const filtered=useMemo(()=>{let s=items.filter(p=>String(p.name).toLowerCase().includes(q.toLowerCase()));s.sort((a,b)=>{if(sort==='stockMax')return stock(b)-stock(a);if(sort==='updated')return pDate(b.updateTime)-pDate(a.updateTime);return pDate(b.createTime)-pDate(a.createTime)});return s.slice(0,100)},[q,items,sort]);
+    const filtered=useMemo(()=>{let s=items.filter(p=>String(p.name).toLowerCase().includes(searchQuery.toLowerCase()));s.sort((a,b)=>{if(sort==='stockMax')return stock(b)-stock(a);if(sort==='updated')return pDate(b.updateTime)-pDate(a.updateTime);return pDate(b.createTime)-pDate(a.createTime)});return s.slice(0,100)},[searchQuery,items,sort]);
     const nextSort=()=>setSort(s=>s==='stockMax'?'updated':s==='updated'?'created':'stockMax');
     const stockCompareButtonTitle=!stockCompareHasCurrent?'รอข้อมูลสต็อกชุดแรกก่อน':!stockCompareState.previous?'มีแคชชุดเดียว โหลดข้อมูลใหม่เพื่อเริ่มเปรียบเทียบ':stockCompareDiff.count===0?`Cache ${stockCompareState.previous.id} และ ${stockCompareState.current.id} ไม่มีความต่าง`:`มี ${stockCompareDiff.count} รายการเปลี่ยนแปลงระหว่าง Cache ${stockCompareState.previous.id} และ ${stockCompareState.current.id}`;
     const stockCompareMeta=!stockCompareState.current?'ยังไม่พบข้อมูลแคชสต็อก':!stockCompareState.previous?`มีเพียง Cache ${stockCompareState.current.id}`:`Cache ${stockCompareState.previous.id} -> Cache ${stockCompareState.current.id}`;
@@ -1193,6 +1327,8 @@ const App=()=>{
     const stockCompareWindow=!stockCompareState.current?'เมื่อมีแคชชุดล่าสุดแล้ว ระบบจะเริ่มเตรียมฐานสำหรับเปรียบเทียบอัตโนมัติ':!stockCompareState.previous?`Cache ${stockCompareState.current.id} • ${fmt24(stockCompareState.current.updatedAt)}`:`${fmt24(stockCompareState.previous.updatedAt)} -> ${fmt24(stockCompareState.current.updatedAt)}${stockCompareDiff.count>0?` • เพิ่ม ${stockCompareText(stockCompareDiff.plusTotal)} / ลด ${stockCompareText(stockCompareDiff.minusTotal)}`:''}`;
     const stockCompareGroups=useMemo(()=>{const groups={mixed:[],up:[],down:[]};stockCompareDiff.items.forEach(item=>{if(item.plus>0&&item.minus>0)groups.mixed.push(item);else if(item.plus>0)groups.up.push(item);else groups.down.push(item)});return groups},[stockCompareDiff]);
     const stockCompareCards=[{key:'up',title:'สินค้าเพิ่มขึ้น',note:'ของเข้าเพิ่มหรือขายออกลดลง',items:stockCompareGroups.up,tone:'var(--accent)'},{key:'down',title:'สินค้าลดลง',note:'ของออกมากกว่ารอบก่อน',items:stockCompareGroups.down,tone:'var(--danger)'},{key:'mixed',title:'เพิ่มและลดในสินค้าเดียวกัน',note:'มีทั้งบวกและลบภายในสินค้าเดียว',items:stockCompareGroups.mixed,tone:'var(--accent2)'}];
+    const showSearchSubmit=searchMode==='submit'&&Boolean(q);
+    const searchInputPadding=showSearchSubmit?'12px 88px 12px 40px':q?'12px 46px 12px 40px':'12px 16px 12px 40px';
     const renderCompareGlyph=(kind,color)=>{const common={width:18,height:18,viewBox:'0 0 24 24',fill:'none',stroke:color,strokeWidth:'1.8',strokeLinecap:'round',strokeLinejoin:'round','aria-hidden':'true'};if(kind==='up')return<svg {...common}><path d="M12 19V5"/><path d="M6.5 10.5 12 5l5.5 5.5"/><path d="M5 19h14"/></svg>;if(kind==='down')return<svg {...common}><path d="M12 5v14"/><path d="M6.5 13.5 12 19l5.5-5.5"/><path d="M5 5h14"/></svg>;if(kind==='mixed')return<svg {...common}><path d="M7 7h6a4 4 0 0 1 4 4v6"/><path d="M17 17h-6a4 4 0 0 1-4-4V7"/><path d="m14 6 3 3 3-3"/><path d="m10 18-3-3-3 3"/></svg>;return<svg {...common}><rect x="4" y="5" width="16" height="14" rx="4"/><path d="M8 10h8"/><path d="M8 14h5"/></svg>};
 
     return(
@@ -1331,9 +1467,14 @@ const App=()=>{
                         </div>
                     </div>
                     <div style={{position:'relative',margin:'8px 0 10px'}}>
-                        <input disabled={loading} type="text" placeholder="ค้นหาสินค้า..." value={q} onChange={e=>setQ(e.target.value)} className={`lg-input ${!q?'search-glow':''}`} style={{width:'100%',padding:'12px 46px 12px 40px',fontSize:15,fontFamily:'inherit'}}/>
+                        <input disabled={loading} type="text" placeholder="ค้นหาสินค้า..." value={q} onChange={handleSearchChange} onKeyDown={handleSearchKeyDown} enterKeyHint={searchMode==='submit'?'done':'search'} className={`lg-input ${!q?'search-glow':''}`} style={{width:'100%',padding:searchInputPadding,fontSize:15,fontFamily:'inherit'}}/>
                         <i className="fa-solid fa-magnifying-glass" style={{position:'absolute',left:14,top:'50%',transform:'translateY(-50%)',fontSize:14,color:'var(--text-tertiary)'}}></i>
-                        <button className={`search-clear${q?' visible':''}`} onClick={()=>setQ('')} type="button" aria-label="ล้างคำค้นหา" tabIndex={q?0:-1}><i className="fa-solid fa-xmark"></i></button>
+                        <button className={`search-submit${showSearchSubmit?' visible':''}`} onClick={()=>applySearchText(q)} type="button" aria-label="ยืนยันการค้นหา" tabIndex={showSearchSubmit?0:-1}>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                <path d="m5 12 4.2 4.2L19 6.5"></path>
+                            </svg>
+                        </button>
+                        <button className={`search-clear${q?' visible':''}`} onClick={handleClearSearch} type="button" aria-label="ล้างคำค้นหา" tabIndex={q?0:-1}><i className="fa-solid fa-xmark"></i></button>
                     </div>
                     <div className="info-bar"><span>{items.length} รายการ</span><span>เรียง: {sort==='stockMax'?'สต็อก (มาก→น้อย)':sort==='updated'?'แก้ไขล่าสุด':'สร้างล่าสุด'}</span></div>
                 </div>
@@ -1833,6 +1974,7 @@ window.closeScan=()=>{
 };
 // Listen for barcode scan event → set stock search
 window.addEventListener('ts:barcode-scan',e=>{
+    if(window.__stockSearchApi&&typeof window.__stockSearchApi.setText==='function'){window.__stockSearchApi.setText(e.detail?.value,{apply:true});return}
     const searchInputs=document.querySelectorAll('input[placeholder*="ค้นหา"],input[type="search"]');
     searchInputs.forEach(inp=>{inp.value=e.detail.value;inp.dispatchEvent(new Event('input',{bubbles:true}))});
 });
